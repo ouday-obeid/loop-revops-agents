@@ -19,19 +19,47 @@ from typing import Any
 
 from shared import governance
 from shared.mcp import salesforce_mcp
+from shared.secrets import get_config
 
 log = logging.getLogger(__name__)
 
 _AGENT_NAME = "sales_reps"
 
-# Open stages we care about — Closed Won / Closed Lost are excluded.
-_OPEN_STAGES = (
-    "Prospecting", "Qualification", "Needs Analysis",
-    "Value Proposition", "Demo", "Proposal", "Negotiation",
+# Loop AI's Opportunity StageName picklist (introspected 2026-04-13). Standard
+# names like "Prospecting" / "Negotiation" don't exist in this org — using them
+# silently misses the entire pipeline. Env overrides keep this honest when the
+# picklist evolves without needing a code change.
+_DEFAULT_OPEN_STAGES = (
+    "New - Meeting Set", "Demo", "Business Case",
+    "Proposal", "Sent", "Legal and Procurement",
+)
+_DEFAULT_ADVANCED_STAGES = (
+    "Demo", "Business Case", "Proposal", "Sent", "Legal and Procurement",
 )
 
-# Stages that expect a next-step defined (later-funnel).
-_ADVANCED_STAGES = ("Proposal", "Negotiation", "Demo", "Value Proposition")
+# Loop uses a custom next-step field, not the standard Opportunity.NextStep
+# (which doesn't exist on their object).
+_DEFAULT_NEXT_STEP_FIELD = "Next_Steps__c"
+
+
+def _parse_stage_env(var: str, default: tuple[str, ...]) -> tuple[str, ...]:
+    raw = get_config(var)
+    if not raw:
+        return default
+    parts = tuple(s.strip() for s in raw.split(",") if s.strip())
+    return parts or default
+
+
+def _open_stages() -> tuple[str, ...]:
+    return _parse_stage_env("SALES_REPS_OPEN_STAGES", _DEFAULT_OPEN_STAGES)
+
+
+def _advanced_stages() -> tuple[str, ...]:
+    return _parse_stage_env("SALES_REPS_ADVANCED_STAGES", _DEFAULT_ADVANCED_STAGES)
+
+
+def _next_step_field() -> str:
+    return get_config("SALES_REPS_NEXT_STEP_FIELD") or _DEFAULT_NEXT_STEP_FIELD
 
 
 @dataclass
@@ -71,7 +99,7 @@ def _stages_in_clause(stages: tuple[str, ...]) -> str:
 def _soql_stale(ae_filter: str | None, stale_days: int) -> str:
     cutoff = (datetime.now(timezone.utc) - timedelta(days=stale_days)).date().isoformat()
     clauses = [
-        f"StageName IN {_stages_in_clause(_OPEN_STAGES)}",
+        f"StageName IN {_stages_in_clause(_open_stages())}",
         f"LastActivityDate < {cutoff}",
         "IsClosed = false",
     ]
@@ -86,16 +114,17 @@ def _soql_stale(ae_filter: str | None, stale_days: int) -> str:
 
 
 def _soql_missing_next_step(ae_filter: str | None) -> str:
+    field_ = _next_step_field()
     clauses = [
-        f"StageName IN {_stages_in_clause(_ADVANCED_STAGES)}",
-        "(NextStep = null OR NextStep = '')",
+        f"StageName IN {_stages_in_clause(_advanced_stages())}",
+        f"({field_} = null OR {field_} = '')",
         "IsClosed = false",
     ]
     if ae_filter:
         clauses.append(f"Owner.Email = '{_escape(ae_filter)}'")
     where = " AND ".join(clauses)
     return (
-        "SELECT Id, Name, StageName, Amount, CloseDate, NextStep, "
+        f"SELECT Id, Name, StageName, Amount, CloseDate, {field_}, "
         "Owner.Email, Owner.Name "
         f"FROM Opportunity WHERE {where} ORDER BY Owner.Email, CloseDate"
     )
@@ -104,7 +133,7 @@ def _soql_missing_next_step(ae_filter: str | None) -> str:
 def _soql_past_close(ae_filter: str | None) -> str:
     today = date.today().isoformat()
     clauses = [
-        f"StageName IN {_stages_in_clause(_OPEN_STAGES)}",
+        f"StageName IN {_stages_in_clause(_open_stages())}",
         f"CloseDate < {today}",
         "IsClosed = false",
     ]
@@ -121,7 +150,7 @@ def _soql_past_close(ae_filter: str | None) -> str:
 def _soql_single_threaded(ae_filter: str | None) -> str:
     """Late-funnel opps with exactly one external contact role."""
     clauses = [
-        f"StageName IN {_stages_in_clause(_ADVANCED_STAGES)}",
+        f"StageName IN {_stages_in_clause(_advanced_stages())}",
         "IsClosed = false",
     ]
     if ae_filter:
@@ -170,7 +199,7 @@ def _find_missing_next_step(ae_filter: str | None) -> list[HygieneFinding]:
             amount=r.get("Amount"),
             close_date=r.get("CloseDate"),
             issue="missing_next_step",
-            details=f"Stage {r.get('StageName','?')} with no NextStep",
+            details=f"Stage {r.get('StageName','?')} with no next step defined",
         ))
     return out
 

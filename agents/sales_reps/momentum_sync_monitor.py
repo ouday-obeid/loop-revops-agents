@@ -100,7 +100,8 @@ def _find_sf_task(call: dict[str, Any]) -> dict[str, Any] | None:
         return rows[0]
 
     # Fallback: time+rep+contact window match. Required when Momentum's CallObject
-    # field is missing or renamed in this tenant.
+    # field is missing or renamed in this tenant. No Task.Type filter — Loop's org
+    # removed the standard Task.Type field, and filtering on it errors INVALID_FIELD.
     if not (rep_email and started_dt):
         return None
     start_low = (started_dt - timedelta(minutes=TIME_MATCH_WINDOW_MIN)).isoformat()
@@ -109,7 +110,6 @@ def _find_sf_task(call: dict[str, Any]) -> dict[str, Any] | None:
         f"Owner.Email = '{rep_email}'",
         f"CreatedDate >= {start_low}",
         f"CreatedDate <= {start_high}",
-        "Type = 'Call'",
     ]
     if contact_email:
         where.append(f"Who.Email = '{contact_email}'")
