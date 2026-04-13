@@ -183,7 +183,7 @@ def evaluate_stall(
         name=rec.get("Name") or "(unnamed)",
         owner_id=rec.get("OwnerId"),
         csm_2_id=rec.get("CSM_2__c"),
-        account_id=rec.get("Account__c"),
+        account_id=(rec.get("Opportunity__r") or {}).get("AccountId"),
         jk_stage=rec.get("JK_Onboarding_Stage__c"),
         overall=rec.get("Overall_Onboarding_Status__c"),
         days_stalled=days,

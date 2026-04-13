@@ -20,7 +20,7 @@ tracking, and a verifiable Sales → Implementation → CS handoff checklist.
 - Auto-create `Onboarding__c` from Closed Won opps (idempotent; ≤5-min latency).
 - Monitor two stage fields — `JK_Onboarding_Stage__c` (Jackie's picklist) and
   `Overall_Onboarding_Status__c`. Flag stalls ≥5 business days on BOTH.
-- Track location activation via `Location__c.Activation_Status__c` / `Stuck_Reason__c`.
+- Track location activation via `Location__c.Activation_Status__c` / `Stuck_Reason__c` when present; if absent, log `schema_gap`, auto-seed an Agent 5 task, and skip the sweep until the fields are added.
 - Catch `Onboarding__c` with null `OwnerId` and post a CSM-reassignment approval.
 - Run a 6-item Sales → Implementation → CS handoff checklist on demand.
 - Weekly digest to Jackie every Friday 9 AM ET.

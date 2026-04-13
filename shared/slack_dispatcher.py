@@ -34,6 +34,13 @@ def _dev_guard_blocks(target: str) -> bool:
     return bool(allowed) and target != allowed
 
 
+def _dev_guard_redirect_target() -> str | None:
+    """Return the channel to redirect to when dev guard is active."""
+    if get_config("SLACK_DEV_GUARD", "1") != "1":
+        return None
+    return get_config("SLACK_TEST_CHANNEL", "") or None
+
+
 def parse_command(text_in: str) -> tuple[str | None, str]:
     """@oo <agent> <rest>  |  @oo <rest>  →  (agent|None, rest)."""
     cleaned = re.sub(r"<@[A-Z0-9]+>", "", text_in).strip()
@@ -70,9 +77,11 @@ class SlackSender:
         return self._client
 
     def send(self, channel: str, text_: str, blocks: list | None = None) -> dict[str, Any]:
-        if _dev_guard_blocks(channel):
-            log.warning("DEV GUARD blocked send to %s (allowed: %s)", channel, get_config("SLACK_TEST_CHANNEL"))
-            return {"ok": False, "blocked": True, "target": channel}
+        redirect = _dev_guard_redirect_target() if _dev_guard_blocks(channel) else None
+        if redirect:
+            log.info("DEV GUARD redirecting send %s → %s", channel, redirect)
+            text_ = f"_[dev-guard → `{channel}`]_\n{text_}"
+            channel = redirect
         client = self._ensure_client()
         resp = client.chat_postMessage(channel=channel, text=text_, blocks=blocks)
         return {"ok": resp["ok"], "ts": resp.get("ts"), "channel": resp.get("channel")}

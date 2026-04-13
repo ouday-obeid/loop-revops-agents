@@ -58,12 +58,11 @@ DOCUSIGN_STATUS_FIELD_EXISTS = (
 
 # ---------- Milestone monitor ----------
 
-# Active onboardings to evaluate for stalls. Pulls DS_* timestamps for the
-# "when did each stage last advance" inference — we stall when BOTH
-# JK_Onboarding_Stage__c and Overall_Onboarding_Status__c haven't moved in
-# ≥5 business days.
+# Active onboardings to evaluate for stalls. Account access is through the
+# Opportunity lookup — Onboarding__c has no direct Account__c field.
 ACTIVE_ONBOARDINGS = (
-    "SELECT Id, Name, Account__c, OwnerId, CSM_2__c, Opportunity__c, "
+    "SELECT Id, Name, Opportunity__r.AccountId, Opportunity__r.Account.Name, "
+    "OwnerId, CSM_2__c, Opportunity__c, "
     "JK_Onboarding_Stage__c, Overall_Onboarding_Status__c, Kickoff_Status__c, "
     "Onboarding_Health__c, LastModifiedDate, "
     "DS_Kickoff_Status_Scheduled__c, DS_Kickoff_Status_Held__c, "
@@ -76,19 +75,22 @@ ACTIVE_ONBOARDINGS = (
 
 # ---------- Location activation ----------
 
-# Stuck locations — per plan, field name (Stuck_Reason__c / Activation_Status__c)
-# is re-verified at boot via describe_sobject('Location__c'). If names differ,
-# the agent logs loudly and flags a task for Agent 5 (RevOps Support).
-LOCATIONS_BY_ACCOUNT = (
-    "SELECT Id, Name, Account__c, Activation_Status__c, Stuck_Reason__c, "
-    "LastModifiedDate "
-    "FROM Location__c WHERE Account__c = '{account_id}'"
+# Location__c in the Loop org has no Account__c / Activation_Status__c /
+# Stuck_Reason__c fields — the brief assumed them, the real schema has only
+# TLO__c (Top_Level_Organization__c) and Active__c (boolean). The location
+# activation feature is schema-gapped until the fields are added (Agent 5
+# task auto-seeded from location_activation.py at boot).
+#
+# Until then, LOCATIONS_BY_TLO + ACTIVE_LOCATIONS are the best we can do:
+# Active__c = false signals "not activated"; Stuck_Reason__c is unavailable.
+LOCATIONS_BY_TLO = (
+    "SELECT Id, Name, TLO__c, Active__c, LastModifiedDate "
+    "FROM Location__c WHERE TLO__c = '{tlo_id}'"
 )
 
-STUCK_LOCATIONS_ALL = (
-    "SELECT Id, Name, Account__c, Account__r.Name, Activation_Status__c, "
-    "Stuck_Reason__c, LastModifiedDate "
-    "FROM Location__c WHERE Activation_Status__c != 'Active'"
+INACTIVE_LOCATIONS_ALL = (
+    "SELECT Id, Name, TLO__c, TLO__r.Name, Active__c, LastModifiedDate "
+    "FROM Location__c WHERE Active__c = false"
 )
 
 
