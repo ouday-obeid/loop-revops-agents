@@ -1,0 +1,452 @@
+[
+  {
+    "_sf_account_id": "Smashburger-corp",
+    "_sf_name": "Smashburger - Corporate",
+    "_provenance": "SF Account.Total_Locations_Overall__c=125, Top_Level_Org_Type__c=Corporate",
+    "domain": "smashburger.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 125,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": true
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "NickTheGreek-corp",
+    "_sf_name": "Nick The Greek - Corporate",
+    "_provenance": "SF locs=80, type=Corporate",
+    "domain": "nickthegreek.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 80,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": true
+    },
+    "tech_stack": ["pos_other_integrated"]
+  },
+  {
+    "_sf_account_id": "Rackson-BK",
+    "_sf_name": "Rackson Restaurants - Burger King",
+    "_provenance": "SF locs=65, type=Franchise (large BK franchisee)",
+    "domain": "racksonrestaurants.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 65,
+    "brand_vertical": "QSR",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "NapoliGroup-McD",
+    "_sf_name": "Napoli Group - McDonald's",
+    "_provenance": "SF locs=62, type=Franchise (large McD franchisee)",
+    "domain": "napoligroup.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 62,
+    "brand_vertical": "QSR",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "Piada-corp",
+    "_sf_name": "Piada - Corporate",
+    "_provenance": "SF locs=58, type=Corporate",
+    "domain": "mypiada.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 58,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_toast", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "CousinsSubs-corp",
+    "_sf_name": "Cousins Subs - Corporate",
+    "_provenance": "SF locs=55, type=Corporate",
+    "domain": "cousinssubs.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 55,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "LazyDog-corp",
+    "_sf_name": "Lazy Dog - Corporate",
+    "_provenance": "SF locs=48, type=Corporate (casual dining chain)",
+    "domain": "lazydogrestaurants.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 48,
+    "brand_vertical": "Casual_Dining",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": true
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "ChipCity",
+    "_sf_name": "Chip City Cookies",
+    "_provenance": "SF locs=42, type=null (NYC cookie chain, rapid growth)",
+    "domain": "chipcitycookies.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 42,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": true,
+      "new_openings_velocity": true
+    },
+    "tech_stack": ["pos_toast", "modern_loyalty_platform"]
+  },
+  {
+    "_sf_account_id": "AndPizza-corp",
+    "_sf_name": "&Pizza - Corporate",
+    "_provenance": "SF locs=40, type=Corporate",
+    "domain": "andpizza.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 40,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_toast", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "CR-McD",
+    "_sf_name": "C&R Management - McDonald's",
+    "_provenance": "SF locs=38, type=null (McD franchisee group)",
+    "domain": "cr-management.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 38,
+    "brand_vertical": "QSR",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "UrbaneCafe-corp",
+    "_sf_name": "Urbane Cafe - Corporate",
+    "_provenance": "SF locs=32, type=Corporate",
+    "domain": "urbanecafe.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 32,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_square", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "DigInn-corp",
+    "_sf_name": "Dig Inn - Corporate",
+    "_provenance": "SF locs=31, type=Corporate (Danny Meyer-backed fast casual)",
+    "domain": "diginn.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 31,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": true,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_toast", "modern_loyalty_platform", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "ByTheRio",
+    "_sf_name": "By the Rio",
+    "_provenance": "SF locs=28, type=null",
+    "domain": "bytherio.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 28,
+    "brand_vertical": "Casual_Dining",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated"]
+  },
+  {
+    "_sf_account_id": "RockAndBrews-corp",
+    "_sf_name": "Rock and Brews - Corporate",
+    "_provenance": "SF locs=18, type=Corporate",
+    "domain": "rockandbrews.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 18,
+    "brand_vertical": "Casual_Dining",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "Sophies-corp",
+    "_sf_name": "Sophies - Corporate",
+    "_provenance": "SF locs=11, type=Corporate",
+    "domain": "sophies.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 11,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_square"]
+  },
+  {
+    "_sf_account_id": "PeopleFirstFoods-McD",
+    "_sf_name": "People First Foods - McDonald's",
+    "_provenance": "SF locs=10, type=Franchise",
+    "domain": "peoplefirstfoods.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 10,
+    "brand_vertical": "QSR",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "OldCarolinaBBQ-corp",
+    "_sf_name": "Old Carolina BBQ - Corporate",
+    "_provenance": "SF locs=8, type=Corporate",
+    "domain": "oldcarolinabbq.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 8,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated"]
+  },
+  {
+    "_sf_account_id": "GhostTaco",
+    "_sf_name": "Ghost Taco",
+    "_provenance": "SF locs=3, type=Franchise (small virtual brand)",
+    "domain": "ghosttaco.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 3,
+    "brand_vertical": "QSR",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "Snooze",
+    "_sf_name": "Snooze A.M. Eatery",
+    "_provenance": "SF Opp Closed Won 2026-04-13; imputed: 75 locations (brand-known casual breakfast chain)",
+    "domain": "snoozeeatery.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 75,
+    "brand_vertical": "Casual_Dining",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": true
+    },
+    "tech_stack": ["pos_other_integrated", "modern_loyalty_platform", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "Roaringfork-Qdoba",
+    "_sf_name": "roaringfork - Qdoba Mexican Eats",
+    "_provenance": "SF Opp Closed Won 2026-04-09; imputed: Qdoba franchisee, ~15 loc group",
+    "domain": "roaringforkrestaurants.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 15,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "JrkHospitality",
+    "_sf_name": "Jrk Hospitality LLC",
+    "_provenance": "SF Opp Closed Won 2026-04-09; imputed: multi-brand franchise group ~20 loc",
+    "domain": "jrkhospitality.com",
+    "ownership_type": "franchise_group_multi_brand",
+    "location_count": 20,
+    "brand_vertical": "QSR",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated"]
+  },
+  {
+    "_sf_account_id": "JerseyMikes-CentralPA-24",
+    "_sf_name": "Jersey Mikes - Central PA - 24 - Jersey Mike's Subs",
+    "_provenance": "SF Opp Closed Won 2026-04-08; locs=24 parsed from account name",
+    "domain": "jerseymikescentralpa.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 24,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "ShepSubs-12",
+    "_sf_name": "Shep Subs LLC - Jersey Mikes - 12 - Jersey Mike's Subs",
+    "_provenance": "SF Opp Closed Won 2026-04-08; locs=12 parsed from account name",
+    "domain": "shepsubs.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 12,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "JoPizza-Blaze",
+    "_sf_name": "Jo-Pizza - Blaze Pizza",
+    "_provenance": "SF Opp Closed Won 2026-04-09; imputed: Blaze Pizza franchisee ~8 loc",
+    "domain": "jopizza.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 8,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_toast", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "Jackmont-TGIF",
+    "_sf_name": "Jackmont Fridays - TGIFridays",
+    "_provenance": "SF Opp Closed Won 2026-04-03; TGIF franchisee ~12 loc",
+    "domain": "jackmont.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 12,
+    "brand_vertical": "Casual_Dining",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "Sayaa-Marcos",
+    "_sf_name": "Sayaa LLC - Marco's Pizza",
+    "_provenance": "SF Opp Closed Won 2026-03-31; Marco's Pizza franchisee ~6 loc",
+    "domain": "sayaa.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 6,
+    "brand_vertical": "QSR",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated"]
+  },
+  {
+    "_sf_account_id": "Kernel-CS",
+    "_sf_name": "Kernel - Counter Service",
+    "_provenance": "SF Opp Closed Won 2026-03-30; Corporate; imputed 10 loc (NYC automated kitchen)",
+    "domain": "kernel.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 10,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": true,
+      "new_openings_velocity": true
+    },
+    "tech_stack": ["pos_toast", "modern_loyalty_platform", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "SlapShot-Dominos",
+    "_sf_name": "Slap Shot Pizza - Domino's",
+    "_provenance": "SF Opp Closed Won 2026-03-30; Domino's franchisee ~5 loc",
+    "domain": "slapshotpizza.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 5,
+    "brand_vertical": "QSR",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "JuicyCrab-corp",
+    "_sf_name": "The Juicy Crab - Corporate",
+    "_provenance": "SF Opp Closed Won 2026-03-16; seafood chain ~40 loc",
+    "domain": "thejuicycrab.com",
+    "ownership_type": "franchise_group_single_brand",
+    "location_count": 40,
+    "brand_vertical": "Casual_Dining",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": true
+    },
+    "tech_stack": ["pos_other_integrated", "delivery_platform_integrated"]
+  },
+  {
+    "_sf_account_id": "DimitroGroup-Corner",
+    "_sf_name": "Dimitro Group LLC - Corner Bakery Cafe",
+    "_provenance": "SF Opp Closed Won 2026-03-18; Corner Bakery franchisee ~7 loc",
+    "domain": "dimitrogroup.com",
+    "ownership_type": "single_brand_franchisee",
+    "location_count": 7,
+    "brand_vertical": "Fast_Casual",
+    "growth_signals": {
+      "recent_ma_activity": false,
+      "funding_round_last_12mo": false,
+      "new_openings_velocity": false
+    },
+    "tech_stack": ["pos_other_integrated"]
+  }
+]
