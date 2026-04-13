@@ -87,6 +87,12 @@ APPROVAL_TIERS: dict[str, Tier] = {
     "mark_churned_confirm": Tier(
         gate="slack_button", approver="o_only", requires_justification=True
     ),
+    # Phase 1 — Agent 1 (Top of Funnel). Used when an SDR / O overrides a
+    # suppression hit (e.g., re-engaging a former customer). Requires written
+    # justification to preserve the audit trail.
+    "suppression_override": Tier(
+        gate="slack_button", approver="o_or_dept_head", requires_justification=True
+    ),
 }
 
 RATE_LIMITS: dict[str, int] = {
