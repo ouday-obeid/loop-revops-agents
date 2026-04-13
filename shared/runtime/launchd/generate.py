@@ -32,12 +32,14 @@ def _parse_cron(cron: str) -> list[dict] | str:
             step = int(vals[2:])
             limits = {"Minute": 60, "Hour": 24}
             if field in limits:
-                entry_list = [i for i in range(0, limits[field], step)]
-                entry[f"{field}s"] = entry_list
+                # Key stays singular — launchd rejects plural forms (`Minutes`,
+                # `Weekdays`) silently, so jobs would never fire on the Mac Mini.
+                # `_intervals_xml` detects list vs scalar by value type, not key name.
+                entry[field] = [i for i in range(0, limits[field], step)]
             return
         if "-" in vals:
             lo, hi = (int(x) for x in vals.split("-"))
-            entry[f"{field}s"] = list(range(lo, hi + 1))
+            entry[field] = list(range(lo, hi + 1))
             return
         entry[field] = int(vals)
 

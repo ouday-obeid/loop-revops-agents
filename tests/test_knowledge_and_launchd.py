@@ -50,3 +50,27 @@ def test_launchd_render_range():
     xml = _intervals_xml(parsed)
     # 5 weekday entries × all combined — ensure at least 5 <dict> entries
     assert xml.count("<dict>") >= 5
+
+
+def test_launchd_emits_singular_keys_only():
+    """launchd silently rejects plural StartCalendarInterval keys (`Weekdays`,
+    `Minutes`, `Hours`), so the plist parses but the job never fires. Guard
+    against the prior bug where range/step expansions leaked plural keys."""
+    from shared.runtime.launchd.generate import _parse_cron, _intervals_xml
+
+    # weekday range — must emit <key>Weekday</key>, not <key>Weekdays</key>
+    xml = _intervals_xml(_parse_cron("30 8 * * 1-5"))
+    assert "<key>Weekday</key>" in xml
+    assert "<key>Weekdays</key>" not in xml
+
+    # step minute — must emit <key>Minute</key>, not <key>Minutes</key>
+    xml = _intervals_xml(_parse_cron("*/15 * * * *"))
+    assert "<key>Minute</key>" in xml
+    assert "<key>Minutes</key>" not in xml
+    # 4 expanded entries at :00, :15, :30, :45
+    assert xml.count("<dict>") == 4
+
+    # step hour — must emit <key>Hour</key>, not <key>Hours</key>
+    xml = _intervals_xml(_parse_cron("0 */2 * * *"))
+    assert "<key>Hour</key>" in xml
+    assert "<key>Hours</key>" not in xml
