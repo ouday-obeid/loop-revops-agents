@@ -36,7 +36,7 @@ from typing import Any, Callable
 
 from sqlalchemy import text
 
-from agents.top_of_funnel import suppression
+from agents.top_of_funnel import routing, suppression
 from agents.top_of_funnel.enrichment import apollo_client, clay_client
 from agents.top_of_funnel.icp_scorer import score_account
 from agents.top_of_funnel.state import get_state_engine
@@ -77,6 +77,11 @@ class EnrichedCandidate:
     clay_skipped: bool = False
     clay_skip_reason: str = ""
     error: str | None = None
+    # Routing — populated serially after gather (see run_pipeline).
+    segment: str = ""
+    assigned_sdr_id: str | None = None
+    assigned_sdr_email: str | None = None
+    assigned_sdr_slack_id: str | None = None
 
 
 @dataclass
@@ -223,11 +228,11 @@ def _buffer_candidate(run_id: str, cand: EnrichedCandidate) -> None:
                      run_id, domain, company_name, email, first_name, last_name,
                      title, phone, location_count, brand, ownership_type,
                      icp_score, icp_tier, icp_signals_json, account_payload, status,
-                     error_message
+                     error_message, assigned_sdr_id
                    ) VALUES (
                      :run_id, :domain, :company, :email, :first, :last,
                      :title, :phone, :loc, :brand, :own,
-                     :score, :tier, :signals, :payload, :status, :err
+                     :score, :tier, :signals, :payload, :status, :err, :sdr
                    )"""
             ),
             {
@@ -248,6 +253,7 @@ def _buffer_candidate(run_id: str, cand: EnrichedCandidate) -> None:
                 "payload": json.dumps(cand.account_payload),
                 "status": status,
                 "err": cand.suppression_reason or cand.error or None,
+                "sdr": cand.assigned_sdr_id,
             },
         )
 
@@ -303,7 +309,8 @@ def _writable_candidates(run_id: str) -> list[dict[str, Any]]:
         rows = conn.execute(
             text(
                 """SELECT id, domain, company_name, email, first_name, last_name,
-                          title, phone, icp_score, icp_tier, brand, ownership_type
+                          title, phone, icp_score, icp_tier, brand, ownership_type,
+                          assigned_sdr_id
                    FROM tof_lead_candidates
                    WHERE run_id = :r AND status = 'ready' AND sf_lead_id IS NULL
                    ORDER BY icp_score DESC"""
@@ -439,6 +446,32 @@ async def run_pipeline(
 
         candidates = await asyncio.gather(*(bounded(a) for a in accounts))
 
+        # (2b) Route non-suppressed candidates. Run serially — routing increments
+        # per-segment round-robin state in SQLite; parallel would skew fairness.
+        # Suppressed rows are skipped so we don't burn rotation slots on them.
+        try:
+            territory_cfg = routing.load_territory()
+        except Exception as exc:  # noqa: BLE001
+            territory_cfg = None
+            log.warning("routing: territory config unavailable, leads will buffer without SDR: %s", exc)
+
+        for cand in candidates:
+            if cand.suppressed or cand.error or territory_cfg is None:
+                continue
+            try:
+                rr = routing.assign_owner(
+                    {"location_count": cand.account_payload.get("location_count")},
+                    territory_cfg=territory_cfg,
+                    auto_refresh_cache=False,
+                )
+            except Exception as exc:  # noqa: BLE001
+                log.warning("routing failed for %s: %s", cand.domain, exc)
+                continue
+            cand.segment = rr.segment
+            cand.assigned_sdr_id = rr.sdr_user_id
+            cand.assigned_sdr_email = rr.sdr_email
+            cand.assigned_sdr_slack_id = rr.sdr_slack_id
+
         # (3) Buffer + tally
         for cand in candidates:
             _buffer_candidate(run_id, cand)
@@ -508,6 +541,7 @@ async def run_pipeline(
                 "icp_tier": row["icp_tier"],
                 "brand": row["brand"],
                 "ownership_type": row["ownership_type"],
+                "assigned_sdr_id": row["assigned_sdr_id"],
             }
             try:
                 out = _writer.create_lead(
