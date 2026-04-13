@@ -264,18 +264,37 @@ def deploy_metadata(
     check_only: bool = False,
     test_level: str | None = None,
     timeout: int = 1800,
+    post_destructive_changes: str | None = None,
+    pre_destructive_changes: str | None = None,
+    manifest: str | None = None,
+    ignore_warnings: bool = False,
 ) -> dict[str, Any]:
     """Wraps `sf project deploy start`.
 
     Default intent is sandbox — prod deploys must pass intent="write" AFTER an
     approved sf_schema_* gate; the caller (schema/metadata_deployer.py) enforces.
     test_level: None | NoTestRun | RunLocalTests | RunAllTestsInOrg.
+    post_destructive_changes / pre_destructive_changes: paths to XML manifests
+    consumed AFTER / BEFORE the source-dir deploy. Required for rollbacks that
+    remove metadata (e.g. canary CEO role deletion). sf CLI requires --manifest
+    (not --source-dir) when destructive-changes are in play.
+    manifest: path to a package.xml. When set, deploys via --manifest instead
+    of --source-dir; source_dir is still used to resolve cwd for the DX project.
     """
-    args = ["project", "deploy", "start", "--source-dir", source_dir]
+    if manifest:
+        args = ["project", "deploy", "start", "--manifest", manifest]
+    else:
+        args = ["project", "deploy", "start", "--source-dir", source_dir]
     if check_only:
         args.append("--dry-run")
     if test_level:
         args.extend(["--test-level", test_level])
+    if post_destructive_changes:
+        args.extend(["--post-destructive-changes", post_destructive_changes])
+    if pre_destructive_changes:
+        args.extend(["--pre-destructive-changes", pre_destructive_changes])
+    if ignore_warnings:
+        args.append("--ignore-warnings")
     # `sf project deploy start` requires cwd to contain an sfdx-project.json;
     # callers pass a bundle dir that already satisfies this (or resolve to a
     # parent repo with the right layout).

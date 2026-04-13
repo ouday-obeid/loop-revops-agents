@@ -340,10 +340,10 @@ def write_audit(
     approval_gate_id: int | None = None,
     rate_limit_bucket: str | None = None,
     run_id: int | None = None,
-) -> None:
+) -> int | None:
     engine = get_engine()
     with engine.begin() as conn:
-        conn.execute(
+        result = conn.execute(
             text(
                 """
                 INSERT INTO audit_log
@@ -363,3 +363,10 @@ def write_audit(
                 "r": run_id,
             },
         )
+        audit_id = result.lastrowid
+        if audit_id is None:
+            row = conn.execute(
+                text("SELECT id FROM audit_log ORDER BY id DESC LIMIT 1")
+            ).fetchone()
+            audit_id = row[0] if row else None
+        return int(audit_id) if audit_id is not None else None
