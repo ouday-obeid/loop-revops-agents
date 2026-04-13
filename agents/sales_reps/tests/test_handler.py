@@ -108,13 +108,20 @@ def test_hygiene_with_ae_filter():
 
 
 def test_leaderboard_default_ae():
-    out = asyncio.run(SalesRepsAgent().run("test", {"text": "leaderboard"}))
+    fake = {"text": "ae board", "kind": "ae", "week": "2026-W15", "rows": []}
+    with patch("agents.sales_reps.leaderboards.snapshot",
+               new=AsyncMock(return_value=fake)) as m:
+        out = asyncio.run(SalesRepsAgent().run("test", {"text": "leaderboard"}))
+    m.assert_awaited_once_with(kind="ae", week=None)
     assert out["kind"] == "ae"
-    assert out["stub"] is True
 
 
 def test_leaderboard_sdr():
-    out = asyncio.run(SalesRepsAgent().run("test", {"text": "leaderboard sdr"}))
+    fake = {"text": "sdr board", "kind": "sdr", "week": "2026-W15", "rows": []}
+    with patch("agents.sales_reps.leaderboards.snapshot",
+               new=AsyncMock(return_value=fake)) as m:
+        out = asyncio.run(SalesRepsAgent().run("test", {"text": "leaderboard sdr"}))
+    m.assert_awaited_once_with(kind="sdr", week=None)
     assert out["kind"] == "sdr"
 
 
@@ -129,7 +136,13 @@ def test_scorecard_requires_email():
 
 
 def test_scorecard_routes():
-    out = asyncio.run(SalesRepsAgent().run("test", {"text": "scorecard rep@tryloop.ai"}))
+    fake = {"text": "scorecard body", "rep_email": "rep@tryloop.ai",
+            "calls_graded": 0, "week_avg_pct": None, "trend_avg_pct": None,
+            "best": None, "worst": None, "coaching_themes": [], "critical_miss_calls": 0}
+    with patch("agents.sales_reps.scorecards.for_rep",
+               new=AsyncMock(return_value=fake)) as m:
+        out = asyncio.run(SalesRepsAgent().run("test", {"text": "scorecard rep@tryloop.ai"}))
+    m.assert_awaited_once_with("rep@tryloop.ai")
     assert out["rep_email"] == "rep@tryloop.ai"
 
 
