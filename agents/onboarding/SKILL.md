@@ -1,3 +1,8 @@
+---
+name: onboarding
+description: Auto-creates Onboarding__c on SF Closed Won (≤5 min), monitors stall + null-OwnerId + stuck-location signals, runs Sales→Impl→CS handoff checklist, weekly Jackie digest.
+---
+
 # Onboarding Agent — SKILL
 
 **Audience**: Jackie (Director of CS) — dept-head access. O — full override.

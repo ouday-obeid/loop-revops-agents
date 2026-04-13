@@ -27,20 +27,28 @@ hand-written.
 On the Mac Mini:
 ```bash
 cd ~/loop-revops-agents
-python -m shared.runtime.launchd_gen --install
-launchctl list | grep onboarding
+bash infra/install_launchd.sh
+launchctl list | grep com.loop-revops.onboarding
 ```
+
+Under the hood that script runs `python -m shared.runtime.launchd.generate`
+against `shared/runtime/schedule.py`, writes plists to `var/launchd/`, copies
+them to `~/Library/LaunchAgents/`, and bootstraps them with `launchctl`.
 
 ## Pause / resume
 
 Pause all onboarding scheduled work without stopping the OO daemon:
 ```bash
-launchctl unload ~/Library/LaunchAgents/com.loop.onboarding-*.plist
+for p in ~/Library/LaunchAgents/com.loop-revops.onboarding-*.plist; do
+  launchctl bootout "gui/$UID/$(basename "$p" .plist)" || true
+done
 ```
 
 Re-enable:
 ```bash
-launchctl load ~/Library/LaunchAgents/com.loop.onboarding-*.plist
+for p in ~/Library/LaunchAgents/com.loop-revops.onboarding-*.plist; do
+  launchctl bootstrap "gui/$UID" "$p"
+done
 ```
 
 ## Manual poll / scan
