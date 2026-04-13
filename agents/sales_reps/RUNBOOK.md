@@ -101,6 +101,51 @@ Hutch (or a rep) flags a grade as wrong:
 3. If transcript was corrupted: delete the row and re-run `grader.grade_one(meeting_id)`.
 4. If classifier mislabeled the call type: raise in `#agent-sales-reps-log`; classifier changes need a regression set.
 
+## Reset a rep's coaching state
+Per-rep coaching state is the rep's history in `sales_reps_call_grades` — scorecards, trend arrows, and coaching DMs all derive from this table keyed on `rep_email`. Reset scenarios: rep switches teams, dispute requires clean slate, or rubric change invalidates prior grades.
+
+```bash
+REP=rep@tryloop.ai
+
+# 1. Inspect what will change:
+sqlite3 shared/db/loop_revops.db "SELECT meeting_id, call_type, percentage, graded_at FROM sales_reps_call_grades WHERE rep_email = '$REP' ORDER BY graded_at DESC"
+
+# 2. Archive to a side table (preferred over destructive delete — keeps audit trail):
+sqlite3 shared/db/loop_revops.db "CREATE TABLE IF NOT EXISTS sales_reps_call_grades_archive AS SELECT * FROM sales_reps_call_grades WHERE 0"
+sqlite3 shared/db/loop_revops.db "INSERT INTO sales_reps_call_grades_archive SELECT * FROM sales_reps_call_grades WHERE rep_email = '$REP'"
+sqlite3 shared/db/loop_revops.db "DELETE FROM sales_reps_call_grades WHERE rep_email = '$REP'"
+
+# 3. Clear the rep's pending coaching-DM approval gates (avoids stale DMs firing post-reset):
+sqlite3 shared/db/loop_revops.db "UPDATE approval_gates SET status = 'cancelled' WHERE action_type = 'customer_facing_comms' AND target LIKE 'coaching_dm:$REP%' AND status = 'pending'"
+
+# 4. Write an audit row so the reset itself is traceable:
+python -c "from shared import governance; governance.write_audit(agent_name='sales_reps', action='coaching_state_reset', target='rep:$REP', after={'archived_rows': True})"
+```
+
+Scorecards recompute from scratch on the next `scorecards_weekly` tick — no further action needed.
+
+## Rotate Fireflies API key
+The grader, pre-demo brief, and integration health probe all resolve `FIREFLIES_API_KEY` through `shared.secrets.require_secret` at call time — no process-level caching. Rotation is a file-edit plus daemon restart:
+
+```bash
+# 1. Edit .env with the new key (use VS Code so it stays out of shell history):
+code $REVOPS_REPO_ROOT/.env
+
+# 2. Confirm the change is readable:
+python -c "from shared.secrets import require_secret; print('ok' if require_secret('FIREFLIES_API_KEY').startswith('ey') else 'WRONG')"
+
+# 3. Smoke-test against the live API before the next tick fires:
+python -m shared.mcp.fireflies_mcp --smoke
+
+# 4. Restart the OO daemon so long-running in-process callers (Socket Mode listener,
+#    scheduled ticks whose modules were already imported) pick up the new value:
+launchctl kickstart -k gui/$UID/com.loop-revops.oo-daemon
+
+# 5. Revoke the old key in Fireflies admin → API Keys, AFTER steps 2–4 succeed.
+```
+
+If the key rotates during an in-flight `grader_poll` or `batch.grade_range`, Fireflies returns 401 and the run writes a degraded audit row — the next tick picks up from the last graded meeting (idempotent via `storage.grade_exists`).
+
 ## Incident: Momentum API down
 1. `momentum_sync_monitor.run_once` returns `{"error": "..."}` and does NOT consume the alert bucket.
 2. Hygiene runs continue unaffected.
