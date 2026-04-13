@@ -11,6 +11,7 @@ import logging
 from sqlalchemy import text
 
 from agents.oo import dispatcher as oo_dispatcher
+from agents.onboarding.main import register_with_dispatcher as onboarding_register
 from agents.revops_support.main import register_with_dispatcher as revops_support_register
 from agents.sales_reps.main import register_with_dispatcher as sales_reps_register
 from agents.slt_metrics.main import register_with_dispatcher as slt_metrics_register
@@ -66,6 +67,7 @@ def bootstrap() -> None:
     revops_support_register()
     sales_reps_register()
     slt_metrics_register()
+    onboarding_register()
 
 
 async def run_daemon() -> None:

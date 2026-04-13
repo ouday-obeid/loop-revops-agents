@@ -6,14 +6,14 @@ Keep this file terse. Commands a human would actually run, in order.
 
 ## Wiring into the OO daemon
 
-1. Ensure `agents/onboarding/main.py:bootstrap()` is called from OO's daemon
-   bootstrap (same pattern as `agents.sales_reps.main.register_with_dispatcher`).
-   Expected addition to `agents/oo/main.py`:
+1. `agents/onboarding/main.py` exports both `bootstrap()` and the canonical
+   `register_with_dispatcher` alias (matches the sales_reps / slt_metrics /
+   revops_support pattern). OO's daemon calls it as:
 
    ```python
-   from agents.onboarding.main import bootstrap as onboarding_bootstrap
+   from agents.onboarding.main import register_with_dispatcher as onboarding_register
    # inside bootstrap():
-   onboarding_bootstrap()
+   onboarding_register()
    ```
 
 2. Restart the OO daemon. `@oo onboarding ping` should return `pong`.

@@ -41,3 +41,6 @@ def bootstrap() -> None:
     """
     register("onboarding", onboarding_dispatcher.handle)
     log.info("onboarding agent registered")
+
+
+register_with_dispatcher = bootstrap
