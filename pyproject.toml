@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loop-revops-agents"
+version = "0.1.0"
+description = "Loop AI 7-agent RevOps system — Phase 0 foundation + OO orchestrator"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.39",
+    "slack-bolt>=1.20",
+    "sqlalchemy>=2.0",
+    "alembic>=1.13",
+    "chromadb>=0.5",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+    "httpx>=0.27",
+    "click>=8.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "pylint>=3.2",
+]
+gcp = [
+    "google-cloud-secret-manager>=2.20",
+    "pgvector>=0.3",
+    "psycopg2-binary>=2.9",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["shared*", "agents*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "agents/oo/tests", "agents/slt_metrics/tests", "agents/onboarding/tests", "shared"]
+asyncio_mode = "auto"
+pythonpath = ["."]
+
+[tool.coverage.run]
+source = ["shared", "agents"]
+omit = ["*/tests/*", "*/migrations/*"]

@@ -1,0 +1,44 @@
+# SDR territory & routing config for Top of Funnel.
+# Confirmed at D6 kickoff: SF User.Ids populated via list_users() lookup at
+# runtime. Slack user IDs must be filled in by O before daily briefing ships.
+
+default_owner_id: PLACEHOLDER_TOF_AGENT_USER_ID   # tof-agent@ SF user.Id
+default_slack_fallback_channel: U07P4GX9YLQ       # O's DM
+
+segments:
+  ENT:
+    min_locations: 50
+    team_lead_email: charles@tryloop.ai          # VP Charles Kagahastian
+    rotation:
+      - {email: taylor.ludwick@loopai.com, slack_id: PLACEHOLDER}
+      - {email: clay@tryloop.ai,             slack_id: PLACEHOLDER}
+      - {email: daniel@tryloop.ai,           slack_id: PLACEHOLDER}
+      - {email: matt@tryloop.ai,             slack_id: PLACEHOLDER}
+      - {email: jessy.calderon@tryloop.ai,   slack_id: PLACEHOLDER}
+
+  MM:
+    min_locations: 10
+    max_locations: 49
+    team_lead_email: nate.meyer@tryloop.ai       # Sales Manager Nate Meyer
+    rotation:
+      - {email: carlton.ekiyor@tryloop.ai,   slack_id: PLACEHOLDER}
+      - {email: eric.azaren@tryloop.ai,      slack_id: PLACEHOLDER}
+      - {email: simon.salomon@tryloop.ai,    slack_id: PLACEHOLDER}
+      - {email: jeff@tryloop.ai,             slack_id: PLACEHOLDER}
+      - {email: nick.barbo@tryloop.ai,       slack_id: PLACEHOLDER}
+
+  SMB:
+    max_locations: 9
+    team_lead_email: hutch@tryloop.ai            # VP Sales Hutch Fisher
+    rotation:
+      - {email: hutch@tryloop.ai,            slack_id: PLACEHOLDER}
+      - {email: henry@tryloop.ai,            slack_id: PLACEHOLDER}
+
+dept_heads:
+  # Elevated @oo tof access — can query any command without O gating.
+  - hutch@tryloop.ai         # VP Sales
+  - charles@tryloop.ai       # VP ENT
+
+# Brief summary recipients.
+summary_recipients:
+  - hutch@tryloop.ai         # receives overnight TOF summary after SDR DMs

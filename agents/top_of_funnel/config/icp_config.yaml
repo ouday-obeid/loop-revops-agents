@@ -1,0 +1,18 @@
+# ICP scorer runtime config — knobs separate from weights so tuning doesn't
+# require a full recalibration.
+
+# Grade floor for Clay contact enrichment. Grade C/D contacts are not enriched
+# (global cost-control rule). "B" = enrich A and B.
+clay_grade_floor: B
+
+# Exploration slot per SDR per day — below-threshold leads with high single-dim
+# signal. Mitigates self-reinforcing-filter risk.
+exploration_slot_per_sdr: 20
+
+# Max leads per SDR per day in briefing body. Overflow goes into thread.
+sdr_briefing_body_max: 20
+sdr_briefing_thread_max: 200
+
+# Pipeline staleness guard — if latest pipeline run finished more than this
+# many hours ago, daily briefing posts warning to O instead of SDR DMs.
+pipeline_stale_hours: 4

@@ -1,0 +1,158 @@
+"""Slack dispatcher — Bolt Socket Mode, routing, approval buttons, dev guard.
+
+Routes @oo mentions and DMs to registered handlers. Approval buttons update
+approval_gates rows. DEV guard refuses to send to any channel/user other than
+SLACK_TEST_CHANNEL when SLACK_DEV_GUARD=1.
+"""
+from __future__ import annotations
+
+import json
+import logging
+import re
+from datetime import datetime, timezone
+from typing import Any, Awaitable, Callable
+
+from sqlalchemy import text
+
+from shared.db.connection import get_engine
+from shared.secrets import get_config, require_secret
+
+log = logging.getLogger(__name__)
+
+Handler = Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]
+_registry: dict[str, Handler] = {}
+
+
+def register(agent_name: str, handler: Handler) -> None:
+    _registry[agent_name] = handler
+
+
+def _dev_guard_blocks(target: str) -> bool:
+    if get_config("SLACK_DEV_GUARD", "1") != "1":
+        return False
+    allowed = get_config("SLACK_TEST_CHANNEL", "")
+    return bool(allowed) and target != allowed
+
+
+def parse_command(text_in: str) -> tuple[str | None, str]:
+    """@oo <agent> <rest>  |  @oo <rest>  →  (agent|None, rest)."""
+    cleaned = re.sub(r"<@[A-Z0-9]+>", "", text_in).strip()
+    if cleaned.lower().startswith("oo "):
+        cleaned = cleaned[3:].strip()
+    parts = cleaned.split(maxsplit=1)
+    if not parts:
+        return None, ""
+    first = parts[0].lower()
+    if first in _registry and first != "oo":
+        return first, parts[1] if len(parts) > 1 else ""
+    return None, cleaned
+
+
+async def dispatch(text_in: str, context: dict[str, Any]) -> dict[str, Any]:
+    agent, rest = parse_command(text_in)
+    target = agent or "oo"
+    handler = _registry.get(target)
+    if handler is None:
+        return {"error": f"no handler for {target}"}
+    return await handler({"text": rest, **context})
+
+
+class SlackSender:
+    """Thin wrapper around Bolt's client with dev guard + audit hooks."""
+
+    def __init__(self, client: Any | None = None):
+        self._client = client
+
+    def _ensure_client(self):
+        if self._client is None:
+            from slack_sdk import WebClient  # lazy import
+            self._client = WebClient(token=require_secret("SLACK_BOT_TOKEN"))
+        return self._client
+
+    def send(self, channel: str, text_: str, blocks: list | None = None) -> dict[str, Any]:
+        if _dev_guard_blocks(channel):
+            log.warning("DEV GUARD blocked send to %s (allowed: %s)", channel, get_config("SLACK_TEST_CHANNEL"))
+            return {"ok": False, "blocked": True, "target": channel}
+        client = self._ensure_client()
+        resp = client.chat_postMessage(channel=channel, text=text_, blocks=blocks)
+        return {"ok": resp["ok"], "ts": resp.get("ts"), "channel": resp.get("channel")}
+
+
+def approval_blocks(gate_id: int, action_type: str, summary: str) -> list[dict[str, Any]]:
+    return [
+        {"type": "header", "text": {"type": "plain_text", "text": f"Approval needed: {action_type}"}},
+        {"type": "section", "text": {"type": "mrkdwn", "text": summary}},
+        {
+            "type": "actions",
+            "block_id": f"gate_{gate_id}",
+            "elements": [
+                {"type": "button", "text": {"type": "plain_text", "text": "Approve"},
+                 "style": "primary", "action_id": "approve_gate", "value": str(gate_id)},
+                {"type": "button", "text": {"type": "plain_text", "text": "Reject"},
+                 "style": "danger", "action_id": "reject_gate", "value": str(gate_id)},
+            ],
+        },
+    ]
+
+
+def handle_gate_decision(gate_id: int, approved: bool, approver: str) -> None:
+    now = datetime.now(timezone.utc)
+    status = "approved" if approved else "rejected"
+    engine = get_engine()
+    with engine.begin() as conn:
+        conn.execute(
+            text("""UPDATE approval_gates
+                       SET status = :s, approved_by = :a, decided_at = :now
+                     WHERE id = :id AND status = 'pending'"""),
+            {"s": status, "a": approver, "now": now, "id": gate_id},
+        )
+
+
+def build_app() -> Any:
+    """Lazy Bolt app construction — only when running the daemon."""
+    from slack_bolt.async_app import AsyncApp
+
+    app = AsyncApp(token=require_secret("SLACK_BOT_TOKEN"))
+
+    @app.event("app_mention")
+    async def _on_mention(event, say):
+        result = await dispatch(event.get("text", ""), {"user": event.get("user"), "channel": event.get("channel"), "thread_ts": event.get("ts")})
+        await say(text=_render(result), thread_ts=event.get("ts"))
+
+    @app.event("message")
+    async def _on_dm(event, say):
+        if event.get("channel_type") != "im":
+            return
+        result = await dispatch(event.get("text", ""), {"user": event.get("user"), "channel": event.get("channel")})
+        await say(text=_render(result))
+
+    @app.action("approve_gate")
+    async def _approve(ack, body, client):
+        await ack()
+        gate_id = int(body["actions"][0]["value"])
+        handle_gate_decision(gate_id, True, body["user"]["id"])
+        await client.chat_postMessage(channel=body["channel"]["id"], text=f"✅ gate {gate_id} approved")
+
+    @app.action("reject_gate")
+    async def _reject(ack, body, client):
+        await ack()
+        gate_id = int(body["actions"][0]["value"])
+        handle_gate_decision(gate_id, False, body["user"]["id"])
+        await client.chat_postMessage(channel=body["channel"]["id"], text=f"❌ gate {gate_id} rejected")
+
+    return app
+
+
+def _render(result: Any) -> str:
+    if isinstance(result, str):
+        return result
+    if isinstance(result, dict) and "text" in result:
+        return result["text"]
+    return f"```{json.dumps(result, indent=2, default=str)[:2500]}```"
+
+
+async def run_socket_mode() -> None:  # pragma: no cover - runtime only
+    from slack_bolt.adapter.socket_mode.async_handler import AsyncSocketModeHandler
+    app = build_app()
+    handler = AsyncSocketModeHandler(app, require_secret("SLACK_APP_TOKEN"))
+    await handler.start_async()

@@ -1,0 +1,10 @@
+# Fallback competitor list used until shared/config/suppression_extras.yaml
+# (Phase 0 amendment) merges. Once that PR lands, this file becomes redundant
+# and can be deleted — suppression.py already prefers the shared path.
+competitors:
+  - domain: olo.com
+    reason: direct competitor
+  - domain: flipdish.com
+    reason: direct competitor
+  - domain: toasttab.com
+    reason: POS-adjacent competitor
