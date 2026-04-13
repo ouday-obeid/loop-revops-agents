@@ -95,7 +95,8 @@ class OnboardingDispatcher(AgentBase):
             "SELECT Id, Name, JK_Onboarding_Stage__c, Overall_Onboarding_Status__c, "
             "Kickoff_Status__c, Onboarding_Health__c, OwnerId, CSM_2__c, "
             "LastModifiedDate FROM Onboarding__c "
-            f"WHERE Account__c = '{account_id}' ORDER BY CreatedDate DESC LIMIT 5"
+            f"WHERE Opportunity__r.AccountId = '{account_id}' "
+            "ORDER BY CreatedDate DESC LIMIT 5"
         )
         ob_res = salesforce_mcp.soql_query(ob_q)
         obs = ob_res.get("records", [])
@@ -137,7 +138,7 @@ class OnboardingDispatcher(AgentBase):
     async def _unassigned(self) -> dict[str, Any]:
         from shared.mcp import salesforce_mcp
         q = (
-            "SELECT Id, Name, Account__r.Name FROM Onboarding__c "
+            "SELECT Id, Name, Opportunity__r.Account.Name FROM Onboarding__c "
             "WHERE OwnerId = null AND Overall_Onboarding_Status__c != 'Completed' "
             "ORDER BY CreatedDate DESC LIMIT 25"
         )
@@ -147,7 +148,8 @@ class OnboardingDispatcher(AgentBase):
             return {"text": "No unassigned onboardings. Nice."}
         lines = ["Unassigned onboardings (OwnerId null):"]
         for r in rows:
-            account = (r.get("Account__r") or {}).get("Name") or "(no account)"
+            account = (((r.get("Opportunity__r") or {}).get("Account") or {}).get("Name")
+                       or "(no account)")
             lines.append(f"• *{account}* — `{r.get('Name')}` ({r.get('Id')})")
         return {"text": "\n".join(lines)}
 

@@ -7,11 +7,14 @@ The agent writes only the fields that must be set on creation. Everything else
 Initial state we set:
   Name                          = f"{Account.Name} Onboarding"
   Opportunity__c                = Opp.Id       (formulas key off this)
-  Account__c                    = Opp.AccountId
   OwnerId                       = Opp.OwnerId  (null → csm_enforcer picks it up)
   Overall_Onboarding_Status__c  = 'Not Started'
   JK_Onboarding_Stage__c        = 'Getting Access'
   Kickoff_Status__c             = 'Not Scheduled'
+
+Onboarding__c has no direct Account lookup — it reaches Account through
+`Opportunity__c`. Account-sourced formulas (Account_Type__c, ACV__c, etc.)
+auto-populate from that lookup; writing Account__c would 400.
 
 Plus the required booleans (no SF defaults): Auto_Iterate__c,
 Balance_Discovery_Meeting__c, Balance_Included__c, Embargoed_Onboarding__c,
@@ -69,7 +72,6 @@ def build_fields(opp: dict[str, Any]) -> dict[str, Any]:
     fields: dict[str, Any] = {
         "Name": f"{account_name} Onboarding",
         "Opportunity__c": opp["Id"],
-        "Account__c": opp.get("AccountId"),
         "Overall_Onboarding_Status__c": "Not Started",
         "JK_Onboarding_Stage__c": "Getting Access",
         "Kickoff_Status__c": "Not Scheduled",

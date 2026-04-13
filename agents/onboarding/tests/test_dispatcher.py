@@ -95,9 +95,9 @@ async def test_unassigned_lists_rows(ob_payload, fake_sf_monkeypatch):
     fake_sf_monkeypatch.queue_soql({
         "records": [
             {"Id": "a01ABC", "Name": "Acme Onboarding",
-             "Account__r": {"Name": "Acme"}},
+             "Opportunity__r": {"Account": {"Name": "Acme"}}},
             {"Id": "a01DEF", "Name": "Beta Onboarding",
-             "Account__r": {"Name": "Beta"}},
+             "Opportunity__r": {"Account": {"Name": "Beta"}}},
         ],
         "totalSize": 2, "done": True,
     })
