@@ -31,6 +31,7 @@ def run(
     agent_name: str = "revops_support",
     default_limit: int = 100,
     audit: bool = True,
+    intent: str = "read",
 ) -> dict[str, Any]:
     """Execute a SOQL SELECT. Enforces LIMIT and rejects DML.
 
@@ -47,7 +48,7 @@ def run(
     if not _LIMIT_RE.search(cleaned):
         cleaned = f"{cleaned} LIMIT {default_limit}"
 
-    result = salesforce_mcp.soql_query(cleaned, limit=default_limit)
+    result = salesforce_mcp.soql_query(cleaned, limit=default_limit, intent=intent)
     if audit:
         write_audit(
             agent_name=agent_name,

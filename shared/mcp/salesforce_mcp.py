@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import shutil
 import subprocess
 from typing import Any, Literal
@@ -118,36 +119,60 @@ def _sf(
 
 # ---------- Reads ----------
 
-def soql_query(query: str, limit: int = 100) -> dict[str, Any]:
-    q = query if "limit" in query.lower() else f"{query.rstrip(';')} LIMIT {limit}"
-    return _sf("data", "query", "--query", q)
+_AGG_NO_GROUP_RE = re.compile(
+    r"\bSELECT\b.*?\b(?:COUNT\s*\(|SUM\s*\(|MAX\s*\(|MIN\s*\(|AVG\s*\()",
+    re.IGNORECASE | re.DOTALL,
+)
+_GROUP_BY_RE = re.compile(r"\bGROUP\s+BY\b", re.IGNORECASE)
 
 
-def describe_sobject(name: str) -> dict[str, Any]:
-    return _sf("sobject", "describe", "--sobject", name)
+def _needs_limit(query: str) -> bool:
+    """Skip LIMIT on aggregate queries without GROUP BY — SF rejects those."""
+    if "limit" in query.lower():
+        return False
+    if _AGG_NO_GROUP_RE.search(query) and not _GROUP_BY_RE.search(query):
+        return False
+    return True
 
 
-def get_record(sobject: str, record_id: str) -> dict[str, Any]:
-    return _sf("data", "get", "record", "--sobject", sobject, "--record-id", record_id)
+def soql_query(query: str, limit: int = 100, *, intent: Intent = "read") -> dict[str, Any]:
+    q = f"{query.rstrip(';')} LIMIT {limit}" if _needs_limit(query) else query
+    return _sf("data", "query", "--query", q, intent=intent)
 
 
-def list_users(active_only: bool = True) -> list[dict[str, Any]]:
+def describe_sobject(name: str, *, intent: Intent = "read") -> dict[str, Any]:
+    return _sf("sobject", "describe", "--sobject", name, intent=intent)
+
+
+def get_record(sobject: str, record_id: str, *, intent: Intent = "read") -> dict[str, Any]:
+    return _sf(
+        "data", "get", "record", "--sobject", sobject, "--record-id", record_id,
+        intent=intent,
+    )
+
+
+def list_users(active_only: bool = True, *, intent: Intent = "read") -> list[dict[str, Any]]:
     q = "SELECT Id, Name, Username, Email, IsActive, UserRoleId FROM User"
     if active_only:
         q += " WHERE IsActive = true"
-    result = soql_query(q, limit=1000)
+    result = soql_query(q, limit=1000, intent=intent)
     return result.get("records", [])
 
 
-def describe_flow(flow_id: str) -> dict[str, Any]:
+def describe_flow(flow_id: str, *, intent: Intent = "read") -> dict[str, Any]:
     q = f"SELECT Id, MasterLabel, Status, ProcessType FROM Flow WHERE Id = '{flow_id}'"
-    return _sf("data", "query", "--query", q, "--use-tooling-api")
+    return _sf("data", "query", "--query", q, "--use-tooling-api", intent=intent)
 
 
-def tooling_query(query: str, limit: int | None = None) -> dict[str, Any]:
+def tooling_query(
+    query: str, limit: int | None = None, *, intent: Intent = "read"
+) -> dict[str, Any]:
     """Tooling API SOQL. Required for ValidationRule, Flow, ApexClass, etc."""
-    q = query if (limit is None or "limit" in query.lower()) else f"{query.rstrip(';')} LIMIT {limit}"
-    return _sf("data", "query", "--query", q, "--use-tooling-api")
+    if limit is None or not _needs_limit(query):
+        q = query
+    else:
+        q = f"{query.rstrip(';')} LIMIT {limit}"
+    return _sf("data", "query", "--query", q, "--use-tooling-api", intent=intent)
 
 
 # ---------- Writes ----------
