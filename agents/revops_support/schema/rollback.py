@@ -191,6 +191,11 @@ def execute(
     manifest["rollback_status"] = "deployed" if success else "failed"
     manifest["rollback_deploy_id"] = deploy_id
     manifest["rolled_back_at"] = now.isoformat()
+    if success:
+        # Top-level status drives canary_poller's filter — flip it here so the
+        # next scheduled verify skips this bundle instead of re-firing on a
+        # reverted change.
+        manifest["status"] = "rolled_back"
     _save_manifest(slug, manifest)
 
     return RollbackResult(

@@ -101,6 +101,9 @@ def test_execute_happy_path_modify_rollback():
     manifest = yaml.safe_load((change.path / "change.yaml").read_text())
     assert manifest["rollback_status"] == "deployed"
     assert manifest["rollback_deploy_id"] == "revert-id"
+    # Top-level status must flip so canary_poller stops firing verify on the
+    # reverted bundle.
+    assert manifest["status"] == "rolled_back"
 
 
 def test_execute_idempotent_noop_if_already_rolled_back():
@@ -175,3 +178,5 @@ def test_execute_deploy_failure_stamps_manifest():
     manifest = yaml.safe_load((change.path / "change.yaml").read_text())
     assert manifest["rollback_status"] == "failed"
     assert "network down" in manifest["rollback_error"]
+    # Failed rollback leaves the original status intact so operators can retry.
+    assert manifest["status"] != "rolled_back"
