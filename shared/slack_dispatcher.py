@@ -20,11 +20,23 @@ from shared.secrets import get_config, require_secret
 log = logging.getLogger(__name__)
 
 Handler = Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]
+ActionHandler = Callable[[dict[str, Any]], Awaitable[dict[str, Any] | None]]
 _registry: dict[str, Handler] = {}
+_action_handlers: dict[str, ActionHandler] = {}
 
 
 def register(agent_name: str, handler: Handler) -> None:
     _registry[agent_name] = handler
+
+
+def register_action(action_id: str, handler: ActionHandler) -> None:
+    """Register a Slack block action handler (e.g. button clicks).
+
+    Handlers receive the Bolt `body` dict and may return a dict containing
+    `text` (posted back to the triggering channel). Returning None suppresses
+    the reply.
+    """
+    _action_handlers[action_id] = handler
 
 
 def _dev_guard_blocks(target: str) -> bool:
@@ -149,7 +161,21 @@ def build_app() -> Any:
         handle_gate_decision(gate_id, False, body["user"]["id"])
         await client.chat_postMessage(channel=body["channel"]["id"], text=f"❌ gate {gate_id} rejected")
 
+    for action_id, handler in _action_handlers.items():
+        _register_block_action(app, action_id, handler)
+
     return app
+
+
+def _register_block_action(app: Any, action_id: str, handler: ActionHandler) -> None:
+    @app.action(action_id)
+    async def _on_action(ack, body, client):  # pragma: no cover - Bolt runtime
+        await ack()
+        result = await handler(body)
+        if isinstance(result, dict) and result.get("text"):
+            channel = (body.get("channel") or {}).get("id")
+            if channel:
+                await client.chat_postMessage(channel=channel, text=result["text"])
 
 
 def _render(result: Any) -> str:

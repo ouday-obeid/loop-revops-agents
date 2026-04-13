@@ -32,6 +32,8 @@ HELP_TEXT = (
     "• `@oo onboarding unassigned` — onboardings with null OwnerId\n"
     "• `@oo onboarding stuck-locations [account]` — stuck locations\n"
     "• `@oo onboarding handoff <account>` — run handoff checklist on demand\n"
+    "• `@oo onboarding skip <opp_id> <justification>` — override a blocking handoff item\n"
+    "• `@oo onboarding assign <gate_id> <user_id>` — complete an approved CSM reassignment\n"
     "• `@oo onboarding backfill --preview` — count historical Closed Won gaps"
 )
 
@@ -66,6 +68,10 @@ class OnboardingDispatcher(AgentBase):
             return await self._stuck_locations(rest)
         if cmd == "handoff":
             return await self._handoff(rest)
+        if cmd == "skip":
+            return await self._skip(rest, payload.get("user"))
+        if cmd == "assign":
+            return await self._assign(rest, payload.get("user"))
         if cmd == "backfill":
             return await self._backfill(rest)
 
@@ -163,6 +169,90 @@ class OnboardingDispatcher(AgentBase):
             return {"text": "Usage: `@oo onboarding handoff <account>`"}
         from agents.onboarding import handoff_checklist
         return {"text": await handoff_checklist.run_by_account(account)}
+
+    async def _skip(self, rest: str, user: str | None) -> dict[str, Any]:
+        parts = rest.split(maxsplit=1)
+        if len(parts) < 2 or not parts[1].strip():
+            return {"text": (
+                "Usage: `@oo onboarding skip <opp_id> <justification>`\n"
+                "Justification is required — skip_milestone gates cannot be "
+                "created without one."
+            )}
+        opp_id, justification = parts[0].strip(), parts[1].strip()
+        if not opp_id.startswith("006"):
+            return {"text": (
+                f"`{opp_id}` doesn't look like an Opportunity Id "
+                "(expected prefix `006`)."
+            )}
+
+        from shared.governance import ApprovalRequired, create_approval_gate
+        from shared.mcp import salesforce_mcp
+
+        ob_res = salesforce_mcp.soql_query(
+            f"SELECT Id FROM Onboarding__c WHERE Opportunity__c = '{opp_id}' LIMIT 1"
+        )
+        ob_rows = ob_res.get("records") or []
+        onboarding_id = ob_rows[0]["Id"] if ob_rows else None
+
+        try:
+            gate_id = create_approval_gate(
+                agent_name="onboarding",
+                action_type="skip_milestone",
+                payload={
+                    "opp_id": opp_id,
+                    "onboarding_id": onboarding_id,
+                    "reason": justification,
+                },
+                justification=justification,
+                requested_by=user or "slack:unknown",
+            )
+        except ApprovalRequired as exc:
+            return {"text": f"Couldn't create skip_milestone gate: {exc}"}
+
+        return {"text": (
+            f"skip_milestone gate `{gate_id}` created for opp `{opp_id}`. "
+            "Jackie or O approves in their DM.\n"
+            f"Justification: _{justification}_"
+        )}
+
+    async def _assign(self, rest: str, user: str | None) -> dict[str, Any]:
+        parts = rest.split()
+        if len(parts) != 2:
+            return {"text": (
+                "Usage: `@oo onboarding assign <gate_id> <user_id>`\n"
+                "Use this after approving a `csm_reassignment` gate to record "
+                "the new CSM."
+            )}
+        gate_raw, new_owner_id = parts
+        try:
+            gate_id = int(gate_raw)
+        except ValueError:
+            return {"text": f"`{gate_raw}` is not a valid gate id (expected integer)."}
+        if not new_owner_id.startswith("005") or len(new_owner_id) not in (15, 18):
+            return {"text": (
+                f"`{new_owner_id}` doesn't look like a Salesforce User Id "
+                "(expected prefix `005`, length 15 or 18)."
+            )}
+
+        from shared.governance import ApprovalRequired
+        from agents.onboarding import csm_enforcer
+
+        try:
+            result = csm_enforcer.apply_reassignment(
+                gate_id,
+                new_owner_id=new_owner_id,
+                approver=user or "slack:unknown",
+            )
+        except ApprovalRequired as exc:
+            return {"text": f"Gate `{gate_id}` is not ready: {exc}"}
+        except ValueError as exc:
+            return {"text": f"Gate `{gate_id}` is malformed: {exc}"}
+
+        onboarding_id = result.get("id") or "?"
+        return {"text": (
+            f"✅ Onboarding `{onboarding_id}` reassigned to `{new_owner_id}` "
+            f"(gate `{gate_id}`)."
+        )}
 
     async def _backfill(self, rest: str) -> dict[str, Any]:
         if rest.strip() != "--preview":
