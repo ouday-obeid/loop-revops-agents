@@ -73,6 +73,7 @@ def _sf(
     json_out: bool = True,
     intent: Intent = "read",
     timeout: int = 60,
+    cwd: str | None = None,
 ) -> dict[str, Any]:
     org = _resolve_org_alias(intent)
     cmd = [_SF_BIN, *args]
@@ -80,8 +81,8 @@ def _sf(
         cmd.append("--json")
     if org and "--target-org" not in args and "-o" not in args:
         cmd.extend(["--target-org", org])
-    log.debug("sf cmd (intent=%s): %s", intent, " ".join(cmd))
-    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+    log.debug("sf cmd (intent=%s cwd=%s): %s", intent, cwd, " ".join(cmd))
+    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, cwd=cwd)
     if not json_out:
         if proc.returncode != 0:
             raise SalesforceError(proc.stderr.strip() or proc.stdout.strip())
@@ -94,9 +95,25 @@ def _sf(
         raise SalesforceError(
             f"sf failed rc={proc.returncode}: {(proc.stderr or proc.stdout).strip()[:300]}"
         ) from e
+    # sf CLI occasionally returns outer status=1 with a cosmetic locale error
+    # ("Missing message ..."); when that happens the inner result still
+    # reflects the true outcome. Trust the inner payload when it's present and
+    # declares its own success state.
+    result = data.get("result")
+    inner_status = (result or {}).get("status") if isinstance(result, dict) else None
+    inner_success = (result or {}).get("success") if isinstance(result, dict) else None
     if data.get("status") not in (0, None):
-        raise SalesforceError(data.get("message") or proc.stdout[:200])
-    return data.get("result", data)
+        inner_ok = (
+            inner_success is True
+            or (isinstance(inner_status, str) and inner_status.lower() in ("succeeded", "succeededpartial"))
+        )
+        if not inner_ok:
+            log.warning(
+                "sf nonzero outer status; keys=%s inner_status=%r inner_success=%r payload=%s",
+                list(data.keys()), inner_status, inner_success, json.dumps(data)[:1500],
+            )
+            raise SalesforceError(data.get("message") or proc.stdout[:200])
+    return result if result is not None else data
 
 
 # ---------- Reads ----------
@@ -111,7 +128,7 @@ def describe_sobject(name: str) -> dict[str, Any]:
 
 
 def get_record(sobject: str, record_id: str) -> dict[str, Any]:
-    return _sf("data", "get-record", "--sobject", sobject, "--record-id", record_id)
+    return _sf("data", "get", "record", "--sobject", sobject, "--record-id", record_id)
 
 
 def list_users(active_only: bool = True) -> list[dict[str, Any]]:
@@ -124,6 +141,12 @@ def list_users(active_only: bool = True) -> list[dict[str, Any]]:
 
 def describe_flow(flow_id: str) -> dict[str, Any]:
     q = f"SELECT Id, MasterLabel, Status, ProcessType FROM Flow WHERE Id = '{flow_id}'"
+    return _sf("data", "query", "--query", q, "--use-tooling-api")
+
+
+def tooling_query(query: str, limit: int | None = None) -> dict[str, Any]:
+    """Tooling API SOQL. Required for ValidationRule, Flow, ApexClass, etc."""
+    q = query if (limit is None or "limit" in query.lower()) else f"{query.rstrip(';')} LIMIT {limit}"
     return _sf("data", "query", "--query", q, "--use-tooling-api")
 
 
@@ -140,7 +163,7 @@ def create_record(
     require_approved_gate(approval_gate_id, action_type="single_record_update")
     values = " ".join(f"{k}={json.dumps(v)}" for k, v in fields.items())
     result = _sf(
-        "data", "create-record", "--sobject", sobject, "--values", values,
+        "data", "create", "record", "--sobject", sobject, "--values", values,
         intent=intent,
     )
     write_audit(
@@ -165,7 +188,7 @@ def update_record(
     require_approved_gate(approval_gate_id, action_type="single_record_update")
     values = " ".join(f"{k}={json.dumps(v)}" for k, v in fields.items())
     result = _sf(
-        "data", "update-record",
+        "data", "update", "record",
         "--sobject", sobject,
         "--record-id", record_id,
         "--values", values,
@@ -228,7 +251,12 @@ def deploy_metadata(
         args.append("--dry-run")
     if test_level:
         args.extend(["--test-level", test_level])
-    return _sf(*args, intent=intent, timeout=timeout)
+    # `sf project deploy start` requires cwd to contain an sfdx-project.json;
+    # callers pass a bundle dir that already satisfies this (or resolve to a
+    # parent repo with the right layout).
+    import os.path as _op
+    cwd = _op.dirname(source_dir.rstrip("/")) if source_dir else None
+    return _sf(*args, intent=intent, timeout=timeout, cwd=cwd)
 
 
 def retrieve_metadata(
