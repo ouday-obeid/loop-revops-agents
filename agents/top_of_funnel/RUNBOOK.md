@@ -95,4 +95,10 @@ Briefing's stale-pipeline guard triggers: instead of spamming SDRs with 0-lead D
 ## Escalation
 - Non-urgent: post to `#agent-tof-log`
 - Urgent (pipeline down, Clay bill >$X, schema drift): DM O at `U07P4GX9YLQ`
-- Dept-head access: Hutch (`U08HUTCH_ID` — fill in), Brian (SDR manager), Charles (ENT), Nate (MM)
+- Dept-head access: emails in `config/territory.yaml:dept_heads` (Hutch, Charles). `routing.is_dept_head(email)` is the hook downstream callers use when gating `@oo tof` commands beyond O-only.
+
+## Cross-agent import lint
+This agent must not import from other agents (only `shared.*`). Verify before ship:
+```bash
+grep -rE "from agents\.(?!top_of_funnel)" agents/top_of_funnel/ --include="*.py" || echo "clean"
+```

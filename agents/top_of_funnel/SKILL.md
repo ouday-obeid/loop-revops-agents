@@ -30,8 +30,12 @@ Phase 1 specialist. All writes go through `shared.governance` approval gates and
 - `sf_lead_creation_daily` = 200
 - `nooks_sequences_daily` = 50 (51st raises `RateLimitExceeded` + audit row)
 
+## Access control
+- O can run any command (default).
+- Dept heads listed under `territory.yaml:dept_heads` (Hutch, Charles) resolve via `routing.is_dept_head(email)` — consumers add this check when wrapping `@oo tof` commands that would otherwise be O-only.
+
 ## Storage
-- Agent-local SQLite at `agents/top_of_funnel/state.db` — `clay_credit_ledger`, `suppression_cache`, `tof_enrichment_runs`, `tof_lead_candidates`, `tof_routing_state`, `apollo_query_cache`
+- Agent-local SQLite at `agents/top_of_funnel/state.db` — `clay_credit_ledger`, `suppression_cache`, `tof_enrichment_runs`, `tof_lead_candidates`, `tof_routing_state`, `tof_sf_user_cache` (24h TTL), `tof_sequence_enrollments`, `apollo_query_cache`
 - Shared DB (`shared/db/loop_revops.db`) — `approval_gates`, `rate_limits`, `audit_log`, `agent_runs`
 
 ## Config
