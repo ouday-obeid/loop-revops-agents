@@ -245,3 +245,48 @@ async def run_sweep(
 
     log.info("cs-renewal-pipeline complete: %s", counters)
     return counters
+
+
+def _main() -> None:
+    """CLI for plan verification step 7: `python -m agents.cs.renewal.pipeline --dry-run`.
+
+    Prints counters + the list of candidate opps that WOULD have had a renewal
+    created, so O can eyeball before the first live run.
+    """
+    import argparse
+    import asyncio
+
+    parser = argparse.ArgumentParser(description="Run the T-120 renewal sweep.")
+    parser.add_argument(
+        "--dry-run", action="store_true",
+        help="Plan + print; make no SF writes and persist no state.",
+    )
+    parser.add_argument(
+        "--json", action="store_true",
+        help="Emit counters as JSON (suitable for piping to jq).",
+    )
+    args = parser.parse_args()
+
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+    if args.dry_run:
+        from shared.mcp import salesforce_mcp as _sf
+        now = datetime.now(timezone.utc)
+        opps = _find_due_opps(_sf, now)
+        print(f"# Dry-run: {len(opps)} candidate opportunit{'y' if len(opps) == 1 else 'ies'}")
+        for o in opps:
+            acct = (o.get("Account") or {}).get("Name") or o.get("AccountId")
+            print(
+                f"- {acct}  ·  opp=`{o.get('Id')}`  ·  "
+                f"ends {o.get('Zen_Contract_End_Date__c')}"
+            )
+
+    counters = asyncio.run(run_sweep(dry_run=args.dry_run))
+    if args.json:
+        print(json.dumps(counters, indent=2))
+    else:
+        print(f"\nCounters: {counters}")
+
+
+if __name__ == "__main__":
+    _main()
