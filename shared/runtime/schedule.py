@@ -148,6 +148,49 @@ SCHEDULE: list[Job] = [
         callable_path="agents.slt_metrics.jobs:run_friday_review",
         description="Friday 15:30 weekly review → slt_draft_review gate in O's DM",
     ),
+    # Phase 1 — Agent 2 (Sales Reps). See agents/sales_reps/RUNBOOK.md.
+    Job(
+        name="sales-reps-grader-poll",
+        cron="*/15 * * * *",
+        callable_path="agents.sales_reps.scheduler.jobs:grader_poll",
+        description="Every 15 min: grade new Fireflies transcripts (idempotent via storage)",
+    ),
+    Job(
+        name="sales-reps-brief-scan",
+        cron="*/15 * * * *",
+        callable_path="agents.sales_reps.scheduler.jobs:brief_scan",
+        description="Every 15 min: GCal demos in 90-120 min → pre-demo brief per Opp",
+    ),
+    Job(
+        name="sales-reps-sync-check",
+        cron="*/30 * * * *",
+        callable_path="agents.sales_reps.scheduler.jobs:sync_check",
+        description="Every 30 min: Momentum↔SF ActivityHistory diff (rate-gated alerts)",
+    ),
+    Job(
+        name="sales-reps-risk-sweep",
+        cron="0 */2 * * *",
+        callable_path="agents.sales_reps.scheduler.jobs:risk_sweep",
+        description="Every 2h: deal-risk sweep (pushed close / amount drop / competitor)",
+    ),
+    Job(
+        name="sales-reps-hygiene-daily",
+        cron="0 7 * * 1-5",
+        callable_path="agents.sales_reps.scheduler.jobs:hygiene_daily",
+        description="07:00 ET Mon-Fri: pipeline hygiene report (org-wide)",
+    ),
+    Job(
+        name="sales-reps-leaderboard-weekly",
+        cron="0 16 * * 5",
+        callable_path="agents.sales_reps.scheduler.jobs:leaderboard_weekly",
+        description="Friday 16:00 ET: AE + SDR leaderboard snapshot (Hutch-gated post)",
+    ),
+    Job(
+        name="sales-reps-scorecards-weekly",
+        cron="0 17 * * 5",
+        callable_path="agents.sales_reps.scheduler.jobs:scorecards_weekly",
+        description="Friday 17:00 ET: per-rep scorecards (Hutch-gated DMs first 4 weeks)",
+    ),
 ]
 
 

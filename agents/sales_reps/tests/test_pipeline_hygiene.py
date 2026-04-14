@@ -23,9 +23,33 @@ def test_soql_stale_omits_ae_when_none():
 
 def test_soql_missing_next_step_targets_advanced_stages():
     q = ph._soql_missing_next_step(None)
-    assert "NextStep = null OR NextStep = ''" in q
+    # Uses Loop's custom next-step field, not standard NextStep.
+    assert "Next_Steps__c = null OR Next_Steps__c = ''" in q
     assert "'Proposal'" in q
-    assert "'Negotiation'" in q
+    assert "'Demo'" in q
+
+
+def test_soql_uses_loop_stage_picklist():
+    """Hardcoded defaults must match Loop AI's actual Opportunity stages, not
+    standard SF names. Hitting 'Prospecting' / 'Negotiation' against Loop's
+    org silently misses the whole pipeline."""
+    q_open = ph._soql_stale(None, 14)
+    assert "'New - Meeting Set'" in q_open
+    assert "'Business Case'" in q_open
+    assert "'Legal and Procurement'" in q_open
+    # Standard names that don't exist in Loop's picklist must not appear.
+    assert "'Prospecting'" not in q_open
+    assert "'Negotiation'" not in q_open
+
+
+def test_stage_env_override_replaces_defaults(monkeypatch):
+    monkeypatch.setenv("SALES_REPS_OPEN_STAGES", "Alpha, Beta")
+    monkeypatch.setenv("SALES_REPS_ADVANCED_STAGES", "Beta")
+    monkeypatch.setenv("SALES_REPS_NEXT_STEP_FIELD", "Custom_Step__c")
+    q = ph._soql_missing_next_step(None)
+    assert "'Beta'" in q
+    assert "Custom_Step__c = null" in q
+    assert "'Demo'" not in q
 
 
 def test_escape_handles_quotes():
@@ -152,11 +176,11 @@ def test_run_aggregates_all_detectors():
     }]}
     mns_rec = {"records": [{
         "Id": "006MNS", "Name": "M", "StageName": "Proposal",
-        "Amount": 3, "CloseDate": "2026-05-01", "NextStep": None,
+        "Amount": 3, "CloseDate": "2026-05-01", "Next_Steps__c": None,
         "Owner": {"Email": "ae@x.com"},
     }]}
     single_rec = {"records": [{
-        "Id": "006SIN", "Name": "Si", "StageName": "Negotiation",
+        "Id": "006SIN", "Name": "Si", "StageName": "Proposal",
         "Amount": 4, "CloseDate": "2026-05-01",
         "Owner": {"Email": "ae@x.com"},
         "OpportunityContactRoles": {"records": []},

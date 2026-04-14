@@ -97,6 +97,55 @@ def test_prior_calls_degrades_on_fireflies_error():
     assert out == []
 
 
+# --------------------------------------------------------------- knowledge + news/funding
+
+def test_knowledge_hits_empty_for_no_account_name():
+    assert bg._knowledge_hits(None) == []
+    assert bg._knowledge_hits("") == []
+
+
+def test_knowledge_hits_trims_content_and_preserves_metadata():
+    hits = [{"content": "x" * 1000, "score": 0.9, "metadata": {"source": "gong"}}]
+    with patch.object(bg.knowledge_mcp, "semantic_search", return_value=hits):
+        out = bg._knowledge_hits("Acme Corp")
+    assert len(out[0]["snippet"]) == 500
+    assert out[0]["metadata"]["source"] == "gong"
+
+
+def test_knowledge_hits_degrades_on_search_error():
+    with patch.object(bg.knowledge_mcp, "semantic_search",
+                      side_effect=RuntimeError("chroma down")):
+        out = bg._knowledge_hits("Acme Corp")
+    assert out == []
+
+
+def test_news_and_funding_empty_without_domain():
+    news, funding = bg._news_and_funding(None)
+    assert news == [] and funding == []
+
+
+def test_news_and_funding_degrades_on_news_exception():
+    # Simulate web_research.fetch_company_news raising a non-httpx RuntimeError
+    # (the wrapper swallows httpx errors internally; this tests the outer guard).
+    from agents.sales_reps.integrations import web_research
+    with patch.object(web_research, "fetch_company_news",
+                      side_effect=RuntimeError("unexpected")), \
+         patch.object(web_research, "fetch_funding_events", return_value=[]):
+        news, funding = bg._news_and_funding("acme.com")
+    assert news == []
+    assert funding == []
+
+
+def test_news_and_funding_degrades_on_funding_exception():
+    from agents.sales_reps.integrations import web_research
+    with patch.object(web_research, "fetch_company_news", return_value=[]), \
+         patch.object(web_research, "fetch_funding_events",
+                      side_effect=RuntimeError("unexpected")):
+        news, funding = bg._news_and_funding("acme.com")
+    assert news == []
+    assert funding == []
+
+
 # --------------------------------------------------------------- talking points + gaps
 
 def test_talking_points_discovery_stage_asks_about_timeline():
