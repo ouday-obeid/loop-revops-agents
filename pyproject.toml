@@ -39,7 +39,17 @@ where = ["."]
 include = ["shared*", "agents*"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "agents/oo/tests", "agents/slt_metrics/tests", "agents/onboarding/tests", "shared"]
+testpaths = [
+  "tests",
+  "agents/oo/tests",
+  "agents/top_of_funnel/tests",
+  "agents/sales_reps/tests",
+  "agents/onboarding/tests",
+  "agents/cs/tests",
+  "agents/revops_support/tests",
+  "agents/slt_metrics/tests",
+  "shared",
+]
 asyncio_mode = "auto"
 pythonpath = ["."]
 
