@@ -4,6 +4,8 @@
 **PR doc:** `_PHASE_0_AMENDMENT_PR.md`
 **Overall verdict:** APPROVE with three change requests and one architectural question.
 
+> **Status (2026-04-14):** LANDED + cleanup applied. All diffs are in `main` via the Phase 1 specialist merges. Change requests (b) drop dead env vars and (c) strike Diff 7 are now applied on branch `tof/amendment-memo-cleanup`. Change request (a) — `shared.config.loader` scope decision — remains open and is deferred to O. See the `Actionable punch list before merge` section for the current state of each item.
+
 Scope audit passes — grep confirms no edits to `agent_base.py`, `salesforce_mcp.py`, `slack_dispatcher.py`, or any existing `APPROVAL_TIERS` / `RATE_LIMITS` entry. Every diff is a new row, new file, or new helper. Merge risk is low; none of the eight diffs block D1–D10 (TOF already ships with local workarounds that become one-line re-exports post-merge).
 
 ---
@@ -98,10 +100,10 @@ python -c "from agents.top_of_funnel.suppression import _load_competitor_domains
 
 ## Actionable punch list before merge
 
-1. **Decide** `shared.config.loader` scope — TOF-only inline vs full Phase 1 sweep. If sweep, file follow-up to migrate `icp_scorer` + `revops_support.schema.*`.
-2. **Drop** `TOF_SDR_SLACK_MAP_JSON` and `AGENT_SF_USER_TOF` from Diff 8 (or wire them).
-3. **Remove** Diff 7 from the PR (already merged upstream).
-4. **Add** the two test-plan smokes above.
+1. **Decide** `shared.config.loader` scope — TOF-only inline vs full Phase 1 sweep. If sweep, file follow-up to migrate `icp_scorer` + `revops_support.schema.*`. *(OPEN — deferred to O)*
+2. ~~**Drop** `TOF_SDR_SLACK_MAP_JSON` and `AGENT_SF_USER_TOF` from Diff 8 (or wire them).~~ *(DONE 2026-04-14 on `tof/amendment-memo-cleanup` — setdefault lines removed from `tests/conftest.py`; Diff 8 memo cleaned.)*
+3. ~~**Remove** Diff 7 from the PR (already merged upstream).~~ *(DONE 2026-04-14 on `tof/amendment-memo-cleanup` — section struck from `_PHASE_0_AMENDMENT_PR.md`.)*
+4. ~~**Add** the two test-plan smokes above.~~ *(DONE 2026-04-14 on `tof/amendment-memo-cleanup` — `tests/test_db_connection.py` + `test_suppression_extras_yaml_has_known_competitors` added; regression coverage table in `_PHASE_0_AMENDMENT_PR.md`.)*
 
 ## Follow-ups spawned by merge (not in-scope for this PR)
 

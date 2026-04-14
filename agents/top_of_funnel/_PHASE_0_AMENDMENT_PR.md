@@ -1,5 +1,7 @@
 # Phase 0 amendment — additive PR required for Top of Funnel (Agent 1)
 
+> **Status (2026-04-14):** LANDED. Every diff described below was absorbed into `main` via the Phase 1 specialist merges (e.g. `dd0fa56 merge(top_of_funnel)`, `aefa6a6 chore(test): enroll all 6 Phase 1 agent test dirs`). This document is retained as historical context for the amendment decision — no PR is open against it. See `_PHASE_0_AMENDMENT_REVIEW.md` for the landed-state review and regression coverage references below.
+
 **Scope**: additive only. Zero edits to Phase 0 public surface area (`agent_base.py`, `salesforce_mcp.py`, existing `APPROVAL_TIERS` entries, existing `RATE_LIMITS` buckets). Everything here is a new row or a new file.
 
 **Why a separate PR**: Phase 0 is sign-off frozen as of 2026-04-13. These additions are required for cron registration, the suppression-override tier, and per-agent SQLite isolation. They are scoped narrowly so the Phase 0 team can review in <30 minutes.
@@ -158,22 +160,7 @@ If Phase 0 team prefers zero edits to `connection.py`, Top of Funnel will inline
 
 ---
 
-## Diff 7 — `pyproject.toml`
-
-Add agent test dir to `testpaths` so `pytest` picks them up without an explicit path.
-
-```toml
-[tool.pytest.ini_options]
-testpaths = [
-    "tests",
-    "agents/oo/tests",
-    "agents/slt_metrics/tests",
-    "agents/top_of_funnel/tests",
-    "shared",
-]
-asyncio_mode = "auto"
-pythonpath = ["."]
-```
+## Diff 7 — *(removed — landed upstream in `aefa6a6 chore(test): enroll all 6 Phase 1 agent test dirs in pytest testpaths`)*
 
 ---
 
@@ -184,8 +171,6 @@ Append under `# --- Integrations ---` (or add a new `# --- Top of Funnel ---` bl
 ```
 # --- Top of Funnel (Agent 1) ---
 CLAY_MONTHLY_BUDGET_CREDITS=50000
-TOF_SDR_SLACK_MAP_JSON={}   # filled from config/territory.yaml at startup
-AGENT_SF_USER_TOF=tof-agent@tryloop.ai
 NOOKS_CADENCE_SF_OBJECT=CampaignMember   # confirm at D1 kickoff w/ O
 ```
 
@@ -212,12 +197,22 @@ python -c "from shared.runtime.schedule import SCHEDULE; print([j.name for j in 
 python -c "from shared.governance import APPROVAL_TIERS; print(APPROVAL_TIERS['suppression_override'])"
 ```
 
+## Regression coverage (as landed)
+
+Per-diff test references in the shipped tree. These are the concrete assertions backing each diff; keep in sync if the amendment is ever amended again.
+
+| Diff | Test(s) | Location |
+|------|---------|----------|
+| 3–4 `shared.config.loader` | `test_competitor_domain_loader_uses_shared_first`, `test_competitor_domain_loader_falls_back_to_local` | `agents/top_of_funnel/tests/test_suppression.py:302, 317` |
+| 5 `suppression_extras.yaml` (shared seed) | `test_8_competitor_domain_suppresses`, `test_suppression_extras_yaml_has_known_competitors` | `agents/top_of_funnel/tests/test_suppression.py:187`, `tests/test_db_connection.py` |
+| 6 `get_agent_engine` | `test_get_agent_engine_enables_foreign_keys`, `test_get_agent_engine_isolates_agents` | `tests/test_db_connection.py` |
+
 ## Review checklist
-- [ ] 2 new Job rows in `SCHEDULE` — names unique, cron expressions valid
-- [ ] 1 new `APPROVAL_TIERS` entry — `suppression_override` tier+approver match existing patterns
-- [ ] `shared/config/` directory created with `__init__.py`, `loader.py`, `suppression_extras.yaml`
-- [ ] `shared/db/connection.py:get_agent_engine` added below `reset_cache`; cached with `lru_cache(16)`
-- [ ] `pyproject.toml:testpaths` gains `agents/top_of_funnel/tests`
-- [ ] `.env.example` additions grouped under a `# --- Top of Funnel ---` block
-- [ ] No edits to `agent_base.py`, `salesforce_mcp.py`, `slack_dispatcher.py`, or existing tiers/buckets
-- [ ] Phase 0 test suite remains green
+- [x] 2 new Job rows in `SCHEDULE` — names unique, cron expressions valid
+- [x] 1 new `APPROVAL_TIERS` entry — `suppression_override` tier+approver match existing patterns
+- [x] `shared/config/` directory created with `__init__.py`, `loader.py`, `suppression_extras.yaml`
+- [x] `shared/db/connection.py:get_agent_engine` added below `reset_cache`; cached with `lru_cache(16)`
+- [x] `pyproject.toml:testpaths` gains `agents/top_of_funnel/tests` *(landed in `aefa6a6`)*
+- [x] `.env.example` additions grouped under a `# --- Top of Funnel ---` block
+- [x] No edits to `agent_base.py`, `salesforce_mcp.py`, `slack_dispatcher.py`, or existing tiers/buckets
+- [x] Phase 0 test suite remains green
