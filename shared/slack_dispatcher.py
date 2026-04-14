@@ -20,11 +20,23 @@ from shared.secrets import get_config, require_secret
 log = logging.getLogger(__name__)
 
 Handler = Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]
+ActionHandler = Callable[[dict[str, Any]], Awaitable[dict[str, Any] | None]]
 _registry: dict[str, Handler] = {}
+_action_handlers: dict[str, ActionHandler] = {}
 
 
 def register(agent_name: str, handler: Handler) -> None:
     _registry[agent_name] = handler
+
+
+def register_action(action_id: str, handler: ActionHandler) -> None:
+    """Register a Slack block action handler (e.g. button clicks).
+
+    Handlers receive the Bolt `body` dict and may return a dict containing
+    `text` (posted back to the triggering channel). Returning None suppresses
+    the reply.
+    """
+    _action_handlers[action_id] = handler
 
 
 def _dev_guard_blocks(target: str) -> bool:
@@ -32,6 +44,13 @@ def _dev_guard_blocks(target: str) -> bool:
         return False
     allowed = get_config("SLACK_TEST_CHANNEL", "")
     return bool(allowed) and target != allowed
+
+
+def _dev_guard_redirect_target() -> str | None:
+    """Return the channel to redirect to when dev guard is active."""
+    if get_config("SLACK_DEV_GUARD", "1") != "1":
+        return None
+    return get_config("SLACK_TEST_CHANNEL", "") or None
 
 
 def parse_command(text_in: str) -> tuple[str | None, str]:
@@ -70,9 +89,11 @@ class SlackSender:
         return self._client
 
     def send(self, channel: str, text_: str, blocks: list | None = None) -> dict[str, Any]:
-        if _dev_guard_blocks(channel):
-            log.warning("DEV GUARD blocked send to %s (allowed: %s)", channel, get_config("SLACK_TEST_CHANNEL"))
-            return {"ok": False, "blocked": True, "target": channel}
+        redirect = _dev_guard_redirect_target() if _dev_guard_blocks(channel) else None
+        if redirect:
+            log.info("DEV GUARD redirecting send %s → %s", channel, redirect)
+            text_ = f"_[dev-guard → `{channel}`]_\n{text_}"
+            channel = redirect
         client = self._ensure_client()
         resp = client.chat_postMessage(channel=channel, text=text_, blocks=blocks)
         return {"ok": resp["ok"], "ts": resp.get("ts"), "channel": resp.get("channel")}
@@ -140,7 +161,21 @@ def build_app() -> Any:
         handle_gate_decision(gate_id, False, body["user"]["id"])
         await client.chat_postMessage(channel=body["channel"]["id"], text=f"❌ gate {gate_id} rejected")
 
+    for action_id, handler in _action_handlers.items():
+        _register_block_action(app, action_id, handler)
+
     return app
+
+
+def _register_block_action(app: Any, action_id: str, handler: ActionHandler) -> None:
+    @app.action(action_id)
+    async def _on_action(ack, body, client):  # pragma: no cover - Bolt runtime
+        await ack()
+        result = await handler(body)
+        if isinstance(result, dict) and result.get("text"):
+            channel = (body.get("channel") or {}).get("id")
+            if channel:
+                await client.chat_postMessage(channel=channel, text=result["text"])
 
 
 def _render(result: Any) -> str:

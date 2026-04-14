@@ -69,8 +69,8 @@ def handle_created(opp: dict[str, Any], onboarding_id: str) -> dict[str, Any] | 
 async def sweep() -> dict[str, Any]:
     """Find onboardings whose OwnerId has gone null after creation."""
     query = (
-        "SELECT Id, Name, Account__r.Name, OwnerId, CSM_2__c, Opportunity__c "
-        "FROM Onboarding__c WHERE OwnerId = null "
+        "SELECT Id, Name, Opportunity__r.Account.Name, OwnerId, CSM_2__c, "
+        "Opportunity__c FROM Onboarding__c WHERE OwnerId = null "
         "AND Overall_Onboarding_Status__c NOT IN ('Completed', 'DOA', 'Failed to Go Live') "
         "LIMIT 100"
     )
@@ -90,7 +90,8 @@ async def sweep() -> dict[str, Any]:
             justification=None,
             requested_by=f"system:{AGENT_NAME}",
         )
-        account = (row.get("Account__r") or {}).get("Name") or "(unknown)"
+        opp_rel = row.get("Opportunity__r") or {}
+        account = ((opp_rel.get("Account") or {}).get("Name")) or "(unknown)"
         summary = (
             f"*Onboarding__c* `{row['Id']}` for *{account}* has no CSM. "
             f"(Current CSM 2: `{row.get('CSM_2__c') or 'none'}`)"

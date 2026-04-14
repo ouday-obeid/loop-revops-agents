@@ -95,9 +95,9 @@ async def test_unassigned_lists_rows(ob_payload, fake_sf_monkeypatch):
     fake_sf_monkeypatch.queue_soql({
         "records": [
             {"Id": "a01ABC", "Name": "Acme Onboarding",
-             "Account__r": {"Name": "Acme"}},
+             "Opportunity__r": {"Account": {"Name": "Acme"}}},
             {"Id": "a01DEF", "Name": "Beta Onboarding",
-             "Account__r": {"Name": "Beta"}},
+             "Opportunity__r": {"Account": {"Name": "Beta"}}},
         ],
         "totalSize": 2, "done": True,
     })
@@ -158,6 +158,123 @@ async def test_status_renders_onboarding_snapshot(ob_payload, fake_sf_monkeypatc
     assert "Initial Onboarding Scheduled" in result["text"]
     assert "005OWNER" in result["text"]
     assert "CSM 2" in result["text"]
+
+
+@pytest.mark.asyncio
+async def test_skip_requires_justification(ob_payload):
+    result = await OnboardingDispatcher().handle("slack", ob_payload(text="skip 006ABC"))
+    assert "Usage:" in result["text"]
+    assert "Justification is required" in result["text"]
+
+
+@pytest.mark.asyncio
+async def test_skip_rejects_bad_opp_id(ob_payload):
+    result = await OnboardingDispatcher().handle(
+        "slack", ob_payload(text="skip 001NOTANOPP reason here")
+    )
+    assert "doesn't look like an Opportunity Id" in result["text"]
+
+
+@pytest.mark.asyncio
+async def test_skip_creates_gate_with_justification(ob_payload, fake_sf_monkeypatch):
+    fake_sf_monkeypatch.queue_soql({
+        "records": [{"Id": "a01WB000001234567"}], "totalSize": 1, "done": True,
+    })
+    result = await OnboardingDispatcher().handle(
+        "slack", ob_payload(
+            text="skip 006WB00000JcUVDYA3 trial contract, no line items by design",
+            user="U_JACKIE",
+        )
+    )
+    assert "skip_milestone gate" in result["text"]
+    assert "006WB00000JcUVDYA3" in result["text"]
+    assert "trial contract" in result["text"]
+
+    from sqlalchemy import text as sql_text
+    from shared.db.connection import get_engine
+    with get_engine().begin() as conn:
+        row = conn.execute(
+            sql_text("SELECT action_type, status, justification, payload, "
+                     "requested_by FROM approval_gates "
+                     "WHERE agent_name='onboarding' "
+                     "ORDER BY id DESC LIMIT 1")
+        ).fetchone()
+    assert row[0] == "skip_milestone"
+    assert row[1] == "pending"
+    assert "trial contract" in row[2]
+    assert "006WB00000JcUVDYA3" in row[3]
+    assert row[4] == "U_JACKIE"
+
+
+@pytest.mark.asyncio
+async def test_assign_usage_when_missing_args(ob_payload):
+    result = await OnboardingDispatcher().handle("slack", ob_payload(text="assign"))
+    assert "Usage:" in result["text"]
+    result = await OnboardingDispatcher().handle("slack", ob_payload(text="assign 42"))
+    assert "Usage:" in result["text"]
+
+
+@pytest.mark.asyncio
+async def test_assign_rejects_non_integer_gate(ob_payload):
+    result = await OnboardingDispatcher().handle(
+        "slack", ob_payload(text="assign abc 005OWN000000001")
+    )
+    assert "not a valid gate id" in result["text"]
+
+
+@pytest.mark.asyncio
+async def test_assign_rejects_bad_user_id(ob_payload):
+    result = await OnboardingDispatcher().handle(
+        "slack", ob_payload(text="assign 42 001NOTAUSER")
+    )
+    assert "doesn't look like a Salesforce User Id" in result["text"]
+
+
+@pytest.mark.asyncio
+async def test_assign_complains_when_gate_not_approved(
+    ob_payload, fake_sf_monkeypatch, seed_gate,
+):
+    gate_id = seed_gate(
+        action_type="csm_reassignment",
+        status="pending",
+        payload={"onboarding_id": "a01WB0000001ABCAAA"},
+    )
+    result = await OnboardingDispatcher().handle(
+        "slack",
+        ob_payload(text=f"assign {gate_id} 005OWN000000001", user="U_JACKIE"),
+    )
+    assert "is not ready" in result["text"]
+
+
+@pytest.mark.asyncio
+async def test_assign_applies_reassignment_on_approved_gate(
+    ob_payload, fake_sf_monkeypatch, seed_gate,
+):
+    gate_id = seed_gate(
+        action_type="csm_reassignment",
+        status="approved",
+        payload={"onboarding_id": "a01WB0000001ABCAAA"},
+    )
+    result = await OnboardingDispatcher().handle(
+        "slack",
+        ob_payload(text=f"assign {gate_id} 005NEW000000001", user="U_JACKIE"),
+    )
+    assert "reassigned" in result["text"].lower()
+    assert "005NEW000000001" in result["text"]
+    assert "a01WB0000001ABCAAA" in result["text"]
+
+    updated = fake_sf_monkeypatch.updated
+    assert len(updated) == 1
+    assert updated[0]["sobject"] == "Onboarding__c"
+    assert updated[0]["id"] == "a01WB0000001ABCAAA"
+    assert updated[0]["fields"]["OwnerId"] == "005NEW000000001"
+
+
+@pytest.mark.asyncio
+async def test_help_mentions_new_commands(ob_payload):
+    result = await OnboardingDispatcher().handle("slack", ob_payload(text="help"))
+    assert "skip" in result["text"]
+    assert "assign" in result["text"]
 
 
 @pytest.mark.asyncio

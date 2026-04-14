@@ -12,9 +12,10 @@ import logging
 from typing import Any
 
 from shared.agent_base import AgentBase
-from shared.slack_dispatcher import register
+from shared.slack_dispatcher import register, register_action
 
 from agents.onboarding import dispatcher as onboarding_dispatcher
+from agents.onboarding import stall_actions
 
 log = logging.getLogger(__name__)
 
@@ -40,6 +41,8 @@ def bootstrap() -> None:
     that.
     """
     register("onboarding", onboarding_dispatcher.handle)
+    register_action("stall_extend_3d", stall_actions.handle_extend_3d)
+    register_action("stall_escalate", stall_actions.handle_escalate)
     log.info("onboarding agent registered")
 
 

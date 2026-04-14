@@ -45,10 +45,10 @@ async def test_sweep_posts_gate_for_each_unassigned(fake_sf_monkeypatch):
     fake_sf_monkeypatch.queue_soql({
         "records": [
             {"Id": "a01S1", "Name": "S1 Onboarding",
-             "Account__r": {"Name": "Acme"}, "OwnerId": None,
+             "Opportunity__r": {"Account": {"Name": "Acme"}}, "OwnerId": None,
              "CSM_2__c": None, "Opportunity__c": "006S1"},
             {"Id": "a01S2", "Name": "S2 Onboarding",
-             "Account__r": {"Name": "Beta"}, "OwnerId": None,
+             "Opportunity__r": {"Account": {"Name": "Beta"}}, "OwnerId": None,
              "CSM_2__c": "005CSM2", "Opportunity__c": "006S2"},
         ],
         "totalSize": 2, "done": True,
