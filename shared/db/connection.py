@@ -86,3 +86,22 @@ def reset_cache() -> None:
     """For tests: drop cached engine/session factory."""
     get_engine.cache_clear()
     _session_factory.cache_clear()
+
+
+@lru_cache(maxsize=16)
+def get_agent_engine(agent_name: str) -> Engine:
+    """Per-agent SQLite engine at agents/<agent>/state.db.
+
+    Used by Phase 1 specialists that keep agent-local state (e.g. Top of
+    Funnel's Clay credit ledger, suppression cache, routing round-robin
+    cursor). Shared state (approval_gates, rate_limits, audit_log) continues
+    to route through get_engine().
+    """
+    root = Path(get_config("REVOPS_REPO_ROOT") or Path(__file__).resolve().parents[2])
+    db_path = root / "agents" / agent_name / "state.db"
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    url = f"sqlite:///{db_path}"
+    engine = create_engine(url, future=True, connect_args={"check_same_thread": False})
+    with engine.connect() as conn:
+        conn.execute(text("PRAGMA foreign_keys=ON"))
+    return engine

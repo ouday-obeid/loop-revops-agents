@@ -73,6 +73,19 @@ SCHEDULE: list[Job] = [
         callable_path="agents.onboarding.dispatcher:send_jackie_weekly_digest",
         description="Friday 9 AM ET weekly CS digest to Jackie",
     ),
+    # Phase 1 — Agent 1 (Top of Funnel). See agents/top_of_funnel/RUNBOOK.md.
+    Job(
+        name="top-of-funnel-enrichment-pipeline",
+        cron="0 2 * * 1-5",
+        callable_path="agents.top_of_funnel.enrichment.pipeline:run_pipeline",
+        description="Nightly Apollo+Clay enrichment + ICP scoring + SF Lead create",
+    ),
+    Job(
+        name="top-of-funnel-daily-briefing",
+        cron="55 7 * * 1-5",
+        callable_path="agents.top_of_funnel.daily_briefing:send_daily_briefing",
+        description="07:55 Mon-Fri SDR lead-list DMs + Hutch summary",
+    ),
     # Phase 1 — Agent 4 (CS). See agents/cs/RUNBOOK.md.
     Job(
         name="cs-integration-health",

@@ -1,0 +1,15 @@
+# Domains auto-suppressed for outbound. RevOps adds new rows via PR.
+# Competitors, customers-by-parent, and NDA-flagged domains.
+competitors:
+  - domain: olo.com
+    reason: direct competitor
+  - domain: flipdish.com
+    reason: direct competitor
+  - domain: toasttab.com
+    reason: POS-adjacent competitor
+  - domain: otter.ai  # NB: food delivery POS, not the transcription tool
+    reason: direct competitor
+
+nda_flagged: []
+
+current_customer_parent_domains: []  # populated from SF Account.Type=Customer at runtime
