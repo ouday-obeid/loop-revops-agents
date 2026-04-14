@@ -15,9 +15,9 @@ Assertions (per plan `~/.claude/plans/idempotent-coalescing-otter.md`):
        - all four agent fields present  → real-field write path
        - any missing                    → Description-fallback path
      Both paths are covered; one is skipped depending on live state.
-  3. `find_tlo_id` returns cleanly — either a str Id (if Top_Level_Org__c
-     exists and a match is found) or None (object absent / no match).
-     No uncaught exception leaks to the caller.
+  3. `find_tlo_id` returns cleanly — either a str Id (if the
+     `Top_Level_Organization__c` SObject exists and a match is found) or
+     None (object absent / no match). No uncaught exception leaks.
   4. Scale: 10 Leads in one pipeline-style batch, all land with real IDs.
 
 Every created Lead Id is tracked per-test and deleted in teardown so the
@@ -26,13 +26,13 @@ sandbox stays clean. Orphans (if cleanup fails) are surfaced loudly.
 Custom-field state snapshot at D6 (2026-04-13, revagents sandbox):
 
   Present: Location_Count__c
-  Missing: Brand__c, ICP_Score__c, ICP_Tier__c, Ownership_Type__c,
-           Top_Level_Org__c
+  Missing: Brand__c, ICP_Score__c, ICP_Tier__c, Ownership_Type__c
 
 Note: Lead carries a `Top_Level_Organization__c` lookup (spelled out) —
-Agent 5's schema PR must land the short-name `Top_Level_Org__c` that the
-writer expects, or the writer must be updated to the full name. Tracked
-separately; this test only verifies graceful degradation today.
+the writer now targets that fully-spelled form by default to match sandbox
++ Opportunity convention. Prod can override via `TOF_LEAD_TLO_FIELD` if
+that schema diverges. (Previously the writer used Account's short-name
+`Top_Level_Org__c`, which doesn't exist on Lead — fixed 2026-04-14.)
 """
 from __future__ import annotations
 
@@ -372,8 +372,9 @@ def test_real_field_path_end_to_end(approved_gate, lead_cleanup):
 
 def test_tlo_lookup_resolves_or_soft_fails():
     """`find_tlo_id` must never leak an exception. Two valid shapes:
-      (a) Top_Level_Org__c exists → returns a str Id or None on no match.
-      (b) Top_Level_Org__c absent → SOQL raises INVALID_TYPE, caught → None.
+      (a) `Top_Level_Organization__c` exists → str Id or None on no match.
+      (b) `Top_Level_Organization__c` absent → SOQL raises INVALID_TYPE,
+          caught → None.
     """
     from agents.top_of_funnel.sf_lead_writer import find_tlo_id
 

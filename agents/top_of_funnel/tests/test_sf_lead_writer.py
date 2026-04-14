@@ -112,6 +112,9 @@ def test_build_payload_defaults_for_missing_names():
 
 
 def test_build_payload_owner_and_tlo():
+    """Lead-side TLO reference defaults to the fully-spelled
+    `Top_Level_Organization__c` — matches Opportunity convention and the
+    revagents sandbox schema (verified D6, 2026-04-13)."""
     out = writer.build_payload(
         _lead_fixture(),
         present_custom_fields=set(),
@@ -119,7 +122,9 @@ def test_build_payload_owner_and_tlo():
         owner_id="005ABC",
     )
     assert out.fields["OwnerId"] == "005ABC"
-    assert out.fields["Top_Level_Org__c"] == "a0X00000000xyz"
+    assert out.fields["Top_Level_Organization__c"] == "a0X00000000xyz"
+    # And the short-name Account-convention must NOT leak onto Lead.
+    assert "Top_Level_Org__c" not in out.fields
 
 
 def test_build_payload_sets_lead_source_default():
@@ -446,8 +451,11 @@ def test_create_lead_falls_back_to_description_when_no_customs():
 
 
 def test_create_lead_links_tlo_when_present():
+    """End-to-end TLO linkage: SOQL hits the Top_Level_Organization__c
+    SObject, the returned Id lands on the Lead's fully-spelled reference
+    field (not the short-name Account-side convention)."""
     def fake_q(q: str):
-        if "Top_Level_Org__c" in q:
+        if "Top_Level_Organization__c" in q:
             return {"records": [{"Id": "a0Xtop"}]}
         return {"records": []}
 
@@ -464,5 +472,32 @@ def test_create_lead_links_tlo_when_present():
         sf_query=fake_q,
         create_fn=fake_create,
     )
-    assert captured["fields"]["Top_Level_Org__c"] == "a0Xtop"
+    assert captured["fields"]["Top_Level_Organization__c"] == "a0Xtop"
+    assert "Top_Level_Org__c" not in captured["fields"]
     assert out["tlo_id"] == "a0Xtop"
+
+
+def test_build_payload_respects_lead_tlo_field_env(monkeypatch):
+    """Prod/sandbox divergence escape hatch — `TOF_LEAD_TLO_FIELD` overrides
+    the default fully-spelled name with whatever the target org expects."""
+    monkeypatch.setenv("TOF_LEAD_TLO_FIELD", "Top_Level_Org__c")
+    out = writer.build_payload(
+        _lead_fixture(),
+        present_custom_fields=set(),
+        tlo_id="a0XOVERRIDE",
+    )
+    assert out.fields["Top_Level_Org__c"] == "a0XOVERRIDE"
+    assert "Top_Level_Organization__c" not in out.fields
+
+
+def test_build_payload_lead_tlo_field_empty_env_uses_default(monkeypatch):
+    """Empty string env var → default (NOT disabled). TLO is a foreign-key
+    lookup, not a text field — there's no meaningful 'disabled' state, an
+    unusable field would just crash SF. Empty env is treated as 'unset'."""
+    monkeypatch.setenv("TOF_LEAD_TLO_FIELD", "")
+    out = writer.build_payload(
+        _lead_fixture(),
+        present_custom_fields=set(),
+        tlo_id="a0XDEFAULT",
+    )
+    assert out.fields["Top_Level_Organization__c"] == "a0XDEFAULT"

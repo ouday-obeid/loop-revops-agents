@@ -4,10 +4,22 @@ Flow per lead:
   1. build_payload  — maps agent dict → SF Lead fields, with graceful fallback
                       to a configurable text field (default: Description) if
                       custom fields aren't present yet.
-  2. find_tlo_id    — SOQL lookup on Top_Level_Org__c by domain/parent-name.
+  2. find_tlo_id    — SOQL lookup on the `Top_Level_Organization__c` SObject
+                      by domain/parent-name.
   3. check_duplicate — Lead.Email + Contact.Email + Account.Website probe.
   4. create_lead    — dispatch through shared.mcp.salesforce_mcp.create_record,
                       which requires an approved approval_gate_id.
+
+TLO linkage (Salesforce historical drift — verified 2026-04-13 via sandbox
+describe + cross-referenced in agents/revops_support/query/canned.py):
+  - `Top_Level_Organization__c` is the TLO SObject (object name).
+  - `Account.Top_Level_Org__c` is the reference from Account to the TLO
+    (short-name; Account-object only).
+  - `Opportunity.Top_Level_Organization__c` is the reference from Opportunity
+    to the TLO (spelled out).
+  - The Lead-side reference follows the Opportunity convention
+    (fully spelled out) on Loop's sandbox + prod. Override via
+    `TOF_LEAD_TLO_FIELD` if a future schema migration renames it.
 
 Schema probe:
   `describe_lead_custom_fields()` calls `describe_sobject("Lead")` once and
@@ -64,6 +76,15 @@ _AGENT_NAME = "top_of_funnel"
 _FALLBACK_FIELD_ENV = "TOF_LEAD_FALLBACK_FIELD"
 _FALLBACK_FIELD_DEFAULT = "Description"
 
+# TLO field names — see the module docstring for the full drift story. The
+# Lead-side reference is the asymmetric one: the writer previously used
+# `Top_Level_Org__c` (Account's short-name convention) which fails on the
+# revagents sandbox where Lead exposes the fully-spelled `Top_Level_
+# Organization__c`. Env override lets prod flip back if schemas diverge.
+_LEAD_TLO_FIELD_ENV = "TOF_LEAD_TLO_FIELD"
+_LEAD_TLO_FIELD_DEFAULT = "Top_Level_Organization__c"
+_TLO_SOBJECT = "Top_Level_Organization__c"
+
 
 def _resolve_fallback_field() -> str:
     """Returns the Lead text field to pack enrichment metadata into.
@@ -76,6 +97,20 @@ def _resolve_fallback_field() -> str:
     value = os.environ.get(_FALLBACK_FIELD_ENV)
     if value is None:
         return _FALLBACK_FIELD_DEFAULT
+    return value.strip()
+
+
+def _resolve_lead_tlo_field() -> str:
+    """Returns the Lead-side TLO reference field name.
+
+    Defaults to the sandbox + prod convention `Top_Level_Organization__c`
+    (fully spelled out, matching Opportunity). Override via
+    `TOF_LEAD_TLO_FIELD` if a future schema migration renames it, or if
+    prod diverges from sandbox.
+    """
+    value = os.environ.get(_LEAD_TLO_FIELD_ENV)
+    if value is None or not value.strip():
+        return _LEAD_TLO_FIELD_DEFAULT
     return value.strip()
 
 
@@ -129,7 +164,13 @@ def find_tlo_id(
     company_name: str | None,
     sf_query: Callable[[str], dict[str, Any]] | None = None,
 ) -> str | None:
-    """Returns the Top_Level_Org__c.Id matching domain or parent name, or None."""
+    """Returns the TLO SObject Id matching domain or parent name, or None.
+
+    Queries the `Top_Level_Organization__c` SObject — the object's own name
+    is the fully-spelled form (see module docstring). The Lead-side
+    *reference* field name (which receives this Id) is resolved separately
+    via `_resolve_lead_tlo_field` since that one is historically asymmetric.
+    """
     if not domain and not company_name:
         return None
 
@@ -145,7 +186,7 @@ def find_tlo_id(
         safe = _soql_escape(company_name)
         clauses.append(f"Name = '{safe}'")
     where = " OR ".join(clauses)
-    query = f"SELECT Id FROM Top_Level_Org__c WHERE {where} LIMIT 1"
+    query = f"SELECT Id FROM {_TLO_SOBJECT} WHERE {where} LIMIT 1"
 
     try:
         rows = (sf_query(query) or {}).get("records") or []
@@ -257,7 +298,7 @@ def build_payload(
     if owner_id:
         fields["OwnerId"] = owner_id
     if tlo_id:
-        fields["Top_Level_Org__c"] = tlo_id
+        fields[_resolve_lead_tlo_field()] = tlo_id
 
     missing: list[str] = []
     description_kv: list[str] = []
