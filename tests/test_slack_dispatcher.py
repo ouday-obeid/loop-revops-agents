@@ -6,10 +6,10 @@ from shared.slack_dispatcher import SlackSender, approval_blocks, parse_command
 
 
 def test_parse_command_with_agent():
-    agent, rest = parse_command("<@U123> top_of_funnel score leads")
-    # 'top_of_funnel' not registered in test; falls through
+    agent, rest = parse_command("<@U123> unregistered_agent_xyz score leads")
+    # falls through when first token is not a registered handler
     assert agent is None
-    assert "top_of_funnel" in rest
+    assert "unregistered_agent_xyz" in rest
 
 
 def test_parse_command_registered():

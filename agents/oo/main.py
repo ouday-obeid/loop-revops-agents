@@ -11,10 +11,12 @@ import logging
 from sqlalchemy import text
 
 from agents.oo import dispatcher as oo_dispatcher
+from agents.cs.main import bootstrap as cs_register
 from agents.onboarding.main import register_with_dispatcher as onboarding_register
 from agents.revops_support.main import register_with_dispatcher as revops_support_register
 from agents.sales_reps.main import register_with_dispatcher as sales_reps_register
 from agents.slt_metrics.main import register_with_dispatcher as slt_metrics_register
+from agents.top_of_funnel.main import register_with_dispatcher as top_of_funnel_register
 from shared.db.connection import get_engine, init_schema
 from shared.slack_dispatcher import register, run_socket_mode
 
@@ -64,10 +66,12 @@ def bootstrap() -> None:
     init_schema()
     seed_initial_tasks()
     register("oo", oo_dispatcher.handle)
-    revops_support_register()
+    top_of_funnel_register()
     sales_reps_register()
-    slt_metrics_register()
     onboarding_register()
+    cs_register()
+    revops_support_register()
+    slt_metrics_register()
 
 
 async def run_daemon() -> None:
