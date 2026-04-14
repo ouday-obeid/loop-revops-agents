@@ -38,6 +38,18 @@ def test_help_command():
     assert "leaderboard" in out["text"]
 
 
+def test_help_long_flag_routes_to_help():
+    out = asyncio.run(SalesRepsAgent().run("test", {"text": "--help"}))
+    assert "scorecard" in out["text"]
+    assert "unknown" not in out["text"].lower()
+
+
+def test_help_short_flag_routes_to_help():
+    out = asyncio.run(SalesRepsAgent().run("test", {"text": "-h"}))
+    assert "scorecard" in out["text"]
+    assert "unknown" not in out["text"].lower()
+
+
 # ---------- subcommand routing into stubs ----------
 
 def test_grade_requires_meeting_id():

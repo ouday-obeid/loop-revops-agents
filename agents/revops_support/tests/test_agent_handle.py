@@ -24,6 +24,22 @@ async def test_help_returns_command_list():
 
 
 @pytest.mark.asyncio
+async def test_help_long_flag_routes_to_help():
+    agent = RevOpsSupportAgent()
+    result = await agent.handle("slack", {"text": "--help"})
+    assert "pipeline by stage" in result["text"]
+    assert "Unknown" not in result["text"]
+
+
+@pytest.mark.asyncio
+async def test_help_short_flag_routes_to_help():
+    agent = RevOpsSupportAgent()
+    result = await agent.handle("slack", {"text": "-h"})
+    assert "pipeline by stage" in result["text"]
+    assert "Unknown" not in result["text"]
+
+
+@pytest.mark.asyncio
 async def test_pipeline_by_stage_routes_to_canned():
     agent = RevOpsSupportAgent()
     with patch("agents.revops_support.agent.canned.pipeline_by_stage") as mock_fn:

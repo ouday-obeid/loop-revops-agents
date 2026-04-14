@@ -50,7 +50,7 @@ class RevOpsSupportAgent(AgentBase):
             return {"text": "pong — RevOps Support online."}
 
         lower = text_in.lower()
-        if lower == "help":
+        if lower in ("help", "--help", "-h"):
             return {"text": HELP_TEXT}
 
         # Phrase-based matching for natural commands. Order matters — more

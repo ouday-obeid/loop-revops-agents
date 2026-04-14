@@ -26,6 +26,18 @@ async def test_help_returns_command_list(cs_payload):
 
 
 @pytest.mark.asyncio
+async def test_help_long_flag_routes_to_help(cs_payload):
+    result = await CSDispatcher().handle("slack", cs_payload(text="--help"))
+    assert result["text"] == HELP_TEXT
+
+
+@pytest.mark.asyncio
+async def test_help_short_flag_routes_to_help(cs_payload):
+    result = await CSDispatcher().handle("slack", cs_payload(text="-h"))
+    assert result["text"] == HELP_TEXT
+
+
+@pytest.mark.asyncio
 async def test_unknown_command_shows_help(cs_payload):
     result = await CSDispatcher().handle("slack", cs_payload(text="frobnicate"))
     assert "unknown cs command" in result["text"].lower()

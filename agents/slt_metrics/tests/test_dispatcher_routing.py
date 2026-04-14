@@ -42,6 +42,18 @@ def test_help_command():
     assert "backtest" in out["text"]
 
 
+def test_help_long_flag_routes_to_help():
+    out = asyncio.run(SltMetricsAgent().run("test", {"text": "--help"}))
+    assert "forecast" in out["text"]
+    assert "unknown" not in out["text"].lower()
+
+
+def test_help_short_flag_routes_to_help():
+    out = asyncio.run(SltMetricsAgent().run("test", {"text": "-h"}))
+    assert "forecast" in out["text"]
+    assert "unknown" not in out["text"].lower()
+
+
 # ---------- subcommand routing into stubs ----------
 
 def test_forecast_requires_quarter():
