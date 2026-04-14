@@ -129,6 +129,25 @@ SCHEDULE: list[Job] = [
         callable_path="agents.cs.reports.weekly:send",
         description="Monday 07:00 ET weekly CS digest to Jackie + #agent-cs-log",
     ),
+    # Phase 1 — Agent 6 (SLT Revenue Metrics). See agents/slt_metrics/RUNBOOK.md.
+    Job(
+        name="slt-morning-snapshot",
+        cron="30 6 * * 1-5",
+        callable_path="agents.slt_metrics.jobs:run_morning_snapshot",
+        description="06:30 M-F fetch open pipeline + write daily pipeline_snapshots",
+    ),
+    Job(
+        name="slt-daily-briefing",
+        cron="0 8 * * 1-5",
+        callable_path="agents.slt_metrics.jobs:run_daily_briefing",
+        description="08:00 M-F compose daily briefing → slt_draft_review gate in O's DM",
+    ),
+    Job(
+        name="slt-friday-review",
+        cron="30 15 * * 5",
+        callable_path="agents.slt_metrics.jobs:run_friday_review",
+        description="Friday 15:30 weekly review → slt_draft_review gate in O's DM",
+    ),
 ]
 
 

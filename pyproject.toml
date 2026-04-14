@@ -10,9 +10,11 @@ requires-python = ">=3.12"
 dependencies = [
     "anthropic>=0.39",
     "slack-bolt>=1.20",
+    "slack-sdk>=3.27",
     "sqlalchemy>=2.0",
     "alembic>=1.13",
     "chromadb>=0.5",
+    "openpyxl>=3.1",
     "pydantic>=2.7",
     "python-dotenv>=1.0",
     "httpx>=0.27",
