@@ -5,10 +5,11 @@ Each function returns a dict with:
   - text:    str          — markdown table (Slack text fallback)
   - blocks:  list[dict]   — Block Kit blocks for rich rendering
 
-Field assumptions flagged TODO(verify) — confirm against live describe before
-shipping Week 1 Day 5 milestone. TLO linkage lives on the `Top_Level_Organization__c`
-custom object with `TLO__c` lookup on Account/Opportunity per sf-admin knowledge
-base; if Loop AI's actual field names differ, update here.
+TLO linkage (verified 2026-04-13 via sandbox describe):
+  - Top_Level_Organization__c is the TLO SObject
+  - Account.Top_Level_Org__c is the reference to it
+  - Opportunity.Top_Level_Organization__c is the reference to it
+  (Naming is asymmetric between the two — Salesforce historical drift.)
 """
 from __future__ import annotations
 
@@ -90,11 +91,12 @@ def stale_opportunities(days: int = 30) -> dict[str, Any]:
 # ---------- 3. tlos_with_no_opps ----------
 
 def tlos_with_no_opps() -> dict[str, Any]:
-    # TODO(verify): confirm Top_Level_Organization__c + TLO__c linkage via describe.
     q = (
         "SELECT Id, Name FROM Top_Level_Organization__c "
-        "WHERE Id NOT IN (SELECT TLO__c FROM Opportunity WHERE TLO__c != null) "
-        "ORDER BY Name"
+        "WHERE Id NOT IN ("
+        "SELECT Top_Level_Organization__c FROM Opportunity "
+        "WHERE Top_Level_Organization__c != null"
+        ") ORDER BY Name"
     )
     result = soql_engine.run(q, default_limit=50)
     rows = [{"id": r["Id"], "name": r["Name"]} for r in result.get("records", [])]
@@ -128,8 +130,7 @@ def opps_missing_products() -> dict[str, Any]:
 # ---------- 5. accounts_with_no_tlo ----------
 
 def accounts_with_no_tlo() -> dict[str, Any]:
-    # TODO(verify): TLO__c exists on Account per sf-admin object model docs.
-    q = "SELECT Id, Name, Industry FROM Account WHERE TLO__c = null ORDER BY Name"
+    q = "SELECT Id, Name, Industry FROM Account WHERE Top_Level_Org__c = null ORDER BY Name"
     result = soql_engine.run(q, default_limit=100)
     rows = [
         {"id": r["Id"], "name": r["Name"], "industry": r.get("Industry")}

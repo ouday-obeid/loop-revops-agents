@@ -16,3 +16,4 @@ venv/
 dist/
 build/
 .DS_Store
+agents/revops_support/pending_changes/

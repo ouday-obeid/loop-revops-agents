@@ -108,3 +108,86 @@ def test_miss_increments_rate_limit(fake_sf):
             )
         ).scalar()
     assert count == 1
+
+
+def test_parse_ts_none_returns_none():
+    assert describe_cache._parse_ts(None) is None
+
+
+def test_parse_ts_naive_datetime_gets_utc():
+    naive = datetime(2026, 4, 13, 12, 0, 0)
+    result = describe_cache._parse_ts(naive)
+    assert result is not None
+    assert result.tzinfo == timezone.utc
+
+
+def test_parse_ts_aware_datetime_preserved():
+    aware = datetime(2026, 4, 13, 12, 0, 0, tzinfo=timezone.utc)
+    assert describe_cache._parse_ts(aware) == aware
+
+
+def test_parse_ts_iso_string_parsed():
+    result = describe_cache._parse_ts("2026-04-13T12:00:00")
+    assert result is not None
+    assert result.tzinfo == timezone.utc
+
+
+def test_parse_ts_invalid_string_returns_none():
+    assert describe_cache._parse_ts("not-a-timestamp") is None
+
+
+def test_row_with_unparseable_fetched_at_treated_as_miss(fake_sf):
+    describe_cache.get("Account")
+    # Poison the fetched_at column with a value _parse_ts can't handle.
+    with get_engine().begin() as conn:
+        conn.execute(
+            text("UPDATE describe_cache SET fetched_at = :t WHERE sobject = 'Account'"),
+            {"t": "definitely-not-a-date"},
+        )
+    describe_cache.get("Account")
+    # Second call should have re-fetched because fetched_at parsed to None.
+    assert fake_sf.call_count == 2
+
+
+def test_bust_with_explicit_alias_scopes_deletion(fake_sf):
+    describe_cache.get("Account")  # written under salesops
+    assert describe_cache.bust(alias="nonexistent-alias") == 0
+    assert describe_cache.bust(alias="salesops") == 1
+
+
+def test_main_bust_single_sobject(fake_sf, capsys, monkeypatch):
+    describe_cache.get("Account")
+    monkeypatch.setattr("sys.argv", ["describe_cache", "--bust", "Account"])
+    describe_cache._main()
+    out = capsys.readouterr().out
+    assert "busted 1 row(s) for Account" in out
+
+
+def test_main_bust_all(fake_sf, capsys, monkeypatch):
+    describe_cache.get("Account")
+    describe_cache.get("Opportunity")
+    monkeypatch.setattr("sys.argv", ["describe_cache", "--bust-all"])
+    describe_cache._main()
+    out = capsys.readouterr().out
+    assert "busted 2 row(s)" in out
+
+
+def test_main_vacuum(fake_sf, capsys, monkeypatch):
+    describe_cache.get("Account")
+    ancient = datetime.now(timezone.utc) - timedelta(days=30)
+    with get_engine().begin() as conn:
+        conn.execute(
+            text("UPDATE describe_cache SET fetched_at = :t WHERE sobject = 'Account'"),
+            {"t": ancient},
+        )
+    monkeypatch.setattr("sys.argv", ["describe_cache", "--vacuum"])
+    describe_cache._main()
+    out = capsys.readouterr().out
+    assert "vacuumed 1 stale row(s)" in out
+
+
+def test_main_no_args_prints_help(fake_sf, capsys, monkeypatch):
+    monkeypatch.setattr("sys.argv", ["describe_cache"])
+    describe_cache._main()
+    out = capsys.readouterr().out
+    assert "describe_cache maintenance" in out

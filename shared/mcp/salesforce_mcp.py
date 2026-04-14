@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import shutil
 import subprocess
 from typing import Any, Literal
@@ -118,36 +119,60 @@ def _sf(
 
 # ---------- Reads ----------
 
-def soql_query(query: str, limit: int = 100) -> dict[str, Any]:
-    q = query if "limit" in query.lower() else f"{query.rstrip(';')} LIMIT {limit}"
-    return _sf("data", "query", "--query", q)
+_AGG_NO_GROUP_RE = re.compile(
+    r"\bSELECT\b.*?\b(?:COUNT\s*\(|SUM\s*\(|MAX\s*\(|MIN\s*\(|AVG\s*\()",
+    re.IGNORECASE | re.DOTALL,
+)
+_GROUP_BY_RE = re.compile(r"\bGROUP\s+BY\b", re.IGNORECASE)
 
 
-def describe_sobject(name: str) -> dict[str, Any]:
-    return _sf("sobject", "describe", "--sobject", name)
+def _needs_limit(query: str) -> bool:
+    """Skip LIMIT on aggregate queries without GROUP BY — SF rejects those."""
+    if "limit" in query.lower():
+        return False
+    if _AGG_NO_GROUP_RE.search(query) and not _GROUP_BY_RE.search(query):
+        return False
+    return True
 
 
-def get_record(sobject: str, record_id: str) -> dict[str, Any]:
-    return _sf("data", "get", "record", "--sobject", sobject, "--record-id", record_id)
+def soql_query(query: str, limit: int = 100, *, intent: Intent = "read") -> dict[str, Any]:
+    q = f"{query.rstrip(';')} LIMIT {limit}" if _needs_limit(query) else query
+    return _sf("data", "query", "--query", q, intent=intent)
 
 
-def list_users(active_only: bool = True) -> list[dict[str, Any]]:
+def describe_sobject(name: str, *, intent: Intent = "read") -> dict[str, Any]:
+    return _sf("sobject", "describe", "--sobject", name, intent=intent)
+
+
+def get_record(sobject: str, record_id: str, *, intent: Intent = "read") -> dict[str, Any]:
+    return _sf(
+        "data", "get", "record", "--sobject", sobject, "--record-id", record_id,
+        intent=intent,
+    )
+
+
+def list_users(active_only: bool = True, *, intent: Intent = "read") -> list[dict[str, Any]]:
     q = "SELECT Id, Name, Username, Email, IsActive, UserRoleId FROM User"
     if active_only:
         q += " WHERE IsActive = true"
-    result = soql_query(q, limit=1000)
+    result = soql_query(q, limit=1000, intent=intent)
     return result.get("records", [])
 
 
-def describe_flow(flow_id: str) -> dict[str, Any]:
+def describe_flow(flow_id: str, *, intent: Intent = "read") -> dict[str, Any]:
     q = f"SELECT Id, MasterLabel, Status, ProcessType FROM Flow WHERE Id = '{flow_id}'"
-    return _sf("data", "query", "--query", q, "--use-tooling-api")
+    return _sf("data", "query", "--query", q, "--use-tooling-api", intent=intent)
 
 
-def tooling_query(query: str, limit: int | None = None) -> dict[str, Any]:
+def tooling_query(
+    query: str, limit: int | None = None, *, intent: Intent = "read"
+) -> dict[str, Any]:
     """Tooling API SOQL. Required for ValidationRule, Flow, ApexClass, etc."""
-    q = query if (limit is None or "limit" in query.lower()) else f"{query.rstrip(';')} LIMIT {limit}"
-    return _sf("data", "query", "--query", q, "--use-tooling-api")
+    if limit is None or not _needs_limit(query):
+        q = query
+    else:
+        q = f"{query.rstrip(';')} LIMIT {limit}"
+    return _sf("data", "query", "--query", q, "--use-tooling-api", intent=intent)
 
 
 # ---------- Writes ----------
@@ -239,18 +264,37 @@ def deploy_metadata(
     check_only: bool = False,
     test_level: str | None = None,
     timeout: int = 1800,
+    post_destructive_changes: str | None = None,
+    pre_destructive_changes: str | None = None,
+    manifest: str | None = None,
+    ignore_warnings: bool = False,
 ) -> dict[str, Any]:
     """Wraps `sf project deploy start`.
 
     Default intent is sandbox — prod deploys must pass intent="write" AFTER an
     approved sf_schema_* gate; the caller (schema/metadata_deployer.py) enforces.
     test_level: None | NoTestRun | RunLocalTests | RunAllTestsInOrg.
+    post_destructive_changes / pre_destructive_changes: paths to XML manifests
+    consumed AFTER / BEFORE the source-dir deploy. Required for rollbacks that
+    remove metadata (e.g. canary CEO role deletion). sf CLI requires --manifest
+    (not --source-dir) when destructive-changes are in play.
+    manifest: path to a package.xml. When set, deploys via --manifest instead
+    of --source-dir; source_dir is still used to resolve cwd for the DX project.
     """
-    args = ["project", "deploy", "start", "--source-dir", source_dir]
+    if manifest:
+        args = ["project", "deploy", "start", "--manifest", manifest]
+    else:
+        args = ["project", "deploy", "start", "--source-dir", source_dir]
     if check_only:
         args.append("--dry-run")
     if test_level:
         args.extend(["--test-level", test_level])
+    if post_destructive_changes:
+        args.extend(["--post-destructive-changes", post_destructive_changes])
+    if pre_destructive_changes:
+        args.extend(["--pre-destructive-changes", pre_destructive_changes])
+    if ignore_warnings:
+        args.append("--ignore-warnings")
     # `sf project deploy start` requires cwd to contain an sfdx-project.json;
     # callers pass a bundle dir that already satisfies this (or resolve to a
     # parent repo with the right layout).

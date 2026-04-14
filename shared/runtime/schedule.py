@@ -129,6 +129,25 @@ SCHEDULE: list[Job] = [
         callable_path="agents.cs.reports.weekly:send",
         description="Monday 07:00 ET weekly CS digest to Jackie + #agent-cs-log",
     ),
+    # Phase 1 — Agent 5 (RevOps Support). See agents/revops_support/RUNBOOK.md.
+    Job(
+        name="revops-support-metadata-refresh",
+        cron="0 2 * * 0",
+        callable_path="agents.revops_support.knowledge_refresh.scheduler:run_weekly_snapshot",
+        description="Sunday 02:00 UTC SF metadata snapshot (object model + automations + users/roles)",
+    ),
+    Job(
+        name="revops-support-metadata-digest",
+        cron="0 9 * * 1",
+        callable_path="agents.revops_support.knowledge_refresh.scheduler:send_weekly_digest",
+        description="Monday 09:00 UTC knowledge-refresh diff digest to O",
+    ),
+    Job(
+        name="revops-support-cooldown-poller",
+        cron="*/15 * * * *",
+        callable_path="agents.revops_support.schema.cooldown_poller:poll",
+        description="Elevate cooled-down sf_schema_delete gates → _confirm child (every 15 min)",
+    ),
     # Phase 1 — Agent 6 (SLT Revenue Metrics). See agents/slt_metrics/RUNBOOK.md.
     Job(
         name="slt-morning-snapshot",
