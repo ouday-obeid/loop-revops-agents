@@ -267,20 +267,21 @@ def test_single_lead_returns_real_18_char_id(approved_gate, lead_cleanup):
 @pytest.mark.xfail(
     reason=(
         "D6 finding: Lead.Description is absent on the Loop AI sandbox (replaced "
-        "by Lead_Notes__c). sf_lead_writer hard-codes Description as the fallback "
-        "target, so any lead carrying ICP/Brand/Ownership fields blows up with "
-        "INVALID_FIELD at create. Action: Agent 1 must make the fallback field "
-        "configurable (env: TOF_FALLBACK_DESCRIPTION_FIELD, default 'Description') "
-        "OR Agent 5's schema PR must add a Description text field back to Lead. "
-        "Tracked as Agent 1 ToF fallback-field follow-up — revisit on D8/D9."
+        "by Lead_Notes__c). The writer now exposes `TOF_LEAD_FALLBACK_FIELD` "
+        "(default 'Description') so operators can redirect the fallback to "
+        "'Lead_Notes__c' or set it to '' to disable. This specific test still "
+        "asserts the Description target, which this sandbox does not expose — "
+        "so the xfail persists until EITHER the env var is flipped for this run "
+        "OR Agent 5's schema PR adds Description back to Lead. Coverage of the "
+        "configurable-target path lives in test_sf_lead_writer.py."
     ),
     strict=True,
 )
 def test_description_fallback_when_schema_missing(approved_gate, lead_cleanup):
     """Currently broken in this sandbox because Description isn't on Lead.
-    Kept as xfail so it auto-flips to PASS the moment Agent 1 fixes the
-    fallback target (or Agent 5 adds Description back). Until then the
-    xfail documents the gap.
+    Kept as xfail so it auto-flips to PASS the moment Description is added
+    back (or the operator redirects `TOF_LEAD_FALLBACK_FIELD` to a field that
+    does exist here). Until then the xfail documents the gap.
     """
     from agents.top_of_funnel.sf_lead_writer import (
         create_lead,
