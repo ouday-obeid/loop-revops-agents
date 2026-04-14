@@ -1,0 +1,46 @@
+# Conductor V1.5 fan-out — SDR pod 1
+# Audience: Brian's SDR team — Brad Dressler (MM lead: 15 SDRs), Nick Barbo (ENT lead: 3 SDRs)
+# Stage: DORMANT in V1. Register now; enable after V1 pilot proves useful_rate +5pp.
+display_information:
+  name: "@oo-sdr-pod-1"
+  description: Loop AI Conductor for SDRs — lead status nudges, cadence enrollment coordination with Top of Funnel agent, suppression-override Slack flow, Hutch/Brian dept-head escalation.
+  background_color: "#2e1a0a"
+
+features:
+  app_home:
+    home_tab_enabled: true
+    messages_tab_enabled: true
+    messages_tab_read_only_enabled: false
+  bot_user:
+    display_name: oo-sdr-pod-1
+    always_online: true
+
+oauth_config:
+  scopes:
+    bot:
+      - app_mentions:read
+      - channels:history
+      - channels:read
+      - chat:write
+      - files:read
+      - files:write
+      - groups:history
+      - groups:read
+      - im:history
+      - im:read
+      - im:write
+      - users:read
+      - users:read.email
+
+settings:
+  event_subscriptions:
+    bot_events:
+      - app_mention
+      - message.channels
+      - message.groups
+      - message.im
+  interactivity:
+    is_enabled: true
+  org_deploy_enabled: false
+  socket_mode_enabled: true
+  token_rotation_enabled: false

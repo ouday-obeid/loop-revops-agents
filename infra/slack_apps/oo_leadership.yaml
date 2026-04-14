@@ -1,0 +1,47 @@
+# Conductor V1 pilot — leadership cohort
+# Audience: O, Hutch (Sales Dir), Jackie (CS Dir), Brian (SDR Dir), Henry (CRO), Anand (CEO)
+# Stage: ACTIVE in V1. Register first.
+# Template base: ~/JARVIS-HUB/OUTBOUNDER/workspace/slack-app-manifest.yaml
+display_information:
+  name: "@oo-leadership"
+  description: Loop AI Conductor — per-individual AI co-pilot for the leadership cohort. Watches Slack/Gmail/Calendar/SF/Fireflies per consent and proactively DMs with role-aware nudges (pipeline_stale, followup_overdue, meeting_prep).
+  background_color: "#0a1a2e"
+
+features:
+  app_home:
+    home_tab_enabled: true
+    messages_tab_enabled: true
+    messages_tab_read_only_enabled: false
+  bot_user:
+    display_name: oo-leadership
+    always_online: true
+
+oauth_config:
+  scopes:
+    bot:
+      - app_mentions:read
+      - channels:history
+      - channels:read
+      - chat:write
+      - files:read
+      - files:write
+      - groups:history
+      - groups:read
+      - im:history
+      - im:read
+      - im:write
+      - users:read
+      - users:read.email
+
+settings:
+  event_subscriptions:
+    bot_events:
+      - app_mention
+      - message.channels
+      - message.groups
+      - message.im
+  interactivity:
+    is_enabled: true
+  org_deploy_enabled: false
+  socket_mode_enabled: true
+  token_rotation_enabled: false
