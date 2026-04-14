@@ -26,10 +26,22 @@ def test_approval_blocks_shape():
     assert blocks[-1]["block_id"] == "gate_42"
 
 
-def test_dev_guard_blocks_off_target():
+def test_dev_guard_redirects_off_target():
     os.environ["SLACK_DEV_GUARD"] = "1"
     os.environ["SLACK_TEST_CHANNEL"] = "UTEST"
-    sender = SlackSender(client=object())
+
+    class _StubClient:
+        def __init__(self):
+            self.calls = []
+
+        def chat_postMessage(self, channel, text, blocks):
+            self.calls.append({"channel": channel, "text": text, "blocks": blocks})
+            return {"ok": True, "ts": "1.0", "channel": channel}
+
+    stub = _StubClient()
+    sender = SlackSender(client=stub)
     result = sender.send("CDIFFERENT", "hello")
-    assert result["blocked"] is True
+    assert result["ok"] is True
+    assert stub.calls[0]["channel"] == "UTEST"
+    assert "dev-guard" in stub.calls[0]["text"] and "CDIFFERENT" in stub.calls[0]["text"]
     os.environ["SLACK_DEV_GUARD"] = "0"

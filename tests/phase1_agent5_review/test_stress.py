@@ -97,12 +97,25 @@ def test_soft_rate_limit_does_not_raise(caplog):
 
 # ------------- 5. Slack DEV_GUARD refuses non-test channel -----------------
 
-def test_dev_guard_blocks_non_test_channel():
+def test_dev_guard_redirects_non_test_channel(monkeypatch):
     from shared.slack_dispatcher import SlackSender
-    sender = SlackSender(client=object())  # guard should short-circuit before client use
+    monkeypatch.setenv("SLACK_DEV_GUARD", "1")
+    monkeypatch.setenv("SLACK_TEST_CHANNEL", "D_TEST_DM")
+
+    class _StubClient:
+        def __init__(self):
+            self.calls = []
+
+        def chat_postMessage(self, channel, text, blocks):
+            self.calls.append({"channel": channel, "text": text, "blocks": blocks})
+            return {"ok": True, "ts": "1.0", "channel": channel}
+
+    stub = _StubClient()
+    sender = SlackSender(client=stub)
     result = sender.send("#client-lula-general", "hi")
-    assert result.get("blocked") is True
-    assert result.get("ok") is False
+    assert result.get("ok") is True
+    assert stub.calls[0]["channel"] == "D_TEST_DM"
+    assert "#client-lula-general" in stub.calls[0]["text"]
 
 
 # ------------- 6. SOQL engine rejects DML + clamps missing LIMIT -----------
