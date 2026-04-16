@@ -183,6 +183,132 @@ def test_ping_o_dm_falls_back_to_default_user_id(monkeypatch):
     assert stub.calls[0]["channel"] == "U07P4GX9YLQ"
 
 
+def test_error_reply_formats_with_persona_and_truncation():
+    """`_error_reply` surfaces the typed persona + exception type + truncated msg."""
+    from shared import slack_dispatcher
+
+    reply = slack_dispatcher._error_reply(
+        "<@UBOTID> admin validation monitor",
+        ValueError("a" * 500),
+    )
+    # Uses the typed alias ("admin"), not the registry-canonical
+    # ("revops_support"), so the error names the agent the user tried to
+    # invoke even when the handler isn't yet registered.
+    assert reply["text"].startswith(":x: admin error: ValueError: ")
+    # 200 chars + 1 ellipsis
+    assert "…" in reply["text"]
+    assert len(reply["text"].split("ValueError: ")[1]) <= 220
+
+
+def test_error_reply_uses_oo_fallback_when_no_persona():
+    """With no recognized agent keyword, the error reply falls back to 'oo'."""
+    from shared import slack_dispatcher
+
+    reply = slack_dispatcher._error_reply("hi there", RuntimeError("boom"))
+    assert reply["text"] == ":x: oo error: RuntimeError: boom"
+
+
+def test_error_reply_accepts_canonical_agent_name():
+    """Typing the canonical name (`revops_support`) works too — either form
+    of address resolves for display."""
+    from shared import slack_dispatcher
+
+    reply = slack_dispatcher._error_reply(
+        "revops_support validation monitor", RuntimeError("x")
+    )
+    assert reply["text"].startswith(":x: revops_support error: RuntimeError: ")
+
+
+def test_mention_handler_exception_sends_error_reply():
+    """`_on_mention` must catch handler exceptions and post a Slack reply
+    instead of letting the exception escape to slack_bolt (which would
+    leave the user staring at silence)."""
+    import asyncio
+    from shared import slack_dispatcher
+
+    async def _failing_dispatch(text_in, ctx):
+        raise ValueError("SOQL rejected: No such column 'X'")
+
+    say_calls = []
+
+    async def _fake_say(text=None, thread_ts=None, **kwargs):
+        say_calls.append({"text": text, "thread_ts": thread_ts})
+
+    event = {
+        "text": "<@UBOT> admin validation monitor",
+        "user": "U_O",
+        "channel": "C_CHAN",
+        "ts": "1750000000.000100",
+    }
+
+    async def _run():
+        text_in = event.get("text", "")
+        try:
+            result = await _failing_dispatch(
+                text_in,
+                {"user": event.get("user"), "channel": event.get("channel"),
+                 "thread_ts": event.get("ts")},
+            )
+        except Exception as e:  # noqa: BLE001
+            result = slack_dispatcher._error_reply(text_in, e)
+        await _fake_say(text=slack_dispatcher._render(result),
+                        thread_ts=event.get("ts"))
+
+    asyncio.run(_run())
+    assert say_calls, "expected a Slack reply, got silence"
+    body = say_calls[0]["text"]
+    assert ":x:" in body
+    assert "admin error: ValueError" in body
+    assert "SOQL rejected" in body
+    assert say_calls[0]["thread_ts"] == "1750000000.000100"
+
+
+def test_dm_handler_exception_sends_error_reply():
+    """Same as the mention test but for the DM path — must thread under the
+    original message's ts so the error reply stays in the same DM thread."""
+    import asyncio
+    from shared import slack_dispatcher
+
+    async def _failing_dispatch(text_in, ctx):
+        raise RuntimeError("describe failed for Account")
+
+    say_calls = []
+
+    async def _fake_say(text=None, thread_ts=None, **kwargs):
+        say_calls.append({"text": text, "thread_ts": thread_ts})
+
+    event = {
+        "channel_type": "im",
+        "text": "admin dedup accounts",
+        "user": "U_O",
+        "channel": "D_DM",
+        "ts": "1750000000.000200",
+    }
+
+    async def _run():
+        if event.get("channel_type") != "im":
+            return
+        thread_ts = event.get("thread_ts") or event.get("ts")
+        text_in = event.get("text", "")
+        try:
+            result = await _failing_dispatch(
+                text_in,
+                {"user": event.get("user"), "channel": event.get("channel"),
+                 "thread_ts": thread_ts},
+            )
+        except Exception as e:  # noqa: BLE001
+            result = slack_dispatcher._error_reply(text_in, e)
+        await _fake_say(text=slack_dispatcher._render(result),
+                        thread_ts=thread_ts)
+
+    asyncio.run(_run())
+    assert say_calls, "expected a Slack reply, got silence"
+    body = say_calls[0]["text"]
+    assert "admin error: RuntimeError" in body
+    assert "describe failed" in body
+    assert say_calls[0]["thread_ts"] == "1750000000.000200"
+
+
 def test_dm_handler_passes_thread_ts_to_dispatch_and_say():
     """`_on_dm` must thread DM replies under event['ts'] so a multi-turn DM
     conversation stays in one thread instead of fanning out new top-level

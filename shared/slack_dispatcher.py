@@ -185,7 +185,11 @@ def build_app() -> Any:
 
     @app.event("app_mention")
     async def _on_mention(event, say):
-        result = await dispatch(event.get("text", ""), {"user": event.get("user"), "channel": event.get("channel"), "thread_ts": event.get("ts")})
+        text_in = event.get("text", "")
+        try:
+            result = await dispatch(text_in, {"user": event.get("user"), "channel": event.get("channel"), "thread_ts": event.get("ts")})
+        except Exception as e:  # noqa: BLE001 — dispatcher is the last mile
+            result = _error_reply(text_in, e)
         await say(text=_render(result), thread_ts=event.get("ts"))
 
     @app.event("message")
@@ -193,10 +197,14 @@ def build_app() -> Any:
         if event.get("channel_type") != "im":
             return
         thread_ts = event.get("thread_ts") or event.get("ts")
-        result = await dispatch(
-            event.get("text", ""),
-            {"user": event.get("user"), "channel": event.get("channel"), "thread_ts": thread_ts},
-        )
+        text_in = event.get("text", "")
+        try:
+            result = await dispatch(
+                text_in,
+                {"user": event.get("user"), "channel": event.get("channel"), "thread_ts": thread_ts},
+            )
+        except Exception as e:  # noqa: BLE001 — dispatcher is the last mile
+            result = _error_reply(text_in, e)
         await say(text=_render(result), thread_ts=thread_ts)
 
     @app.action("approve_gate")
@@ -236,6 +244,46 @@ def _render(result: Any) -> str:
     if isinstance(result, dict) and "text" in result:
         return result["text"]
     return f"```{json.dumps(result, indent=2, default=str)[:2500]}```"
+
+
+def _error_reply(text_in: str, exc: BaseException) -> dict[str, Any]:
+    """Shape a user-visible Slack reply when a handler raises.
+
+    Without this, slack_bolt logs ``Failed to run listener function`` and
+    emits nothing — the user sees silence. The agent_base log.exception
+    still runs upstream, so stack traces continue to land in err.log;
+    this is the mirror image for the triggering channel.
+
+    Uses the raw persona keyword the user typed (not parse_command's
+    registry-gated canonical name) so the error still names the intended
+    agent even if the handler isn't yet registered.
+    """
+    persona = _display_persona(text_in)
+    msg = str(exc)
+    if len(msg) > 200:
+        msg = msg[:200] + "…"
+    log.exception("listener %s failed, replying with error", persona)
+    return {"text": f":x: {persona} error: {type(exc).__name__}: {msg}"}
+
+
+def _display_persona(text_in: str) -> str:
+    """Extract the persona name the user typed, for use in reply prefixes.
+
+    Strips bot mentions and a leading `oo` prefix, then returns the first
+    word if it matches a known alias or canonical agent name; otherwise
+    falls back to `oo`. Does NOT consult the registry — this is purely for
+    user-facing display.
+    """
+    cleaned = re.sub(r"<@[A-Z0-9]+>", "", text_in).strip()
+    if cleaned.lower().startswith("oo "):
+        cleaned = cleaned[3:].strip()
+    parts = cleaned.split(maxsplit=1)
+    if not parts:
+        return "oo"
+    first = parts[0].lower()
+    if first in PERSONA_ALIASES or first in PERSONA_ALIASES.values():
+        return first
+    return "oo"
 
 
 async def run_socket_mode() -> None:  # pragma: no cover - runtime only
