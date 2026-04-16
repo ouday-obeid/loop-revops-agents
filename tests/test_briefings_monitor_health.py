@@ -34,6 +34,114 @@ def test_briefings_compose_and_send():
     mock_sender.send.assert_called_once()
 
 
+# --------------------------- Tier 7: briefings urgent + tokens + OOO
+
+def test_daily_briefing_includes_urgent_overnight_section():
+    """Tasks marked priority='urgent' OR category in {urgent_fire,
+    automation_broken, integration_broken} created in the last 16h
+    appear in the new Urgent overnight section."""
+    from agents.oo import briefings
+    with get_engine().begin() as conn:
+        conn.execute(
+            text(
+                """INSERT INTO tasks (agent_name, title, status, priority,
+                                      category, source)
+                   VALUES ('oo', :t, 'pending', 'urgent', 'urgent_fire', :s)"""
+            ),
+            {"t": "MARKER overnight urgent task", "s": "test:urgent_overnight_marker"},
+        )
+    msg = briefings._compose_daily()
+    assert "Urgent overnight" in msg
+    assert "MARKER overnight urgent task" in msg
+
+
+def test_weekly_review_shows_tokens_sum():
+    """SUM(tokens_used) FROM agent_runs appears alongside Claude spend."""
+    from agents.oo import briefings
+    with get_engine().begin() as conn:
+        conn.execute(
+            text(
+                """INSERT INTO agent_runs (agent_name, trigger, status, tokens_used,
+                                            cost_usd, started_at)
+                   VALUES ('test', 'unit', 'success', 12345, 0.50,
+                           datetime('now', '-1 days'))"""
+            )
+        )
+    msg = briefings._compose_weekly()
+    assert "Tokens:" in msg
+    assert "12,345" in msg or "12345" in msg
+
+
+def test_briefing_skipped_when_ooo_event_active(monkeypatch):
+    """When _is_user_ooo_now() returns True, _send returns skipped=ooo
+    instead of calling sender.send()."""
+    from agents.oo import briefings
+
+    monkeypatch.setattr(briefings, "_is_user_ooo_now", lambda: True)
+    sender_called = []
+
+    class _S:
+        def send(self, channel, text_, blocks=None):
+            sender_called.append({"channel": channel, "text": text_})
+            return {"ok": True}
+
+    result = asyncio.run(briefings._send("test message", _S()))
+    assert result.get("skipped") == "ooo"
+    assert sender_called == []
+
+
+def test_briefing_proceeds_when_no_ooo_event(monkeypatch):
+    from agents.oo import briefings
+
+    monkeypatch.setattr(briefings, "_is_user_ooo_now", lambda: False)
+
+    class _S:
+        def __init__(self): self.sent = []
+        def send(self, channel, text_, blocks=None):
+            self.sent.append((channel, text_))
+            return {"ok": True}
+
+    s = _S()
+    result = asyncio.run(briefings._send("hi O", s))
+    assert result.get("ok") is True
+    assert len(s.sent) == 1
+
+
+def test_ooo_check_returns_false_without_creds(monkeypatch):
+    """No GOOGLE_SERVICE_ACCOUNT_JSON / _INLINE → not OOO (proceed with send).
+    Avoids silencing the briefing on a missing-config error."""
+    from agents.oo import briefings
+    monkeypatch.delenv("GOOGLE_SERVICE_ACCOUNT_JSON", raising=False)
+    monkeypatch.delenv("GOOGLE_SERVICE_ACCOUNT_JSON_INLINE", raising=False)
+    assert briefings._is_user_ooo_now() is False
+
+
+def test_ooo_check_matches_keywords_in_event_title(monkeypatch):
+    """Real positive case: GCal returns one event with 'OOO' in title; we
+    detect it as an active OOO event."""
+    from agents.oo import briefings
+    from agents.sales_reps.integrations import gcal
+
+    monkeypatch.setenv("GOOGLE_SERVICE_ACCOUNT_JSON_INLINE", '{"fake":"creds"}')
+    monkeypatch.setattr(
+        gcal, "list_events",
+        lambda **kw: [{"id": "x", "title": "OOO — Easter Monday", "description": ""}],
+    )
+    assert briefings._is_user_ooo_now() is True
+
+
+def test_ooo_check_ignores_non_ooo_event(monkeypatch):
+    from agents.oo import briefings
+    from agents.sales_reps.integrations import gcal
+
+    monkeypatch.setenv("GOOGLE_SERVICE_ACCOUNT_JSON_INLINE", '{"fake":"creds"}')
+    monkeypatch.setattr(
+        gcal, "list_events",
+        lambda **kw: [{"id": "x", "title": "weekly forecast review", "description": ""}],
+    )
+    assert briefings._is_user_ooo_now() is False
+
+
 def test_board_monitor_with_mock_slack():
     from agents.oo import board_monitor
     mock_slack = MagicMock()
