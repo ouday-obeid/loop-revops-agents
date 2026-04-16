@@ -425,3 +425,27 @@ UPDATE tasks SET status = 'withdrawn' WHERE id = :id;
 | `describe failed for <Obj>` in logs | SF CLI timeout or object without read permission on service user | Check `sf org display --target-org $SF_ORG_ALIAS`; grant FLS to the service user's profile. |
 | Duplicate tasks after deploy | `tasks` table populated from a prior instance with different title format | Manually resolve old rows, then re-poll. |
 | Every rule flagged as orphan | Describe returned empty `fields` — usually a sandbox without metadata access | Verify `SF_ORG_ALIAS` points at the prod read alias, not sandbox. |
+
+### `@admin bad conversions`
+Scans converted Leads for orphaned references (no opp / no account / no contact)
+and creates Duncan-assigned tasks for review. `repair=True` with a configured
+`repair_field` and an approved bulk-update gate prepends a reversible DQ tag
+via :class:`BulkUpdater`, but this path is disabled by default until Loop's
+Lead schema is specified.
+
+**Manual scan:**
+```
+python -c "from agents.revops_support.data_quality import bad_conversions; \
+  import json; print(json.dumps(bad_conversions.poll(), default=str, indent=2))"
+```
+
+**Rollback (repair):** Use the `before_snapshot` from the `audit_log` row
+written by :class:`BulkUpdater` and re-run a reverse bulk-update with those
+values.
+
+**Troubleshooting:**
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `NotImplementedError: repair_field` | Caller set `repair=True` without a repair_field | Spec the Loop Lead repair field with Duncan; pass it explicitly. |
+| `ApprovalRequired` at `bulk_update_small`/`large` | No approved gate | Open a gate via `create_approval_gate(action_type=classify_bulk_update(count), ...)`. |
+| Orphan count jumps suddenly | Upstream change to Lead conversion flow | Check Flow changes in SF Setup; compare with knowledge-refresh metadata snapshots. |

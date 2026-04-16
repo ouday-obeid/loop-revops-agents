@@ -16,7 +16,7 @@ from typing import Any, Awaitable, Callable
 
 from shared.agent_base import AgentBase
 
-from agents.revops_support.data_quality import validation_monitor
+from agents.revops_support.data_quality import bad_conversions, validation_monitor
 from agents.revops_support.query import canned, soql_engine
 
 log = logging.getLogger(__name__)
@@ -34,6 +34,7 @@ HELP_TEXT = (
     "• `@oo revops-support active users` — users with login in last 30 days\n"
     "• `@oo revops-support validation rules <ObjectName>` — active rules for object\n"
     "• `@oo revops-support validation monitor` — org-wide validation-rule health check\n"
+    "• `@oo revops-support bad conversions` — orphaned Lead-conversions (no opp/account/contact)\n"
     "• `@oo revops-support help` — this message\n"
     "Alias: `@oo admin …` routes here too."
 )
@@ -77,6 +78,8 @@ class RevOpsSupportAgent(AgentBase):
                 return _run_canned(canned.active_users_with_login, _extract_days(lower, 30))
             if "validation monitor" in lower or lower == "validation":
                 return _format_validation_monitor(validation_monitor.poll())
+            if "bad conversion" in lower or "orphaned conversion" in lower:
+                return _format_bad_conversions(bad_conversions.poll())
             if "validation rule" in lower:
                 obj = _extract_object(text_in)
                 if not obj:
@@ -146,6 +149,21 @@ def _run_canned(fn: Callable[..., dict[str, Any]], *args: Any) -> dict[str, Any]
         "blocks": result.get("blocks", []),
         "records": result.get("records", []),
     }
+
+
+def _format_bad_conversions(result: dict[str, Any]) -> dict[str, Any]:
+    counts = result.get("counts", {})
+    lines = [
+        "*Bad Lead Conversions*",
+        f"• Total orphans: {result.get('total', 0)}",
+        f"• No opportunity: {counts.get('no_opportunity', 0)}",
+        f"• No account: {counts.get('no_account', 0)}",
+        f"• No contact: {counts.get('no_contact', 0)}",
+        f"• Tasks created: {len(result.get('task_ids', []))}",
+    ]
+    if result.get("repair_summary"):
+        lines.append(f"_Repaired:_ {result['repair_summary']}")
+    return {"text": "\n".join(lines), "result": result}
 
 
 def _format_validation_monitor(result: dict[str, Any]) -> dict[str, Any]:
