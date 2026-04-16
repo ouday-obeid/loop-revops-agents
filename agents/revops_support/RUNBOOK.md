@@ -396,3 +396,32 @@ by this agent).
 6. Post Milestone 5 digest to O for sign-off.
 7. Start weekly `reports.duncan_parity` run every Monday to feed the Phase 3
    retainer-review decision.
+
+---
+
+## Phase 1.5 — Data Quality & Deal Desk
+
+### `@admin validation monitor`
+Org-wide ValidationRule health check. Pulls every active rule via Tooling API,
+flags orphaned rules (formula references a `__c` field that no longer exists on
+the parent object) and stale rules (`LastModifiedDate` older than 540d). Creates
+a `tasks` row for Duncan per flagged rule; dedupes on title so repeat runs
+don't spam.
+
+**Manual poll:**
+```
+python -c "from agents.revops_support.data_quality import validation_monitor; \
+  import json; print(json.dumps(validation_monitor.poll(), default=str, indent=2))"
+```
+
+**Rollback:** None — read-only. To withdraw a bad task row:
+```sql
+UPDATE tasks SET status = 'withdrawn' WHERE id = :id;
+```
+
+**Troubleshooting:**
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `describe failed for <Obj>` in logs | SF CLI timeout or object without read permission on service user | Check `sf org display --target-org $SF_ORG_ALIAS`; grant FLS to the service user's profile. |
+| Duplicate tasks after deploy | `tasks` table populated from a prior instance with different title format | Manually resolve old rows, then re-poll. |
+| Every rule flagged as orphan | Describe returned empty `fields` — usually a sandbox without metadata access | Verify `SF_ORG_ALIAS` points at the prod read alias, not sandbox. |

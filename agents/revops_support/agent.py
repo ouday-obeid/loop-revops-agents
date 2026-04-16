@@ -16,6 +16,7 @@ from typing import Any, Awaitable, Callable
 
 from shared.agent_base import AgentBase
 
+from agents.revops_support.data_quality import validation_monitor
 from agents.revops_support.query import canned, soql_engine
 
 log = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ HELP_TEXT = (
     "• `@oo revops-support duplicate contacts` — emails with >1 contact\n"
     "• `@oo revops-support active users` — users with login in last 30 days\n"
     "• `@oo revops-support validation rules <ObjectName>` — active rules for object\n"
+    "• `@oo revops-support validation monitor` — org-wide validation-rule health check\n"
     "• `@oo revops-support help` — this message\n"
     "Alias: `@oo admin …` routes here too."
 )
@@ -73,6 +75,8 @@ class RevOpsSupportAgent(AgentBase):
                 return _run_canned(canned.duplicate_contacts_by_email)
             if "active user" in lower:
                 return _run_canned(canned.active_users_with_login, _extract_days(lower, 30))
+            if "validation monitor" in lower or lower == "validation":
+                return _format_validation_monitor(validation_monitor.poll())
             if "validation rule" in lower:
                 obj = _extract_object(text_in)
                 if not obj:
@@ -142,6 +146,29 @@ def _run_canned(fn: Callable[..., dict[str, Any]], *args: Any) -> dict[str, Any]
         "blocks": result.get("blocks", []),
         "records": result.get("records", []),
     }
+
+
+def _format_validation_monitor(result: dict[str, Any]) -> dict[str, Any]:
+    summary = result.get("summary", {})
+    flagged = result.get("flagged", [])
+    task_ids = result.get("task_ids", [])
+    lines = [
+        "*Validation Rule Health*",
+        f"• Total active: {summary.get('total', 0)}",
+        f"• Orphaned: {len(result.get('orphans', []))}",
+        f"• Stale: {len(result.get('stale', []))}",
+        f"• Tasks created: {len(task_ids)}",
+    ]
+    if flagged:
+        sample = flagged[:5]
+        lines.append("_Top issues:_")
+        for r in sample:
+            lines.append(
+                f"  · {r.get('object')}.{r.get('name')} — {r.get('issue')}"
+            )
+        if len(flagged) > len(sample):
+            lines.append(f"  …and {len(flagged) - len(sample)} more")
+    return {"text": "\n".join(lines), "result": result}
 
 
 async def handle(payload: dict[str, Any]) -> dict[str, Any]:
