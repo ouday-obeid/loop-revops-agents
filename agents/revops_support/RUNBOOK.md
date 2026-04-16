@@ -449,3 +449,31 @@ values.
 | `NotImplementedError: repair_field` | Caller set `repair=True` without a repair_field | Spec the Loop Lead repair field with Duncan; pass it explicitly. |
 | `ApprovalRequired` at `bulk_update_small`/`large` | No approved gate | Open a gate via `create_approval_gate(action_type=classify_bulk_update(count), ...)`. |
 | Orphan count jumps suddenly | Upstream change to Lead conversion flow | Check Flow changes in SF Setup; compare with knowledge-refresh metadata snapshots. |
+
+### `@admin dedup contacts`
+Clusters Contacts by Email (two-hop SOQL: `GROUP BY Email HAVING COUNT > 1`
+then detail fetch), picks a master (has-account > most-recent-activity >
+oldest-record), and either creates Duncan-assigned review tasks (default)
+or executes the merges via `salesforce_mcp.merge_records` (when `repair_=True`
+with an approved `contact_merge` gate).
+
+SF's REST merge endpoint caps duplicates at 2 per call — `apply_merge` batches
+any cluster of size > 3 into multiple gated calls against the same master.
+
+**Manual poll (detect only):**
+```
+python -c "from agents.revops_support.data_quality import dedup_contacts; \
+  import json; print(json.dumps(dedup_contacts.poll(), default=str, indent=2))"
+```
+
+**Rollback (repair):** SF merge is one-way — the duplicates become the
+master record's history. To reverse, restore the dupe from the Recycle Bin
+within 15 days. Beyond that, the audit_log `before_value` contains the
+pre-merge dupe IDs for forensic reference only.
+
+**Troubleshooting:**
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `ApprovalRequired: contact_merge` | Gate rejected or not dual-approved | Gate needs both primary + secondary approvers on `dual_approval` tier. |
+| Cluster master picks wrong record | Scoring tie broken to oldest; real owner expected newest | Pass a custom `propose_merges` replacement or override master manually before calling `apply_merge`. |
+| `SF REST merges at most 2 duplicates` ValueError | Caller bypassed `apply_merge` and called `merge_records` directly with 3+ | Use `apply_merge(proposal, ...)` which chunks; never call `merge_records` with >2 duplicates. |

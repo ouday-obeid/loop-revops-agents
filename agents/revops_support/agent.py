@@ -16,7 +16,11 @@ from typing import Any, Awaitable, Callable
 
 from shared.agent_base import AgentBase
 
-from agents.revops_support.data_quality import bad_conversions, validation_monitor
+from agents.revops_support.data_quality import (
+    bad_conversions,
+    dedup_contacts,
+    validation_monitor,
+)
 from agents.revops_support.query import canned, soql_engine
 
 log = logging.getLogger(__name__)
@@ -35,6 +39,7 @@ HELP_TEXT = (
     "• `@oo revops-support validation rules <ObjectName>` — active rules for object\n"
     "• `@oo revops-support validation monitor` — org-wide validation-rule health check\n"
     "• `@oo revops-support bad conversions` — orphaned Lead-conversions (no opp/account/contact)\n"
+    "• `@oo revops-support dedup contacts` — cluster duplicate Contacts by email + propose merges\n"
     "• `@oo revops-support help` — this message\n"
     "Alias: `@oo admin …` routes here too."
 )
@@ -72,6 +77,8 @@ class RevOpsSupportAgent(AgentBase):
                 return _run_canned(canned.opps_missing_products)
             if "account" in lower and "no tlo" in lower:
                 return _run_canned(canned.accounts_with_no_tlo)
+            if "dedup contact" in lower:
+                return _format_dedup_contacts(dedup_contacts.poll())
             if "duplicate contact" in lower or "dup contact" in lower:
                 return _run_canned(canned.duplicate_contacts_by_email)
             if "active user" in lower:
@@ -149,6 +156,30 @@ def _run_canned(fn: Callable[..., dict[str, Any]], *args: Any) -> dict[str, Any]
         "blocks": result.get("blocks", []),
         "records": result.get("records", []),
     }
+
+
+def _format_dedup_contacts(result: dict[str, Any]) -> dict[str, Any]:
+    clusters = result.get("clusters", [])
+    proposals = result.get("proposals", [])
+    merges = result.get("merges", [])
+    lines = [
+        "*Contact Dedup*",
+        f"• Clusters: {len(clusters)}",
+        f"• Proposals: {len(proposals)}",
+        f"• Tasks created: {len(result.get('task_ids', []))}",
+        f"• Merges executed: {len(merges)}",
+    ]
+    if proposals:
+        sample = proposals[:5]
+        lines.append("_Top clusters:_")
+        for p in sample:
+            lines.append(
+                f"  · {p.get('email')} → master {p.get('master_id')} "
+                f"({len(p.get('duplicate_ids', []))} dupes)"
+            )
+        if len(proposals) > len(sample):
+            lines.append(f"  …and {len(proposals) - len(sample)} more")
+    return {"text": "\n".join(lines), "result": result}
 
 
 def _format_bad_conversions(result: dict[str, Any]) -> dict[str, Any]:

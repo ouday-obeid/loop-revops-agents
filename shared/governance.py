@@ -60,6 +60,25 @@ APPROVAL_TIERS: dict[str, Tier] = {
         gate="rate_limit_and_review", approver="o_only", review_window="08:00_daily"
     ),
     "commission_adjustment": Tier(gate="explicit", approver="o_only"),
+    # Phase 1.5 — Agent 5 Admin. Contact/Account merge is destructive and
+    # collapses history rows into the master record; dual-approval with O
+    # required. Distinct from mark_churned (which uses Jackie as the second
+    # approver) — DQ merges need O + dept head.
+    "contact_merge": Tier(
+        gate="dual_approval", approver="o_or_dept_head", requires_justification=True
+    ),
+    "account_merge": Tier(
+        gate="dual_approval", approver="o_or_dept_head", requires_justification=True
+    ),
+    # Phase 1.5 — Agent 5 Admin deal-desk. Territory reassignment and quota
+    # upsert both require Henry or Anand sign-off: territory touches rep
+    # books; quota writes Quota__c rows read by SLT metrics.
+    "territory_reassign": Tier(
+        gate="slack_explicit", approver="henry_or_anand", requires_justification=True
+    ),
+    "quota_upsert": Tier(
+        gate="slack_explicit", approver="henry_or_anand", requires_justification=True
+    ),
     "customer_facing_comms": Tier(gate="draft_review", approver="dept_head"),
     "mark_churned": Tier(gate="dual_approval", approver="jackie_and_o"),
     # Phase 1 — Agent 3 (Onboarding). onboarding_auto_create records every

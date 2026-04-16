@@ -290,3 +290,82 @@ def test_retrieve_metadata_passes_each_metadata_type():
     assert "--target-metadata-dir" in args
     # --metadata appears twice, once per type
     assert args.count("--metadata") == 2
+
+
+# ---------- merge_records (Phase 1.5) ----------
+
+def test_merge_records_requires_gate():
+    from shared.governance import ApprovalRequired
+    with pytest.raises(ApprovalRequired):
+        salesforce_mcp.merge_records(
+            "Contact", "003M", ["003D1"], agent_name="t", approval_gate_id=None,
+        )
+
+
+def test_merge_records_rejects_empty_duplicates():
+    with pytest.raises(ValueError, match="empty"):
+        salesforce_mcp.merge_records(
+            "Contact", "003M", [], agent_name="t", approval_gate_id=1,
+        )
+
+
+def test_merge_records_rejects_more_than_two_duplicates():
+    with pytest.raises(ValueError, match="at most 2"):
+        salesforce_mcp.merge_records(
+            "Contact", "003M", ["D1", "D2", "D3"], agent_name="t", approval_gate_id=1,
+        )
+
+
+def test_merge_records_picks_account_tier_for_account_sobject():
+    from shared import governance
+    from unittest.mock import patch
+
+    gid = governance.create_approval_gate(
+        agent_name="t", action_type="account_merge", payload={}, justification="dedup",
+    )
+    governance.decide_approval_gate(gid, approved=True, approver="O")
+    governance.decide_approval_gate(gid, approved=True, approver="Duncan")
+
+    with patch.object(salesforce_mcp, "_sf", return_value={"success": True}) as sf_mock:
+        result = salesforce_mcp.merge_records(
+            "Account", "001M", ["001D"], agent_name="t_merge", approval_gate_id=gid,
+        )
+    assert result["success"] is True
+    args = sf_mock.call_args.args
+    url = args[args.index("--url") + 1]
+    assert "/sobjects/Account/001M/merge" in url
+
+
+def test_merge_records_writes_audit_and_calls_rest_endpoint():
+    from shared import governance
+    from sqlalchemy import text as sql_text
+    from shared.db.connection import get_engine
+    from unittest.mock import patch
+
+    gid = governance.create_approval_gate(
+        agent_name="t", action_type="contact_merge", payload={}, justification="dedup",
+    )
+    governance.decide_approval_gate(gid, approved=True, approver="O")
+    governance.decide_approval_gate(gid, approved=True, approver="Duncan")
+
+    with patch.object(salesforce_mcp, "_sf", return_value={"success": True}) as sf_mock:
+        salesforce_mcp.merge_records(
+            "Contact", "003MASTER", ["003DUPE"], agent_name="t_cm", approval_gate_id=gid,
+        )
+
+    args = sf_mock.call_args.args
+    kwargs = sf_mock.call_args.kwargs
+    assert args[:5] == ("api", "request", "rest", "--method", "POST")
+    url_idx = args.index("--url")
+    assert "/sobjects/Contact/003MASTER/merge" in args[url_idx + 1]
+    assert kwargs.get("intent") == "write"
+
+    with get_engine().begin() as conn:
+        row = conn.execute(
+            sql_text(
+                "SELECT action, target FROM audit_log WHERE agent_name = 't_cm' "
+                "AND action = 'sf_merge' ORDER BY id DESC LIMIT 1"
+            )
+        ).fetchone()
+    assert row is not None
+    assert "Contact:003MASTER" in row[1]
