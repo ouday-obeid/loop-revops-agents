@@ -29,7 +29,7 @@ def run(
     query: str,
     *,
     agent_name: str = "revops_support",
-    default_limit: int = 100,
+    default_limit: int = 50,
     audit: bool = True,
     intent: str = "read",
 ) -> dict[str, Any]:

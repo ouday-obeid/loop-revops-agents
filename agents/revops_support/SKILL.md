@@ -67,6 +67,10 @@ high-blast-radius action through an approval gate O controls.
 | `@oo revops-support duplicate contacts` | Emails with >1 contact |
 | `@oo revops-support active users [days]` | Users with login in last N days |
 | `@oo revops-support validation rules <Object>` | Active rules for an object |
+| `@oo revops-support validation monitor` | Org-wide validation-rule health (orphans + stale) |
+| `@oo revops-support bad conversions` | Orphaned Lead conversions (no opp / no account / no contact) |
+| `@oo revops-support dedup contacts` | Cluster duplicate Contacts by email + propose merges |
+| `@oo revops-support dedup accounts` | Fuzzy-cluster duplicate Accounts + propose merges |
 
 ### Phase 1 weeks 2–5 surface (CLI / module entry; Slack wire-in late Week 5)
 
@@ -78,6 +82,10 @@ high-blast-radius action through an approval gate O controls.
 | `schema.cooldown_poller` | `poll()` | Cron-driven: elevate `approved_primary` deletes to confirm gates |
 | `schema.rollback` | `prepare(slug, justification)` → `execute(slug)` | Re-deploy revert snapshot after a new gate approval |
 | `data_quality.bulk_updater` | `bulk_update(sobject, updates, ...)` | Composite PATCH 200/chunk with `before_value` snapshot |
+| `data_quality.validation_monitor` | `poll()` | Tooling-API scan of active ValidationRules; flags orphans + stale |
+| `data_quality.bad_conversions` | `poll()` | Detects converted Leads missing opp/account/contact links |
+| `data_quality.dedup_contacts` | `poll(repair_=...)` | Email-clustered Contact dedup; merges via `contact_merge` gate |
+| `data_quality.dedup_accounts` | `poll(repair_=...)` | Name+domain fuzzy Account dedup; merges via `account_merge` gate |
 | `permissions.user_provisioner` | `provision(ProvisionRequest, ...)` | Create User + assign perm sets + groups under one gate |
 | `permissions.access_grant` | `grant_permission_set`, `revoke_permission_set`, `add_to_group` | Idempotent perm-set / group wiring |
 | `permissions.offboarding` | `offboard(OffboardRequest, ...)` | Deactivate + reassign ownership + surface package-access task |
@@ -104,6 +112,10 @@ All tiers resolved from `shared/governance.py::APPROVAL_TIERS`.
 | `license_deactivation` | `slack_explicit` | O only | — | — |
 | `bulk_update_small` (2–99) | `slack_button` | O or dept head | — | — |
 | `bulk_update_large` (≥100) | `slack_explicit` | O only | — | required |
+| `contact_merge` | `dual_approval` | O or dept head | — | required |
+| `account_merge` | `dual_approval` | O or dept head | — | required |
+| `territory_reassign` | `slack_explicit` | Henry or Anand | — | required |
+| `quota_upsert` | `slack_explicit` | Henry or Anand | — | required |
 
 **Dual-approval cooldown semantics** (`sf_schema_delete` only):
 

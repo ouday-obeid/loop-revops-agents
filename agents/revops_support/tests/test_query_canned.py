@@ -81,7 +81,10 @@ def test_soql_engine_rejects_non_select():
 def test_soql_engine_adds_limit_when_missing(fake_sf):
     fake_sf.return_value = {"records": []}
     soql_engine.run("SELECT Id FROM Account")
-    assert "LIMIT 100" in fake_sf.call_args[0][0]
+    # Default cap aligns to the 50-row spec at soql_engine.py:32 (Phase 1.5
+    # drift fix — the 100 default was a spec drift and tightened the
+    # ad-hoc read guardrail).
+    assert "LIMIT 50" in fake_sf.call_args[0][0]
 
 
 def test_soql_engine_respects_existing_limit(fake_sf):
