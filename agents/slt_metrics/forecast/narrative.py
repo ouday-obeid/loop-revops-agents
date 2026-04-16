@@ -4,14 +4,12 @@ Produces a Slack-blocks payload for O's DM when the SLT asks for a forecast
 ad-hoc via `@oo slt forecast <quarter>`. Parallel in spirit to
 `briefings.daily_830.compose_daily` but quarter-scoped instead of daily.
 
-Phase 1 note — this is a PLACEHOLDER narrative. The morning cron writes
-unscored snapshots until D6 wires `forecast.scorer.score_all`, so the commit
-/ best / weighted numbers come from whatever rows exist in
-`pipeline_snapshots` at invocation time. The Slack payload flags that
-explicitly so consumers (O → SLT) know it's first-gen until real scoring +
-narrator composition land. Swapping in a real narrative (Sonnet via
-`ClaudeRouter("adhoc_slt", ...)`) is a line change in `_narrative_block` —
-everything else in the forecast subcommand path stays the same.
+Narrative composition runs through `ClaudeRouter.narrate("adhoc_slt", ...)`
+(Sonnet, see `briefings/narrator.py`). If no API key is present or the call
+fails, the router returns the structural fallback — which still carries
+`PLACEHOLDER_TAG` while scoring is sparse, so consumers (O → SLT) know the
+commit / best / weighted numbers are first-gen until `forecast.scorer`
+backfills scores across the snapshot.
 """
 from __future__ import annotations
 
@@ -20,12 +18,23 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 from typing import Any
 
+from agents.slt_metrics.briefings.narrator import ClaudeRouter
 from agents.slt_metrics.forecast import commit_best
 from agents.slt_metrics.pipeline import snapshotter
 from agents.slt_metrics.types import ForecastRollup, ScoredDeal
 
 
 PLACEHOLDER_TAG = "(placeholder narrative — pending forecast/narrative.py)"
+
+_ADHOC_SLT_SYSTEM = (
+    "You are Agent 6 (SLT Revenue Metrics) for Loop AI. "
+    "The SLT just asked for an ad-hoc forecast read. "
+    "Produce a 3-4 sentence narrative for Henry (CRO) and Anand (CEO): "
+    "lead with commit vs. best-case vs. weighted, then the most material "
+    "movement or risk across the scored deals. "
+    "If scoring is sparse or the snapshot is empty, caveat openly. "
+    "Plain text, no markdown, no emojis."
+)
 
 
 # Quarter tokens we accept. `Q2` implies current fiscal year (Loop AI FY ==
@@ -225,47 +234,90 @@ def _stale_block(ctx: ForecastDraftContext) -> dict[str, Any]:
     return {"type": "section", "text": {"type": "mrkdwn", "text": body}}
 
 
-def _narrative_block(ctx: ForecastDraftContext) -> dict[str, Any]:
-    """Placeholder narrative.
+def _narrative_block(ctx: ForecastDraftContext, *, router: ClaudeRouter) -> dict[str, Any]:
+    """Compose the narrative via `ClaudeRouter.narrate("adhoc_slt", ...)`.
 
-    Intentionally not calling ClaudeRouter yet — narrative composition lands
-    in a later drop (see module docstring). The text still summarizes the
-    headline so O has something reviewable even without Claude in the path.
+    The structural fallback (used when no API key / API error) preserves
+    `PLACEHOLDER_TAG` whenever scoring is sparse. When Claude does write
+    prose but the snapshot is still first-gen, we append the tag so the
+    honesty signal survives.
     """
     r = ctx.rollup
     if ctx.row_count == 0:
-        body = (
+        fallback = (
             f"No pipeline data available for {ctx.quarter.label}. "
             "The morning snapshot cron may not have run yet, or the DB is empty. "
             f"{PLACEHOLDER_TAG}"
         )
     elif ctx.placeholder:
-        body = (
+        fallback = (
             f"Rollup for {ctx.quarter.label} reflects {ctx.row_count} deals from "
             f"the latest snapshot ({ctx.snapshot_date}). Most rows are UNSCORED — "
             "commit / best-case numbers are structural rollups only and will tighten "
             f"once the scoring pass lands. {PLACEHOLDER_TAG}"
         )
     else:
-        body = (
+        fallback = (
             f"Rollup for {ctx.quarter.label}: ${r.commit_amount:,.0f} commit, "
             f"${r.best_case_amount:,.0f} best case, ${r.weighted_amount:,.0f} weighted "
-            f"across {r.deal_count} deals. {PLACEHOLDER_TAG}"
+            f"across {r.deal_count} deals."
         )
-    return {"type": "section", "text": {"type": "mrkdwn", "text": f"*Narrative*\n{body}"}}
+
+    top = max(ctx.scored_deals, key=lambda d: d.weighted_acv, default=None)
+    top_str = ""
+    if top is not None:
+        top_str = (
+            f"Top weighted deal: {top.opp_name} ({top.owner_name or '?'}, "
+            f"stage {top.stage}, ACV ${(top.acv or 0):,.0f})."
+        )
+    stale_count = sum(
+        1 for d in ctx.scored_deals
+        if "stale" in d.risk_flags or "no_activity" in d.risk_flags
+    )
+    snap_str = (
+        f"latest snapshot {ctx.snapshot_date.isoformat()} ({ctx.row_count} deals)"
+        if ctx.snapshot_date
+        else "no snapshot available"
+    )
+    prompt = (
+        f"Ad-hoc forecast for {ctx.quarter.label}, as of {ctx.as_of.isoformat()}, "
+        f"{snap_str}. "
+        f"Commit ${r.commit_amount:,.0f}, best case ${r.best_case_amount:,.0f}, "
+        f"weighted ${r.weighted_amount:,.0f} across {r.deal_count} deals. "
+        f"{top_str} "
+        f"{stale_count} deals flagged stale or inactive. "
+        f"Placeholder/unscored: {ctx.placeholder}. "
+        "Write the ad-hoc forecast narrative."
+    )
+
+    narrative_text = router.narrate(
+        "adhoc_slt",
+        system=_ADHOC_SLT_SYSTEM,
+        user=prompt,
+        fallback=fallback,
+    )
+    if ctx.placeholder and PLACEHOLDER_TAG not in narrative_text:
+        narrative_text = f"{narrative_text} {PLACEHOLDER_TAG}"
+
+    return {"type": "section", "text": {"type": "mrkdwn", "text": f"*Narrative*\n{narrative_text}"}}
 
 
 # ------------------------------------------------------------------ entry point
 
-def compose_forecast_draft(ctx: ForecastDraftContext) -> dict[str, Any]:
+def compose_forecast_draft(
+    ctx: ForecastDraftContext,
+    *,
+    router: ClaudeRouter | None = None,
+) -> dict[str, Any]:
     """Build the forecast draft payload. Returns `{"text": ..., "blocks": [...]}`."""
+    router = router or ClaudeRouter()
     blocks: list[dict[str, Any]] = [
         _headline_block(ctx),
         {"type": "divider"},
         _top_movers_block(ctx),
         _stale_block(ctx),
         {"type": "divider"},
-        _narrative_block(ctx),
+        _narrative_block(ctx, router=router),
     ]
     summary = (
         f"SLT forecast draft {ctx.quarter.label} · as of {ctx.as_of.isoformat()} · "
