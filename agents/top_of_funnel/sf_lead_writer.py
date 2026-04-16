@@ -2,11 +2,24 @@
 
 Flow per lead:
   1. build_payload  — maps agent dict → SF Lead fields, with graceful fallback
-                      to Description if custom fields aren't present yet.
-  2. find_tlo_id    — SOQL lookup on Top_Level_Org__c by domain/parent-name.
+                      to a configurable text field (default: Description) if
+                      custom fields aren't present yet.
+  2. find_tlo_id    — SOQL lookup on the `Top_Level_Organization__c` SObject
+                      by domain/parent-name.
   3. check_duplicate — Lead.Email + Contact.Email + Account.Website probe.
   4. create_lead    — dispatch through shared.mcp.salesforce_mcp.create_record,
                       which requires an approved approval_gate_id.
+
+TLO linkage (Salesforce historical drift — verified 2026-04-13 via sandbox
+describe + cross-referenced in agents/revops_support/query/canned.py):
+  - `Top_Level_Organization__c` is the TLO SObject (object name).
+  - `Account.Top_Level_Org__c` is the reference from Account to the TLO
+    (short-name; Account-object only).
+  - `Opportunity.Top_Level_Organization__c` is the reference from Opportunity
+    to the TLO (spelled out).
+  - The Lead-side reference follows the Opportunity convention
+    (fully spelled out) on Loop's sandbox + prod. Override via
+    `TOF_LEAD_TLO_FIELD` if a future schema migration renames it.
 
 Schema probe:
   `describe_lead_custom_fields()` calls `describe_sobject("Lead")` once and
@@ -14,18 +27,33 @@ Schema probe:
     - ICP_Score__c
     - Brand__c
     - Ownership_Type__c
-    - Location_Count__c (optional — packed into Description if absent)
+    - Location_Count__c (optional — packed into fallback field if absent)
 
-Description fallback format:
+Fallback field configuration:
+  Prod's Lead carries a standard `Description` text field — the default
+  target for packed enrichment metadata. Some sandboxes (notably `revagents`)
+  strip Description in favour of custom fields like `Lead_Notes__c`, which
+  would make a hard-coded `Description` write crash with INVALID_FIELD. To
+  stay portable the target is read from env:
+
+      TOF_LEAD_FALLBACK_FIELD   — name of the long-text field (default
+                                  "Description"). Set to "" to disable the
+                                  fallback entirely — useful when neither a
+                                  Description nor custom fields exist and the
+                                  operator would rather skip the packed
+                                  metadata than risk a schema error.
+
+Fallback format (when enabled):
     [Loop ToF] ICP:82 | Tier:A | Brand:Arby's | Ownership:franchise_group | Locations:47
 
-Intentionally conservative: we NEVER overwrite an existing Description —
+Intentionally conservative: we NEVER overwrite an existing fallback body —
 the agent-written block is appended with a leading `[Loop ToF]` marker so
 SDRs can spot + strip it after manual edits.
 """
 from __future__ import annotations
 
 import logging
+import os
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
@@ -34,7 +62,7 @@ from shared.governance import write_audit
 log = logging.getLogger(__name__)
 
 # SF Lead custom fields the agent tries to populate. Order matters for the
-# Description-fallback string.
+# fallback string.
 _CUSTOM_FIELDS = (
     "ICP_Score__c",
     "ICP_Tier__c",
@@ -45,6 +73,45 @@ _CUSTOM_FIELDS = (
 
 _DESC_MARKER = "[Loop ToF]"
 _AGENT_NAME = "top_of_funnel"
+_FALLBACK_FIELD_ENV = "TOF_LEAD_FALLBACK_FIELD"
+_FALLBACK_FIELD_DEFAULT = "Description"
+
+# TLO field names — see the module docstring for the full drift story. The
+# Lead-side reference is the asymmetric one: the writer previously used
+# `Top_Level_Org__c` (Account's short-name convention) which fails on the
+# revagents sandbox where Lead exposes the fully-spelled `Top_Level_
+# Organization__c`. Env override lets prod flip back if schemas diverge.
+_LEAD_TLO_FIELD_ENV = "TOF_LEAD_TLO_FIELD"
+_LEAD_TLO_FIELD_DEFAULT = "Top_Level_Organization__c"
+_TLO_SOBJECT = "Top_Level_Organization__c"
+
+
+def _resolve_fallback_field() -> str:
+    """Returns the Lead text field to pack enrichment metadata into.
+
+    "" (empty) means the fallback is disabled — callers should skip the write
+    entirely rather than target an empty-string field name.
+    """
+    # os.environ.get distinguishes unset (None → default) from explicitly set
+    # to "" (disabled). Preserving that distinction is how operators opt out.
+    value = os.environ.get(_FALLBACK_FIELD_ENV)
+    if value is None:
+        return _FALLBACK_FIELD_DEFAULT
+    return value.strip()
+
+
+def _resolve_lead_tlo_field() -> str:
+    """Returns the Lead-side TLO reference field name.
+
+    Defaults to the sandbox + prod convention `Top_Level_Organization__c`
+    (fully spelled out, matching Opportunity). Override via
+    `TOF_LEAD_TLO_FIELD` if a future schema migration renames it, or if
+    prod diverges from sandbox.
+    """
+    value = os.environ.get(_LEAD_TLO_FIELD_ENV)
+    if value is None or not value.strip():
+        return _LEAD_TLO_FIELD_DEFAULT
+    return value.strip()
 
 
 # ------------------------------------------------------- result dataclasses
@@ -97,7 +164,13 @@ def find_tlo_id(
     company_name: str | None,
     sf_query: Callable[[str], dict[str, Any]] | None = None,
 ) -> str | None:
-    """Returns the Top_Level_Org__c.Id matching domain or parent name, or None."""
+    """Returns the TLO SObject Id matching domain or parent name, or None.
+
+    Queries the `Top_Level_Organization__c` SObject — the object's own name
+    is the fully-spelled form (see module docstring). The Lead-side
+    *reference* field name (which receives this Id) is resolved separately
+    via `_resolve_lead_tlo_field` since that one is historically asymmetric.
+    """
     if not domain and not company_name:
         return None
 
@@ -113,7 +186,7 @@ def find_tlo_id(
         safe = _soql_escape(company_name)
         clauses.append(f"Name = '{safe}'")
     where = " OR ".join(clauses)
-    query = f"SELECT Id FROM Top_Level_Org__c WHERE {where} LIMIT 1"
+    query = f"SELECT Id FROM {_TLO_SOBJECT} WHERE {where} LIMIT 1"
 
     try:
         rows = (sf_query(query) or {}).get("records") or []
@@ -191,13 +264,24 @@ def build_payload(
     present_custom_fields: set[str],
     tlo_id: str | None = None,
     owner_id: str | None = None,
+    fallback_field: str | None = None,
 ) -> LeadPayload:
     """Map agent lead dict → SF Lead field dict.
 
     Required fields (always present): FirstName, LastName, Email, Company.
     Custom fields (conditional): added if `present_custom_fields` contains them.
-    Missing custom fields are packed into Description with a [Loop ToF] marker.
+    Missing custom fields are packed into the fallback field (default
+    Description, overridable via `TOF_LEAD_FALLBACK_FIELD`) with a
+    `[Loop ToF]` marker.
+
+    If `fallback_field` resolves to `""`, the fallback write is SKIPPED
+    entirely (no field added to the payload). The caller loses the packed
+    ICP/Brand/Ownership metadata but the create keeps working on sandboxes
+    that expose neither a `Description` field nor the agent's custom fields.
     """
+    if fallback_field is None:
+        fallback_field = _resolve_fallback_field()
+
     fields: dict[str, Any] = {
         "FirstName": (lead.get("first_name") or "").strip() or "Unknown",
         "LastName": (lead.get("last_name") or "").strip() or "Unknown",
@@ -214,7 +298,7 @@ def build_payload(
     if owner_id:
         fields["OwnerId"] = owner_id
     if tlo_id:
-        fields["Top_Level_Org__c"] = tlo_id
+        fields[_resolve_lead_tlo_field()] = tlo_id
 
     missing: list[str] = []
     description_kv: list[str] = []
@@ -234,12 +318,26 @@ def build_payload(
     put("Ownership_Type__c", lead.get("ownership_type"), "Ownership")
     put("Location_Count__c", lead.get("location_count"), "Locations")
 
+    # Fallback-disabled path: drop the packed metadata, keep the write viable.
+    # missing_fields still lists the custom fields the sandbox didn't expose,
+    # and fallback_used is False (no field received the payload).
+    if not fallback_field:
+        if description_kv:
+            log.info(
+                "sf_lead_writer: TOF_LEAD_FALLBACK_FIELD=''; dropping packed metadata "
+                "for %s missing custom field(s) — %s",
+                len(missing), ", ".join(missing),
+            )
+        # Preserve no caller-supplied description either — when the fallback
+        # is disabled we don't assume a Description field exists to target.
+        return LeadPayload(fields=fields, fallback_used=False, missing_fields=missing)
+
     if description_kv:
         fallback_line = f"{_DESC_MARKER} {' | '.join(description_kv)}"
         existing = (lead.get("description") or "").strip()
-        fields["Description"] = f"{fallback_line}\n{existing}" if existing else fallback_line
+        fields[fallback_field] = f"{fallback_line}\n{existing}" if existing else fallback_line
     elif lead.get("description"):
-        fields["Description"] = lead["description"]
+        fields[fallback_field] = lead["description"]
 
     return LeadPayload(fields=fields, fallback_used=bool(description_kv), missing_fields=missing)
 

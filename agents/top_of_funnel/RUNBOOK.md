@@ -53,6 +53,8 @@ All knobs live in YAML — no code change required.
 - **Clay budget** — edit `CLAY_MONTHLY_BUDGET_CREDITS` in `.env`; 80% alert/100% block thresholds hard-coded in `clay_client.py`.
 - **Grade-floor override** (let Grade C through for one campaign) — edit `config/icp_config.yaml:clay_grade_floor` (default `B`).
 - **Rate limits** — edit `shared/governance.py:RATE_LIMITS` (shared change — ping Phase 0 owner first).
+- **Lead fallback field** — `TOF_LEAD_FALLBACK_FIELD` in `.env` picks the long-text field that carries packed ICP/Brand/Ownership metadata when the real custom fields are absent. Default `Description`. Set to `""` (empty) on sandboxes without a Description to disable the fallback — writes keep working, only the packed metadata is dropped.
+- **Lead TLO field** — `TOF_LEAD_TLO_FIELD` in `.env` picks the Lead-side reference field that receives the Top_Level_Organization__c Id. Default `Top_Level_Organization__c` (Loop's sandbox + prod convention, matches Opportunity). Override to `Top_Level_Org__c` only if prod's Lead diverges to Account's short-name convention.
 
 ## Handling Clay 80% alert
 1. Alert posts to `#agent-tof-log` with current usage + remaining credits.
