@@ -85,3 +85,34 @@ async def test_registration_exposes_handler():
     # Dispatch should return our pong
     result = await slack_dispatcher.dispatch("cs ping", {"user": "U_TEST", "channel": "C_TEST"})
     assert "pong" in result["text"].lower()
+
+
+@pytest.mark.asyncio
+async def test_persona_alias_supporter_routes_to_cs():
+    """`@oo supporter ping` resolves through PERSONA_ALIASES to the cs handler."""
+    from agents.cs import main as cs_main
+    from shared import slack_dispatcher
+
+    cs_main.bootstrap()
+    result = await slack_dispatcher.dispatch(
+        "supporter ping", {"user": "U_TEST", "channel": "C_TEST"}
+    )
+    assert "pong" in result["text"].lower()
+    assert "cs online" in result["text"].lower()
+
+
+@pytest.mark.asyncio
+async def test_persona_alias_supporter_matches_canonical_help():
+    """Alias and canonical return identical help text."""
+    from agents.cs import main as cs_main
+    from shared import slack_dispatcher
+
+    cs_main.bootstrap()
+    alias = await slack_dispatcher.dispatch(
+        "supporter help", {"user": "U_TEST", "channel": "C_TEST"}
+    )
+    canonical = await slack_dispatcher.dispatch(
+        "cs help", {"user": "U_TEST", "channel": "C_TEST"}
+    )
+    assert alias["text"] == canonical["text"] == HELP_TEXT
+    assert "supporter" in alias["text"]

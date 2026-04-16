@@ -142,11 +142,17 @@ def test_forecast_accepts_relative_quarter(capture_forecast_dm):
 
 # ---------- forecast narrative composer smoke ----------
 
-def test_forecast_narrative_renders_empty_snapshot():
-    """With no snapshots in the DB, the composer still produces a draft."""
+def test_forecast_narrative_renders_empty_snapshot(monkeypatch):
+    """With no snapshots in the DB, the composer still produces a draft.
+
+    Strip ANTHROPIC_API_KEY so the default router returns the structural
+    fallback (which carries PLACEHOLDER_TAG) without reaching the network.
+    """
     from datetime import date
 
     from agents.slt_metrics.forecast import narrative
+
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
 
     ctx = narrative.build_context("FY2026-Q2", today=date(2026, 4, 14))
     draft = narrative.compose_forecast_draft(ctx)
@@ -174,6 +180,72 @@ def test_forecast_narrative_parses_canonical_quarter():
     assert q.fy_year == 2027
     assert q.quarter == 3
     assert q.label == "FY2027-Q3"
+
+
+class _CapturingRouter:
+    """Stub ClaudeRouter that records narrate() kwargs and returns a sentinel."""
+
+    def __init__(self, response: str = "[adhoc_slt] ok"):
+        self.response = response
+        self.calls: list[dict[str, Any]] = []
+
+    def narrate(self, kind, *, system, user, fallback, max_tokens=None):
+        self.calls.append({
+            "kind": kind, "system": system, "user": user,
+            "fallback": fallback, "max_tokens": max_tokens,
+        })
+        return self.response
+
+
+def test_forecast_narrative_routes_through_claude_router_adhoc_slt():
+    """compose_forecast_draft must invoke the router with kind=adhoc_slt and
+    a prompt carrying the quarter label + commit figure."""
+    from datetime import date
+
+    from agents.slt_metrics.forecast import narrative
+
+    ctx = narrative.build_context("FY2026-Q2", today=date(2026, 4, 14))
+    stub = _CapturingRouter(response="Ad-hoc forecast prose from Claude.")
+    out = narrative.compose_forecast_draft(ctx, router=stub)
+
+    assert len(stub.calls) == 1
+    call = stub.calls[0]
+    assert call["kind"] == "adhoc_slt"
+    assert "Agent 6" in call["system"] and "SLT" in call["system"]
+    assert "FY2026-Q2" in call["user"]
+    assert "Commit $" in call["user"]
+    assert isinstance(call["fallback"], str) and call["fallback"]
+
+    rendered = " ".join(
+        b.get("text", {}).get("text", "")
+        for b in out["blocks"]
+        if b.get("type") == "section"
+    )
+    assert "Ad-hoc forecast prose from Claude." in rendered
+
+
+def test_forecast_narrative_falls_back_preserves_placeholder_tag():
+    """When the router returns the fallback (no key / API error), the
+    rendered narrative block must still carry PLACEHOLDER_TAG for
+    first-gen / unscored snapshots."""
+    from datetime import date
+
+    from agents.slt_metrics.forecast import narrative
+
+    ctx = narrative.build_context("FY2026-Q2", today=date(2026, 4, 14))
+    assert ctx.placeholder is True  # no scored snapshot in test DB
+
+    class _FallbackRouter:
+        def narrate(self, kind, *, system, user, fallback, max_tokens=None):
+            return fallback
+
+    out = narrative.compose_forecast_draft(ctx, router=_FallbackRouter())
+    rendered = " ".join(
+        b.get("text", {}).get("text", "")
+        for b in out["blocks"]
+        if b.get("type") == "section"
+    )
+    assert narrative.PLACEHOLDER_TAG in rendered
 
 
 def test_movers_defaults_to_yesterday():
@@ -301,6 +373,31 @@ def test_dispatch_slt_forecast_subcommand(capture_forecast_dm):
     assert out["quarter"] == "FY2026-Q2"
     assert out["gate_id"] > 0
     assert len(capture_forecast_dm.calls) == 1
+
+
+# ---------- persona alias ----------
+
+def test_persona_alias_urkel_routes_to_slt_metrics():
+    """`@oo urkel ping` resolves through PERSONA_ALIASES to slt_metrics handler."""
+    register_with_dispatcher()
+    out = asyncio.run(dispatch(
+        "<@BOTID> urkel ping", {"user": "U123", "channel": "Cxx"}
+    ))
+    assert "pong" in out["text"].lower()
+    assert "slt_metrics" in out["text"]
+
+
+def test_persona_alias_urkel_matches_canonical_help():
+    """Alias and canonical produce identical help output."""
+    register_with_dispatcher()
+    alias = asyncio.run(dispatch(
+        "<@BOTID> urkel help", {"user": "U123", "channel": "Cxx"}
+    ))
+    canonical = asyncio.run(dispatch(
+        "<@BOTID> slt_metrics help", {"user": "U123", "channel": "Cxx"}
+    ))
+    assert alias["text"] == canonical["text"]
+    assert "urkel" in alias["text"]
 
 
 # ---------- run() lifecycle writes to agent_runs ----------

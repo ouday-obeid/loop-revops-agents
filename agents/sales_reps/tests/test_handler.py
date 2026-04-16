@@ -196,6 +196,32 @@ def test_dispatch_via_underscore_form():
     assert "pong" in out["text"].lower()
 
 
+# ---------- persona alias ----------
+
+def test_persona_alias_closer_routes_to_sales_reps():
+    """`@oo closer ping` resolves through shared.slack_dispatcher.PERSONA_ALIASES
+    to the sales_reps handler."""
+    register_with_dispatcher()
+    out = asyncio.run(dispatch(
+        "<@BOTID> closer ping", {"user": "U123", "channel": "Cxx"}
+    ))
+    assert "pong" in out["text"].lower()
+    assert "sales_reps" in out["text"]
+
+
+def test_persona_alias_closer_matches_canonical_help():
+    """Alias and canonical produce identical help output."""
+    register_with_dispatcher()
+    alias = asyncio.run(dispatch(
+        "<@BOTID> closer help", {"user": "U123", "channel": "Cxx"}
+    ))
+    canonical = asyncio.run(dispatch(
+        "<@BOTID> sales_reps help", {"user": "U123", "channel": "Cxx"}
+    ))
+    assert alias["text"] == canonical["text"]
+    assert "closer" in alias["text"]
+
+
 # ---------- run() lifecycle writes to agent_runs ----------
 
 def test_agent_run_persists_to_db():

@@ -1,8 +1,15 @@
 import asyncio
 import os
 
+import pytest
+
 from shared import slack_dispatcher
-from shared.slack_dispatcher import SlackSender, approval_blocks, parse_command
+from shared.slack_dispatcher import (
+    PERSONA_ALIASES,
+    SlackSender,
+    approval_blocks,
+    parse_command,
+)
 
 
 def test_parse_command_with_agent():
@@ -24,6 +31,48 @@ def test_approval_blocks_shape():
     blocks = approval_blocks(42, "bulk_update_large", "500 accounts")
     assert any(b.get("type") == "actions" for b in blocks)
     assert blocks[-1]["block_id"] == "gate_42"
+
+
+# ------------------------------------------------------------- persona aliases
+
+
+@pytest.fixture
+def _registered_canonicals():
+    """Register the 6 canonical agent names so persona-alias resolution has
+    something to land on. Saves + restores the registry."""
+    saved = dict(slack_dispatcher._registry)
+    slack_dispatcher._registry.clear()
+
+    async def _dummy(payload):  # pragma: no cover - fixture plumbing
+        return {"ok": True}
+
+    for canonical in set(PERSONA_ALIASES.values()):
+        slack_dispatcher.register(canonical, _dummy)
+    yield
+    slack_dispatcher._registry.clear()
+    slack_dispatcher._registry.update(saved)
+
+
+@pytest.mark.parametrize(
+    "persona,canonical",
+    [
+        ("outbounder", "top_of_funnel"),
+        ("closer", "sales_reps"),
+        ("onboarder", "onboarding"),
+        ("supporter", "cs"),
+        ("admin", "revops_support"),
+        ("urkel", "slt_metrics"),
+    ],
+)
+def test_persona_alias_resolves_to_canonical(
+    persona, canonical, _registered_canonicals
+):
+    """parse_command normalizes human persona names to the canonical registry
+    key before routing, so `@oo <persona> <rest>` lands on the same handler as
+    `@oo <canonical> <rest>`."""
+    agent, rest = parse_command(f"<@U0BOT> {persona} some rest text")
+    assert agent == canonical
+    assert rest == "some rest text"
 
 
 def test_dev_guard_redirects_off_target():

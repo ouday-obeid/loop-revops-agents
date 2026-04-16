@@ -133,4 +133,5 @@ def _help_text(unknown: str | None = None) -> str:
         "• `scorecard <rep_email>` — per-rep scorecard\n"
         "• `sync-check` — Momentum↔SF sync diff\n"
         "• `risk-sweep` — deal-risk signal sweep (pushed close, amount drop, competitor)\n"
+        "Alias: `@oo closer …` routes here too.\n"
     )

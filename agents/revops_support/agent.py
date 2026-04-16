@@ -32,7 +32,8 @@ HELP_TEXT = (
     "• `@oo revops-support duplicate contacts` — emails with >1 contact\n"
     "• `@oo revops-support active users` — users with login in last 30 days\n"
     "• `@oo revops-support validation rules <ObjectName>` — active rules for object\n"
-    "• `@oo revops-support help` — this message"
+    "• `@oo revops-support help` — this message\n"
+    "Alias: `@oo admin …` routes here too."
 )
 
 
