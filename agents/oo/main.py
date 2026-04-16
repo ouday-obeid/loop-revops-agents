@@ -65,6 +65,7 @@ def bootstrap() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s: %(message)s")
     init_schema()
     seed_initial_tasks()
+    _seed_knowledge_corpus()
     register("oo", oo_dispatcher.handle)
     top_of_funnel_register()
     sales_reps_register()
@@ -72,6 +73,15 @@ def bootstrap() -> None:
     cs_register()
     revops_support_register()
     slt_metrics_register()
+
+
+def _seed_knowledge_corpus() -> None:
+    """One-shot sf_admin corpus seed on daemon boot. Failures don't block."""
+    try:
+        from shared.mcp import knowledge_bootstrap
+        knowledge_bootstrap.seed_sf_admin_corpus()
+    except Exception as e:
+        log.warning("knowledge corpus seed failed (non-fatal): %s", e)
 
 
 async def run_daemon() -> None:

@@ -4,6 +4,100 @@ import tempfile
 from pathlib import Path
 
 
+# ---------------------------------------- Tier 10: knowledge_bootstrap seed
+
+def test_seed_sf_admin_corpus_ingests_each_md(tmp_path, monkeypatch):
+    """Each .md file in source_dir becomes one or more chunks under the
+    sf_admin corpus. Returns a summary with file/chunk counts."""
+    monkeypatch.setenv("REVOPS_REPO_ROOT", str(tmp_path))
+    from shared.mcp import knowledge_mcp, knowledge_bootstrap
+    knowledge_mcp._backend = None
+
+    src = tmp_path / "kb"
+    src.mkdir()
+    (src / "tlo_hierarchy.md").write_text(
+        "# TLO Hierarchy\n\n## Definition\n\nUltimate parent accounts roll up here."
+    )
+    (src / "naming_conventions.md").write_text(
+        "# Naming\n\n## Accounts\n\nPrefix with brand abbreviation."
+    )
+
+    summary = knowledge_bootstrap.seed_sf_admin_corpus(source_dir=str(src))
+    assert summary["ingested_files"] == 2
+    assert summary["total_chunks"] >= 2
+
+    # Both docs should be retrievable via semantic_search
+    hits = knowledge_mcp.semantic_search("TLO hierarchy", corpus="sf_admin", k=3)
+    assert any("tlo_hierarchy" in (h.get("metadata", {}) or {}).get("doc_id", "") for h in hits)
+    knowledge_mcp._backend = None
+
+
+def test_seed_sf_admin_corpus_is_idempotent(tmp_path, monkeypatch):
+    """Re-running the seed on the same content does NOT duplicate chunks
+    (chunk IDs are stable: doc_id#0000, doc_id#0001, …)."""
+    monkeypatch.setenv("REVOPS_REPO_ROOT", str(tmp_path))
+    from shared.mcp import knowledge_mcp, knowledge_bootstrap
+    knowledge_mcp._backend = None
+
+    src = tmp_path / "kb"
+    src.mkdir()
+    (src / "doc.md").write_text("# Doc\n\nSome body content here.")
+
+    first = knowledge_bootstrap.seed_sf_admin_corpus(source_dir=str(src))
+    second = knowledge_bootstrap.seed_sf_admin_corpus(source_dir=str(src))
+    assert first["total_chunks"] == second["total_chunks"]
+    assert second["deleted_stale_chunks"] == 0
+
+    ids = knowledge_mcp.list_document_ids("sf_admin", prefix="doc#")
+    assert len(ids) == first["total_chunks"]
+    knowledge_mcp._backend = None
+
+
+def test_seed_sf_admin_corpus_no_op_when_dir_missing(tmp_path):
+    from shared.mcp import knowledge_bootstrap
+    summary = knowledge_bootstrap.seed_sf_admin_corpus(source_dir=str(tmp_path / "does_not_exist"))
+    assert summary == {"ingested_files": 0, "total_chunks": 0, "deleted_stale_chunks": 0}
+
+
+def test_seed_sf_admin_corpus_no_op_when_no_md_files(tmp_path):
+    from shared.mcp import knowledge_bootstrap
+    (tmp_path / "not_md.txt").write_text("ignored")
+    summary = knowledge_bootstrap.seed_sf_admin_corpus(source_dir=str(tmp_path))
+    assert summary["ingested_files"] == 0
+
+
+def test_seed_sf_admin_corpus_prunes_stale_chunks_when_doc_shrinks(tmp_path, monkeypatch):
+    """Doc starts large → 5 chunks. Doc shrinks → 1 chunk. Stale chunks
+    from the original 5 must be pruned, not orphaned."""
+    monkeypatch.setenv("REVOPS_REPO_ROOT", str(tmp_path))
+    from shared.mcp import knowledge_mcp, knowledge_bootstrap
+    knowledge_mcp._backend = None
+
+    src = tmp_path / "kb"
+    src.mkdir()
+    big = "# Big\n\n" + "## Section\n\nBody. " * 200
+    md = src / "shrinker.md"
+    md.write_text(big)
+    first = knowledge_bootstrap.seed_sf_admin_corpus(source_dir=str(src))
+    big_count = first["total_chunks"]
+
+    md.write_text("# Small\n\nOnly this line now.")
+    second = knowledge_bootstrap.seed_sf_admin_corpus(source_dir=str(src))
+    assert second["total_chunks"] < big_count
+    assert second["deleted_stale_chunks"] >= 1
+
+    ids = knowledge_mcp.list_document_ids("sf_admin", prefix="shrinker#")
+    assert len(ids) == second["total_chunks"]
+    knowledge_mcp._backend = None
+
+
+def test_embedding_model_pinned_to_all_minilm_l6_v2():
+    """The FIX explicitly requires _EMBED_MODEL pinned to all-MiniLM-L6-v2.
+    Asserts the constant so a future copy-paste rename gets caught."""
+    from shared.mcp import knowledge_mcp
+    assert knowledge_mcp._EMBED_MODEL == "all-MiniLM-L6-v2"
+
+
 def test_chroma_backend_ingest_and_search(monkeypatch):
     tmp = tempfile.mkdtemp(prefix="revops_chroma_")
     monkeypatch.setenv("REVOPS_REPO_ROOT", tmp)
