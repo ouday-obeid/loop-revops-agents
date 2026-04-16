@@ -38,8 +38,6 @@ def _isolate_env():
     os.environ.setdefault("CLAY_API_KEY", "test-clay")
     os.environ.setdefault("CLAY_MONTHLY_BUDGET_CREDITS", "10000")
     os.environ.setdefault("NOOKS_CADENCE_SF_OBJECT", "CampaignMember")
-    os.environ.setdefault("TOF_SDR_SLACK_MAP_JSON", "{}")
-    os.environ.setdefault("AGENT_SF_USER_TOF", "tof-agent@tryloop.ai")
     os.environ["SF_ORG_ALIAS"] = "salesops-sandbox"
 
     from shared.db import connection as c
