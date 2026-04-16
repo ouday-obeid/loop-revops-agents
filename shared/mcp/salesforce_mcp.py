@@ -229,6 +229,58 @@ def update_record(
     return result
 
 
+def merge_records(
+    sobject: str,
+    master_id: str,
+    duplicate_ids: list[str],
+    *,
+    agent_name: str,
+    approval_gate_id: int,
+    intent: Intent = "write",
+) -> dict[str, Any]:
+    """Merge up to 2 duplicate records into ``master_id`` via REST.
+
+    Wraps ``POST /services/data/vXX/sobjects/<sobject>/<masterId>/merge``.
+    Only Lead, Contact, Account support REST merge. SF limits a single call
+    to merging 2 duplicates at a time — callers split larger clusters.
+
+    Gate contract: ``action_type`` must be ``contact_merge`` for Contact /
+    Lead, ``account_merge`` for Account. The gate is mandatory; calls
+    without one raise :class:`ApprovalRequired`.
+    """
+    if approval_gate_id is None:
+        raise ApprovalRequired(f"merge_records on {sobject} requires approval_gate_id")
+    if not duplicate_ids:
+        raise ValueError("merge_records: duplicate_ids is empty")
+    if len(duplicate_ids) > 2:
+        raise ValueError(
+            "merge_records: SF REST merges at most 2 duplicates per call; "
+            "split the cluster and call in batches"
+        )
+    action_type = "account_merge" if sobject == "Account" else "contact_merge"
+    require_approved_gate(approval_gate_id, action_type=action_type)
+
+    body = json.dumps({"records": [{"id": d} for d in duplicate_ids]})
+    result = _sf(
+        "api", "request", "rest",
+        "--method", "POST",
+        "--url",
+        f"/services/data/{get_config('SF_API_VERSION', 'v59.0')}"
+        f"/sobjects/{sobject}/{master_id}/merge",
+        "--body", body,
+        intent=intent,
+    )
+    write_audit(
+        agent_name=agent_name,
+        action="sf_merge",
+        target=f"sf:{sobject}:{master_id}",
+        before={"duplicates": duplicate_ids},
+        after=result if isinstance(result, dict) else {"raw": result},
+        approval_gate_id=approval_gate_id,
+    )
+    return result
+
+
 def bulk_update(
     sobject: str,
     updates: list[dict[str, Any]],

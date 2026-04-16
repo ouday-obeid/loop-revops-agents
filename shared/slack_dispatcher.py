@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from datetime import datetime, timezone
 from typing import Any, Awaitable, Callable
 
 from shared.secrets import get_config, require_secret
@@ -132,14 +133,47 @@ def approval_blocks(gate_id: int, action_type: str, summary: str) -> list[dict[s
 
 
 def handle_gate_decision(gate_id: int, approved: bool, approver: str) -> None:
-    """Thin wrapper around governance.decide_approval_gate.
+    """Thin wrapper around governance.decide_approval_gate with cooldown guard.
 
-    Routing through governance (vs raw SQL) means dual-approval, cooldown,
-    and gate_decided audit logging all happen automatically — bug fixed in
-    Tier 2 of the v0.7-hygiene plan. Kept as a wrapper because external
-    callers (csm_enforcer, button handlers, regression tests) import it.
+    Defense-in-depth for dual-approval-cooldown flows (`sf_schema_delete`):
+    before forwarding an approve click to governance, verify that a child
+    confirm-gate's parent cooldown_until has actually elapsed. Even if the
+    cooldown poller has a bug that creates the confirm gate early, an
+    approver hitting the Slack button inside the 24h window is refused at
+    the dispatcher layer. Rejections always pass through unmodified — the
+    operator can always withdraw approval regardless of cooldown state.
+
+    Routing through governance (vs raw SQL) still means dual-approval,
+    cooldown promotion, and gate_decided audit logging happen automatically.
+    Kept as a wrapper because external callers (csm_enforcer, button
+    handlers, regression tests) import it.
     """
     from shared import governance
+
+    if approved:
+        gate = governance.get_approval_gate(gate_id)
+        parent_id = gate.get("parent_gate_id") if gate else None
+        if parent_id:
+            parent = governance.get_approval_gate(parent_id)
+            cooldown_until = parent.get("cooldown_until") if parent else None
+            if cooldown_until is not None:
+                if isinstance(cooldown_until, str):
+                    cooldown_until = datetime.fromisoformat(
+                        cooldown_until.replace("Z", "+00:00")
+                    )
+                if cooldown_until.tzinfo is None:
+                    cooldown_until = cooldown_until.replace(tzinfo=timezone.utc)
+                if datetime.now(timezone.utc) < cooldown_until:
+                    log.warning(
+                        "handle_gate_decision: refusing approve on gate %s — "
+                        "parent gate %s cooldown_until=%s has not elapsed",
+                        gate_id, parent_id, cooldown_until,
+                    )
+                    raise governance.ApprovalRequired(
+                        f"gate {gate_id} confirm refused: parent cooldown "
+                        f"until {cooldown_until.isoformat()} has not elapsed"
+                    )
+
     governance.decide_approval_gate(gate_id, approved=approved, approver=approver)
 
 

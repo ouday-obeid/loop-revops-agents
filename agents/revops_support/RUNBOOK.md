@@ -396,3 +396,108 @@ by this agent).
 6. Post Milestone 5 digest to O for sign-off.
 7. Start weekly `reports.duncan_parity` run every Monday to feed the Phase 3
    retainer-review decision.
+
+---
+
+## Phase 1.5 — Data Quality & Deal Desk
+
+### `@admin validation monitor`
+Org-wide ValidationRule health check. Pulls every active rule via Tooling API,
+flags orphaned rules (formula references a `__c` field that no longer exists on
+the parent object) and stale rules (`LastModifiedDate` older than 540d). Creates
+a `tasks` row for Duncan per flagged rule; dedupes on title so repeat runs
+don't spam.
+
+**Manual poll:**
+```
+python -c "from agents.revops_support.data_quality import validation_monitor; \
+  import json; print(json.dumps(validation_monitor.poll(), default=str, indent=2))"
+```
+
+**Rollback:** None — read-only. To withdraw a bad task row:
+```sql
+UPDATE tasks SET status = 'withdrawn' WHERE id = :id;
+```
+
+**Troubleshooting:**
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `describe failed for <Obj>` in logs | SF CLI timeout or object without read permission on service user | Check `sf org display --target-org $SF_ORG_ALIAS`; grant FLS to the service user's profile. |
+| Duplicate tasks after deploy | `tasks` table populated from a prior instance with different title format | Manually resolve old rows, then re-poll. |
+| Every rule flagged as orphan | Describe returned empty `fields` — usually a sandbox without metadata access | Verify `SF_ORG_ALIAS` points at the prod read alias, not sandbox. |
+
+### `@admin bad conversions`
+Scans converted Leads for orphaned references (no opp / no account / no contact)
+and creates Duncan-assigned tasks for review. `repair=True` with a configured
+`repair_field` and an approved bulk-update gate prepends a reversible DQ tag
+via :class:`BulkUpdater`, but this path is disabled by default until Loop's
+Lead schema is specified.
+
+**Manual scan:**
+```
+python -c "from agents.revops_support.data_quality import bad_conversions; \
+  import json; print(json.dumps(bad_conversions.poll(), default=str, indent=2))"
+```
+
+**Rollback (repair):** Use the `before_snapshot` from the `audit_log` row
+written by :class:`BulkUpdater` and re-run a reverse bulk-update with those
+values.
+
+**Troubleshooting:**
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `NotImplementedError: repair_field` | Caller set `repair=True` without a repair_field | Spec the Loop Lead repair field with Duncan; pass it explicitly. |
+| `ApprovalRequired` at `bulk_update_small`/`large` | No approved gate | Open a gate via `create_approval_gate(action_type=classify_bulk_update(count), ...)`. |
+| Orphan count jumps suddenly | Upstream change to Lead conversion flow | Check Flow changes in SF Setup; compare with knowledge-refresh metadata snapshots. |
+
+### `@admin dedup contacts`
+Clusters Contacts by Email (two-hop SOQL: `GROUP BY Email HAVING COUNT > 1`
+then detail fetch), picks a master (has-account > most-recent-activity >
+oldest-record), and either creates Duncan-assigned review tasks (default)
+or executes the merges via `salesforce_mcp.merge_records` (when `repair_=True`
+with an approved `contact_merge` gate).
+
+SF's REST merge endpoint caps duplicates at 2 per call — `apply_merge` batches
+any cluster of size > 3 into multiple gated calls against the same master.
+
+**Manual poll (detect only):**
+```
+python -c "from agents.revops_support.data_quality import dedup_contacts; \
+  import json; print(json.dumps(dedup_contacts.poll(), default=str, indent=2))"
+```
+
+**Rollback (repair):** SF merge is one-way — the duplicates become the
+master record's history. To reverse, restore the dupe from the Recycle Bin
+within 15 days. Beyond that, the audit_log `before_value` contains the
+pre-merge dupe IDs for forensic reference only.
+
+**Troubleshooting:**
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `ApprovalRequired: contact_merge` | Gate rejected or not dual-approved | Gate needs both primary + secondary approvers on `dual_approval` tier. |
+| Cluster master picks wrong record | Scoring tie broken to oldest; real owner expected newest | Pass a custom `propose_merges` replacement or override master manually before calling `apply_merge`. |
+| `SF REST merges at most 2 duplicates` ValueError | Caller bypassed `apply_merge` and called `merge_records` directly with 3+ | Use `apply_merge(proposal, ...)` which chunks; never call `merge_records` with >2 duplicates. |
+
+### `@admin dedup accounts`
+Fuzzy-clusters Accounts by normalized name + domain | city+state. More
+conservative than Contact dedup because an Account merge collapses TLO
+rollups and children (Contacts, Opps, Cases) into the master. Master pick:
+most opportunities > most recent activity > oldest CreatedDate. Tasks are
+Duncan-assigned; execute via `repair_=True` + approved `account_merge` gate.
+
+**Manual poll (detect only):**
+```
+python -c "from agents.revops_support.data_quality import dedup_accounts; \
+  import json; print(json.dumps(dedup_accounts.poll(), default=str, indent=2))"
+```
+
+**Rollback:** SF merge is one-way — restore the dupe Account from the Recycle
+Bin within 15 days. TLO rollups may need manual recomputation after the
+merge depending on which rollup fields are configured.
+
+**Troubleshooting:**
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Clusters empty even with obvious dupes | Normalization stripping too much — "Acme Inc" + "Acme Technologies Inc" have different non-noise tokens | Override `normalize_name` at call site or add to `_NAME_NOISE` pattern. |
+| Merge succeeds but TLO rollups stale | SF async job hasn't run yet | `sf data query --query "SELECT Id FROM Account WHERE Id = '<master>'"` triggers a recompute; or wait for nightly rollup. |
+| `dual_approval` gate hangs at approved_primary | Second approver hasn't clicked | Check `SELECT * FROM approval_gates WHERE id = <id>` — both distinct approvers must approve before promotion. |
