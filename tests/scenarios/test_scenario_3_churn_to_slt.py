@@ -94,7 +94,7 @@ def _due_opp(account_id: str = "001CHURN000000AAA", name: str = "FadingCo") -> d
 
 
 @pytest.mark.asyncio
-async def test_churn_risk_renewal_flow_and_slt_handoff():
+async def test_churn_risk_renewal_flow_and_slt_handoff(monkeypatch):
     sf = _SfForRenewal(due_opps=[_due_opp()])
 
     counters = await pipeline.run_sweep(sf_mcp=sf)
@@ -127,6 +127,14 @@ async def test_churn_risk_renewal_flow_and_slt_handoff():
 
     # Boundary 3 — SLT dispatcher accepts `forecast <quarter>` and returns a
     # routed response. This is the boundary the weekly SLT report crosses.
+    # The slt-forecast-dispatcher merge wired forecast to a real Slack DM send;
+    # patch the sender so the test doesn't need SLACK_BOT_TOKEN. Mirrors the
+    # `capture_forecast_dm` fixture in agents/slt_metrics/tests/test_dispatcher_routing.py.
+    monkeypatch.setattr(
+        slt_dispatcher,
+        "_get_default_sender",
+        lambda: lambda channel, text_, blocks: {"ok": True, "ts": "1.0", "channel": channel},
+    )
     agent = SltMetricsAgent()
     slt_result = await slt_dispatcher.route(
         agent, trigger="scenario", payload={"text": "forecast FY2026-Q2"}
