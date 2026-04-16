@@ -207,14 +207,13 @@ def test_canned_registry_has_eight():
         assert callable(fn), name
 
 
-# ------------- 10. Slack handle_gate_decision bypasses cooldown (REGRESSION)
+# ------------- 10. Slack handle_gate_decision routes through governance (FIXED)
 
-def test_slack_handle_gate_decision_bypasses_cooldown_BUG():
-    """DEFECT CHECK: plan requires slack_dispatcher.handle_gate_decision to
-    route through governance.decide_approval_gate so sf_schema_delete enters
-    cooldown. Currently it uses raw SQL and writes status='approved' directly,
-    skipping the 24h cooling period. This test documents the bug; if the bug
-    is fixed, flip the assertion."""
+def test_slack_handle_gate_decision_respects_cooldown():
+    """slack_dispatcher.handle_gate_decision now routes through
+    governance.decide_approval_gate so sf_schema_delete enters cooldown
+    instead of going straight to approved. Tier 3 of v0.7-hygiene plan —
+    flipped from the regression-documenting state in db6b4f5."""
     from shared.governance import create_approval_gate, get_approval_gate
     from shared import slack_dispatcher
     gate_id = create_approval_gate(
@@ -225,12 +224,5 @@ def test_slack_handle_gate_decision_bypasses_cooldown_BUG():
     )
     slack_dispatcher.handle_gate_decision(gate_id, approved=True, approver="O")
     gate = get_approval_gate(gate_id)
-    # Expected (plan-correct): "approved_primary" with cooldown_until
-    # Actual (bug): "approved" with no cooldown.
-    # Assert the BUG state so the test documents the regression. When fixed,
-    # flip to: assert gate["status"] == "approved_primary".
-    assert gate["status"] == "approved", (
-        "If this test now fails with status=approved_primary, the bug is FIXED — "
-        "flip the assertion and delete this comment."
-    )
-    assert gate["cooldown_until"] is None, "cooldown NOT set — governance bypass"
+    assert gate["status"] == "approved_primary"
+    assert gate["cooldown_until"] is not None

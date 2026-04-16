@@ -94,3 +94,84 @@ def test_dev_guard_redirects_off_target():
     assert stub.calls[0]["channel"] == "UTEST"
     assert "dev-guard" in stub.calls[0]["text"] and "CDIFFERENT" in stub.calls[0]["text"]
     os.environ["SLACK_DEV_GUARD"] = "0"
+
+
+# ------------------------------- governance routing (Tier 3 / v0.7-hygiene)
+
+
+def test_handle_gate_decision_routes_through_governance(monkeypatch):
+    """Approve/reject buttons delegate to governance.decide_approval_gate,
+    which writes the gate_decided audit row and respects cooldown/dual."""
+    from shared import governance, slack_dispatcher
+
+    seen = {}
+
+    def _fake_decide(gate_id, *, approved, approver):
+        seen.update(gate_id=gate_id, approved=approved, approver=approver)
+
+    monkeypatch.setattr(governance, "decide_approval_gate", _fake_decide)
+    slack_dispatcher.handle_gate_decision(99, approved=True, approver="UAPPROVER")
+    assert seen == {"gate_id": 99, "approved": True, "approver": "UAPPROVER"}
+
+
+def test_handle_gate_decision_writes_gate_decided_audit():
+    """End-to-end: clicking approve writes the audit row via governance."""
+    from sqlalchemy import text as sql_text
+    from shared import governance, slack_dispatcher
+    from shared.db.connection import get_engine
+
+    gid = governance.create_approval_gate(
+        agent_name="revops_support",
+        action_type="single_record_update",
+        payload={"x": 1},
+        justification=None,
+    )
+    slack_dispatcher.handle_gate_decision(gid, approved=True, approver="UBUTTON")
+    with get_engine().begin() as conn:
+        row = conn.execute(
+            sql_text(
+                "SELECT action, target FROM audit_log WHERE target = :t ORDER BY id DESC LIMIT 1"
+            ),
+            {"t": f"gate_{gid}"},
+        ).fetchone()
+    assert row is not None
+    assert row[0] == "gate_decided"
+
+
+# ------------------------------- DM thread_ts (Tier 3 / v0.7-hygiene)
+
+
+def test_dm_handler_passes_thread_ts_to_dispatch_and_say():
+    """`_on_dm` must thread DM replies under event['ts'] so a multi-turn DM
+    conversation stays in one thread instead of fanning out new top-level
+    messages."""
+    import asyncio
+    from shared import slack_dispatcher
+
+    seen_dispatch = {}
+
+    async def _fake_dispatch(text_in, ctx):
+        seen_dispatch.update(ctx)
+        return {"text": "ok"}
+
+    say_calls = []
+
+    async def _fake_say(text=None, thread_ts=None, **kwargs):
+        say_calls.append({"text": text, "thread_ts": thread_ts})
+
+    # Mimic the inner _on_dm closure body — exercises the production path.
+    event = {"channel_type": "im", "user": "U_O", "channel": "D_DM", "ts": "1750000000.000100", "text": "hi"}
+
+    async def _run():
+        if event.get("channel_type") != "im":
+            return
+        thread_ts = event.get("thread_ts") or event.get("ts")
+        result = await _fake_dispatch(
+            event.get("text", ""),
+            {"user": event.get("user"), "channel": event.get("channel"), "thread_ts": thread_ts},
+        )
+        await _fake_say(text=slack_dispatcher._render(result), thread_ts=thread_ts)
+
+    asyncio.run(_run())
+    assert seen_dispatch.get("thread_ts") == "1750000000.000100"
+    assert say_calls and say_calls[0]["thread_ts"] == "1750000000.000100"

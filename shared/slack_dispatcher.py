@@ -9,12 +9,8 @@ from __future__ import annotations
 import json
 import logging
 import re
-from datetime import datetime, timezone
 from typing import Any, Awaitable, Callable
 
-from sqlalchemy import text
-
-from shared.db.connection import get_engine
 from shared.secrets import get_config, require_secret
 
 log = logging.getLogger(__name__)
@@ -130,16 +126,15 @@ def approval_blocks(gate_id: int, action_type: str, summary: str) -> list[dict[s
 
 
 def handle_gate_decision(gate_id: int, approved: bool, approver: str) -> None:
-    now = datetime.now(timezone.utc)
-    status = "approved" if approved else "rejected"
-    engine = get_engine()
-    with engine.begin() as conn:
-        conn.execute(
-            text("""UPDATE approval_gates
-                       SET status = :s, approved_by = :a, decided_at = :now
-                     WHERE id = :id AND status = 'pending'"""),
-            {"s": status, "a": approver, "now": now, "id": gate_id},
-        )
+    """Thin wrapper around governance.decide_approval_gate.
+
+    Routing through governance (vs raw SQL) means dual-approval, cooldown,
+    and gate_decided audit logging all happen automatically — bug fixed in
+    Tier 2 of the v0.7-hygiene plan. Kept as a wrapper because external
+    callers (csm_enforcer, button handlers, regression tests) import it.
+    """
+    from shared import governance
+    governance.decide_approval_gate(gate_id, approved=approved, approver=approver)
 
 
 def build_app() -> Any:
@@ -157,8 +152,12 @@ def build_app() -> Any:
     async def _on_dm(event, say):
         if event.get("channel_type") != "im":
             return
-        result = await dispatch(event.get("text", ""), {"user": event.get("user"), "channel": event.get("channel")})
-        await say(text=_render(result))
+        thread_ts = event.get("thread_ts") or event.get("ts")
+        result = await dispatch(
+            event.get("text", ""),
+            {"user": event.get("user"), "channel": event.get("channel"), "thread_ts": thread_ts},
+        )
+        await say(text=_render(result), thread_ts=thread_ts)
 
     @app.action("approve_gate")
     async def _approve(ack, body, client):
