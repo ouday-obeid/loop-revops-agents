@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS approval_gates (
     justification TEXT,
     requested_by TEXT NOT NULL,
     approved_by TEXT,
+    approvals TEXT,
     status TEXT NOT NULL DEFAULT 'pending',
     slack_message_ts TEXT,
     requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

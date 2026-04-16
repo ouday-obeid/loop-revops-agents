@@ -133,3 +133,99 @@ def test_new_revops_tiers_addressable():
         "license_deactivation",
     ):
         assert action in governance.APPROVAL_TIERS
+
+
+# ----------------------------------------------- Dual-approval (mark_churned)
+
+def _gate_row(gid: int):
+    import json
+    from sqlalchemy import text
+    from shared.db.connection import get_engine
+    with get_engine().begin() as conn:
+        row = conn.execute(
+            text("SELECT status, approvals FROM approval_gates WHERE id = :id"),
+            {"id": gid},
+        ).fetchone()
+    approvals = json.loads(row[1]) if row and row[1] else []
+    return row[0], approvals
+
+
+def test_mark_churned_first_approval_stays_pending():
+    gid = governance.create_approval_gate(
+        agent_name="cs",
+        action_type="mark_churned",
+        payload={"account_id": "0011x"},
+        justification=None,
+    )
+    governance.decide_approval_gate(gid, approved=True, approver="UJACKIE")
+    status, approvals = _gate_row(gid)
+    assert status == "pending"
+    assert len(approvals) == 1
+    assert approvals[0]["approver"] == "UJACKIE"
+
+
+def test_mark_churned_two_distinct_approvers_promotes_to_approved():
+    gid = governance.create_approval_gate(
+        agent_name="cs",
+        action_type="mark_churned",
+        payload={"account_id": "0011y"},
+        justification=None,
+    )
+    governance.decide_approval_gate(gid, approved=True, approver="UJACKIE")
+    governance.decide_approval_gate(gid, approved=True, approver="UO")
+    status, approvals = _gate_row(gid)
+    assert status == "approved"
+    assert len(approvals) == 2
+    assert {a["approver"] for a in approvals} == {"UJACKIE", "UO"}
+
+
+def test_mark_churned_same_approver_twice_does_not_complete():
+    gid = governance.create_approval_gate(
+        agent_name="cs",
+        action_type="mark_churned",
+        payload={"account_id": "0011z"},
+        justification=None,
+    )
+    governance.decide_approval_gate(gid, approved=True, approver="UJACKIE")
+    governance.decide_approval_gate(gid, approved=True, approver="UJACKIE")
+    status, _ = _gate_row(gid)
+    assert status == "pending"
+
+
+def test_mark_churned_single_rejection_flips_to_rejected():
+    gid = governance.create_approval_gate(
+        agent_name="cs",
+        action_type="mark_churned",
+        payload={"account_id": "0011a"},
+        justification=None,
+    )
+    governance.decide_approval_gate(gid, approved=True, approver="UJACKIE")
+    governance.decide_approval_gate(gid, approved=False, approver="UO")
+    status, _ = _gate_row(gid)
+    assert status == "rejected"
+
+
+def test_decide_gate_writes_audit_with_gate_decided_action():
+    from sqlalchemy import text
+    from shared.db.connection import get_engine
+    gid = governance.create_approval_gate(
+        agent_name="test",
+        action_type="single_record_update",
+        payload={"x": 1},
+        justification=None,
+    )
+    governance.decide_approval_gate(gid, approved=True, approver="UDECIDER")
+    with get_engine().begin() as conn:
+        row = conn.execute(
+            text(
+                """SELECT action, target, after_value FROM audit_log
+                   WHERE action='gate_decided' AND target = :t
+                   ORDER BY id DESC LIMIT 1"""
+            ),
+            {"t": f"gate_{gid}"},
+        ).fetchone()
+    assert row is not None
+    assert row[0] == "gate_decided"
+    assert row[1] == f"gate_{gid}"
+    assert "UDECIDER" in row[2]
+    assert "approved" in row[2]

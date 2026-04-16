@@ -187,31 +187,65 @@ def get_approval_gate(gate_id: int) -> dict[str, Any] | None:
 
 
 def decide_approval_gate(gate_id: int, *, approved: bool, approver: str) -> None:
-    """Record O's decision on a gate.
+    """Record a decision on a gate. Writes audit('gate_decided').
 
     For `dual_approval_cooldown` tiers (e.g. `sf_schema_delete`), approval
     transitions to `approved_primary` with `cooldown_until = now + cooldown_hours`.
     A scheduled poller creates the confirmation gate once cooldown elapses; the
     confirmation gate itself (e.g. `sf_schema_delete_confirm`) uses the normal
     slack_explicit flow and transitions straight to `approved`.
+
+    For dual-approval tiers (approver='jackie_and_o', e.g. `mark_churned`):
+    each call appends to the `approvals` JSON list. Status flips to `approved`
+    only when 2+ distinct approvers have approved with no intervening
+    rejection. A single rejection from any approver flips the gate to
+    `rejected` immediately.
     """
     now = datetime.now(timezone.utc)
     engine = get_engine()
+    audit_payload: dict[str, Any] = {"approved": approved, "approver": approver}
+    final_status: str | None = None
     with engine.begin() as conn:
         row = conn.execute(
-            text("SELECT action_type, status FROM approval_gates WHERE id = :id"),
+            text("SELECT action_type, status, approvals FROM approval_gates WHERE id = :id"),
             {"id": gate_id},
         ).fetchone()
         if row is None or row[1] != "pending":
             return
 
         action_type = row[0]
+        existing = json.loads(row[2]) if row[2] else []
         tier = APPROVAL_TIERS.get(action_type)
         cooldown_hours = tier.cooldown_hours if tier else None
+        is_dual = bool(tier and tier.approver == "jackie_and_o")
+
+        existing.append(
+            {"approver": approver, "approved": approved, "decided_at": now.isoformat()}
+        )
+        approvals_json = json.dumps(existing)
 
         if not approved:
             status = "rejected"
             cooldown_until = None
+        elif is_dual:
+            any_reject = any(not a["approved"] for a in existing)
+            distinct_yes = {a["approver"] for a in existing if a["approved"]}
+            if any_reject:
+                status = "rejected"
+                cooldown_until = None
+            elif len(distinct_yes) >= 2:
+                status = "approved"
+                cooldown_until = None
+            else:
+                conn.execute(
+                    text(
+                        "UPDATE approval_gates SET approvals = :ap, decided_at = :now"
+                        " WHERE id = :id AND status = 'pending'"
+                    ),
+                    {"ap": approvals_json, "now": now, "id": gate_id},
+                )
+                audit_payload["needs_more_approvers"] = True
+                final_status = "pending"
         elif cooldown_hours:
             status = "approved_primary"
             cooldown_until = now + timedelta(hours=cooldown_hours)
@@ -219,23 +253,36 @@ def decide_approval_gate(gate_id: int, *, approved: bool, approver: str) -> None
             status = "approved"
             cooldown_until = None
 
-        conn.execute(
-            text(
-                """
-                UPDATE approval_gates
-                   SET status = :s, approved_by = :a, decided_at = :now,
-                       cooldown_until = :cd
-                 WHERE id = :id AND status = 'pending'
-                """
-            ),
-            {
-                "s": status,
-                "a": approver,
-                "now": now,
-                "cd": cooldown_until,
-                "id": gate_id,
-            },
-        )
+        if final_status is None:
+            conn.execute(
+                text(
+                    """
+                    UPDATE approval_gates
+                       SET status = :s, approved_by = :a, decided_at = :now,
+                           cooldown_until = :cd, approvals = :ap
+                     WHERE id = :id AND status = 'pending'
+                    """
+                ),
+                {
+                    "s": status,
+                    "a": approver,
+                    "now": now,
+                    "cd": cooldown_until,
+                    "ap": approvals_json,
+                    "id": gate_id,
+                },
+            )
+            final_status = status
+
+    audit_payload["final_status"] = final_status
+    # `target` carries the gate id; we deliberately skip the approval_gate_id FK
+    # so test fixtures that DELETE approval_gates before audit_log don't break.
+    write_audit(
+        agent_name="governance",
+        action="gate_decided",
+        target=f"gate_{gate_id}",
+        after=audit_payload,
+    )
 
 
 def auto_approve_gate(gate_id: int, *, approver: str = "system") -> None:
