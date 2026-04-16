@@ -28,10 +28,23 @@ from agents.sales_reps import (
 from agents.sales_reps.call_grader import batch as grader_batch
 from agents.sales_reps.pre_demo import brief_generator, trigger as demo_trigger
 from shared import governance
+from shared.secrets import get_config
 
 log = logging.getLogger(__name__)
 
 _AGENT_NAME = "sales_reps"
+
+# Idempotency window for pre-demo briefs — a brief generated in the last
+# 6h for opp X means the next brief_scan tick won't regenerate it.
+# Bigger than the gcal pre-window (90-120 min) so a re-scheduled demo
+# doesn't cause a duplicate brief; small enough that a same-day reschedule
+# (e.g. moved 5h) still gets a fresh brief.
+_BRIEF_IDEMPOTENCY_HOURS = 6
+
+
+def _missing_fireflies_key() -> bool:
+    val = get_config("FIREFLIES_API_KEY")
+    return not val or val == "REPLACE"
 
 
 # --------------------------------------------------------------- grader poll
@@ -41,7 +54,14 @@ async def grader_poll() -> dict[str, Any]:
 
     Look-back window is slightly wider than tick cadence so a delayed tick still
     catches late arrivals. `grade_range` is idempotent via storage.grade_exists.
+
+    If FIREFLIES_API_KEY is unset/REPLACE, return a degraded skip status
+    instead of raising — launchd treats a non-zero exit as a failure and
+    backs off, but a missing-config is operational, not a crash.
     """
+    if _missing_fireflies_key():
+        log.info("grader_poll: FIREFLIES_API_KEY not configured — skipping tick")
+        return {"skipped": "no_fireflies_api_key", "graded": [], "errors": []}
     now = datetime.now(timezone.utc)
     window_start = (now - timedelta(minutes=20)).date().isoformat()
     window_end = (now + timedelta(days=1)).date().isoformat()  # inclusive of today
@@ -56,17 +76,53 @@ async def grader_poll() -> dict[str, Any]:
     return out
 
 
+def _brief_recently_generated(opp_id: str) -> bool:
+    """Has a brief been generated for this opp_id in the last
+    _BRIEF_IDEMPOTENCY_HOURS? Reads audit_log written by
+    brief_generator (action='sales_reps_pre_demo_brief',
+    target='sf:Opportunity:{opp_id}').
+
+    Idempotency is keyed on opp_id, NOT event_id — a rescheduled demo
+    that points at the same opportunity must not regenerate the brief.
+    """
+    from sqlalchemy import text
+    from shared.db.connection import get_engine
+
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=_BRIEF_IDEMPOTENCY_HOURS)
+    with get_engine().begin() as conn:
+        row = conn.execute(
+            text(
+                """SELECT 1 FROM audit_log
+                     WHERE action = 'sales_reps_pre_demo_brief'
+                       AND target = :t
+                       AND timestamp >= :c
+                     LIMIT 1"""
+            ),
+            {"t": f"sf:Opportunity:{opp_id}", "c": cutoff},
+        ).fetchone()
+    return row is not None
+
+
 # --------------------------------------------------------------- pre-demo brief scan
 
 async def brief_scan() -> dict[str, Any]:
-    """Every 15 min: find demos starting in ~2h and generate briefs for each."""
+    """Every 15 min: find demos starting in ~2h and generate briefs for each.
+
+    Idempotency: skip any opp that already had a brief generated in the
+    last _BRIEF_IDEMPOTENCY_HOURS (key = opp_id, NOT event_id, so a
+    rescheduled demo doesn't trigger a duplicate brief).
+    """
     candidates = demo_trigger.scan_upcoming()
     briefs: list[dict[str, Any]] = []
+    skipped: list[dict[str, Any]] = []
     errors: list[dict[str, str]] = []
     for cand in candidates:
         opp = cand.get("opportunity") or {}
         opp_id = opp.get("Id")
         if not opp_id:
+            continue
+        if _brief_recently_generated(opp_id):
+            skipped.append({"opportunity_id": opp_id, "reason": "already_briefed"})
             continue
         try:
             brief = await brief_generator.generate(opp_id, include_blocks=True)
@@ -84,9 +140,14 @@ async def brief_scan() -> dict[str, Any]:
         action="sales_reps_brief_scan",
         target=f"briefs:{len(briefs)}",
         after={"briefs": len(briefs), "errors": len(errors),
-               "candidates": len(candidates)},
+               "candidates": len(candidates), "skipped_already_briefed": len(skipped)},
     )
-    return {"briefs": briefs, "errors": errors, "candidates_scanned": len(candidates)}
+    return {
+        "briefs": briefs,
+        "errors": errors,
+        "candidates_scanned": len(candidates),
+        "skipped_already_briefed": skipped,
+    }
 
 
 # --------------------------------------------------------------- daily / periodic

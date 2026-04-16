@@ -15,7 +15,7 @@ from shared.db.connection import get_engine
 
 _SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS sales_reps_call_grades (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
     meeting_id TEXT NOT NULL UNIQUE,
     rep_email TEXT,
     rep_name TEXT,
@@ -53,14 +53,19 @@ _initialized = False
 
 
 def ensure_schema() -> None:
-    """Create table + indexes on first call. Idempotent."""
+    """Create table + indexes on first call. Idempotent.
+
+    `id INTEGER PRIMARY KEY` is portable across SQLite (rowid alias —
+    auto-increments) and Postgres (Phase 4 will add an explicit SERIAL
+    via Alembic; the column type stays INTEGER). The previous
+    `AUTOINCREMENT` keyword was SQLite-only and would fail Postgres
+    schema creation.
+    """
     global _initialized
     if _initialized:
         return
     engine = get_engine()
     with engine.begin() as conn:
-        # SQLite uses AUTOINCREMENT; Postgres treats INTEGER PRIMARY KEY as SERIAL-esque
-        # but if we run on Postgres in Phase 4 we'll add a dialect guard. For now, sqlite.
         conn.execute(text(_SCHEMA_SQL))
         for idx in _INDEX_STATEMENTS:
             conn.execute(text(idx))
