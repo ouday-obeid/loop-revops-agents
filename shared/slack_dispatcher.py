@@ -24,6 +24,19 @@ ActionHandler = Callable[[dict[str, Any]], Awaitable[dict[str, Any] | None]]
 _registry: dict[str, Handler] = {}
 _action_handlers: dict[str, ActionHandler] = {}
 
+# Human persona names that resolve to canonical agent registry keys. Applied in
+# parse_command() before the registry lookup, so `@oo outbounder enrich` routes
+# to the same handler as `@oo top_of_funnel enrich`. Directories, DB identifiers,
+# Slack log channels, and Monday cards are unchanged — this is dispatcher sugar.
+PERSONA_ALIASES: dict[str, str] = {
+    "outbounder": "top_of_funnel",
+    "closer": "sales_reps",
+    "onboarder": "onboarding",
+    "supporter": "cs",
+    "admin": "revops_support",
+    "urkel": "slt_metrics",
+}
+
 
 def register(agent_name: str, handler: Handler) -> None:
     _registry[agent_name] = handler
@@ -61,7 +74,7 @@ def parse_command(text_in: str) -> tuple[str | None, str]:
     parts = cleaned.split(maxsplit=1)
     if not parts:
         return None, ""
-    first = parts[0].lower()
+    first = PERSONA_ALIASES.get(parts[0].lower(), parts[0].lower())
     if first in _registry and first != "oo":
         return first, parts[1] if len(parts) > 1 else ""
     return None, cleaned

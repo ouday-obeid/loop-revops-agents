@@ -34,7 +34,8 @@ HELP_TEXT = (
     "• `@oo onboarding handoff <account>` — run handoff checklist on demand\n"
     "• `@oo onboarding skip <opp_id> <justification>` — override a blocking handoff item\n"
     "• `@oo onboarding assign <gate_id> <user_id>` — complete an approved CSM reassignment\n"
-    "• `@oo onboarding backfill --preview` — count historical Closed Won gaps"
+    "• `@oo onboarding backfill --preview` — count historical Closed Won gaps\n"
+    "Alias: `@oo onboarder …` routes here too."
 )
 
 

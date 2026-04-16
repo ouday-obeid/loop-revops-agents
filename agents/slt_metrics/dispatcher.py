@@ -202,4 +202,5 @@ def _help_text(unknown: str | None = None) -> str:
         "• `friday` — Friday 4 PM weekly review (DM draft to O)\n"
         "• `weights show|set|propose` — inspect / adjust forecast weights\n"
         "• `backtest <from> <to>` — replay scorer over a date range\n"
+        "Alias: `@oo urkel …` routes here too.\n"
     )

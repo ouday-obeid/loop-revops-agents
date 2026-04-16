@@ -23,7 +23,8 @@ HELP_TEXT = (
     "• `@oo cs renewals` — T-120 window + stalls\n"
     "• `@oo cs churn-risk [50|70|85]` — scored accounts\n"
     "• `@oo cs brief <account>` — pre-renewal brief\n"
-    "• `@oo cs qbr <account>` — QBR markdown"
+    "• `@oo cs qbr <account>` — QBR markdown\n"
+    "Alias: `@oo supporter …` routes here too."
 )
 
 

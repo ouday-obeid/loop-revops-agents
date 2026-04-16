@@ -159,3 +159,35 @@ async def test_help_supports_hyphen_alias():
     r = await a.handle("slack", {"text": "dry-run"})
     # No subcommand 'dry_run' exists → help response.
     assert "Unknown" in r["text"] or "unknown" in r["text"].lower()
+
+
+# ---------------------------------------------------------- persona alias
+
+
+@pytest.mark.asyncio
+async def test_persona_alias_outbounder_routes_to_tof():
+    """`@oo outbounder ping` resolves through shared.slack_dispatcher.PERSONA_ALIASES
+    to the top_of_funnel handler."""
+    from agents.top_of_funnel.main import register_with_dispatcher
+    from shared.slack_dispatcher import dispatch
+
+    register_with_dispatcher()
+    result = await dispatch(
+        "<@UBOT> outbounder ping", {"user": "U_TEST", "channel": "C_TEST"}
+    )
+    assert "pong" in result["text"].lower()
+
+
+@pytest.mark.asyncio
+async def test_persona_alias_outbounder_matches_canonical_help():
+    """Alias and canonical produce identical help output."""
+    from agents.top_of_funnel.main import register_with_dispatcher
+    from shared.slack_dispatcher import dispatch
+
+    register_with_dispatcher()
+    alias = await dispatch("<@UBOT> outbounder help", {"user": "U", "channel": "C"})
+    canonical = await dispatch(
+        "<@UBOT> top_of_funnel help", {"user": "U", "channel": "C"}
+    )
+    assert alias["text"] == canonical["text"]
+    assert "outbounder" in alias["text"]

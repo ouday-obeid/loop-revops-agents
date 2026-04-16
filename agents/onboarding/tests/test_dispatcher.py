@@ -304,3 +304,35 @@ async def test_registration_exposes_handler():
         "onboarding ping", {"user": "U_TEST", "channel": "C_TEST"}
     )
     assert "pong" in result["text"].lower()
+
+
+@pytest.mark.asyncio
+async def test_persona_alias_onboarder_routes_to_onboarding():
+    """`@oo onboarder ping` resolves through PERSONA_ALIASES to the onboarding
+    handler."""
+    from agents.onboarding import main as ob_main
+    from shared import slack_dispatcher
+
+    ob_main.bootstrap()
+    result = await slack_dispatcher.dispatch(
+        "onboarder ping", {"user": "U_TEST", "channel": "C_TEST"}
+    )
+    assert "pong" in result["text"].lower()
+    assert "onboarding online" in result["text"].lower()
+
+
+@pytest.mark.asyncio
+async def test_persona_alias_onboarder_matches_canonical_help():
+    """Alias and canonical return identical help text."""
+    from agents.onboarding import main as ob_main
+    from shared import slack_dispatcher
+
+    ob_main.bootstrap()
+    alias = await slack_dispatcher.dispatch(
+        "onboarder help", {"user": "U_TEST", "channel": "C_TEST"}
+    )
+    canonical = await slack_dispatcher.dispatch(
+        "onboarding help", {"user": "U_TEST", "channel": "C_TEST"}
+    )
+    assert alias["text"] == canonical["text"] == HELP_TEXT
+    assert "onboarder" in alias["text"]

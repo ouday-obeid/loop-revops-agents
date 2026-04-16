@@ -126,4 +126,5 @@ def _help_text(unknown: str | None = None) -> str:
         "• `queue status` — pending outbound-sequence approval gates\n"
         "• `queue approve <gate_id>` — approve today's enrollment queue\n"
         "• `credits` — Clay credit usage this month\n"
+        "Alias: `@oo outbounder …` routes here too.\n"
     )
