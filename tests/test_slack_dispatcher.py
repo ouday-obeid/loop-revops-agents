@@ -141,6 +141,48 @@ def test_handle_gate_decision_writes_gate_decided_audit():
 # ------------------------------- DM thread_ts (Tier 3 / v0.7-hygiene)
 
 
+# ------------------------------- ping_o_dm bootstrap helper (Tier 11)
+
+
+def test_ping_o_dm_targets_slack_test_channel(monkeypatch):
+    """ping_o_dm() must target SLACK_TEST_CHANNEL (or U07P4GX9YLQ default)
+    and post a recognizable bootstrap message. Used by infra/bootstrap.sh
+    to verify the bot token before the daemon comes up."""
+
+    monkeypatch.setenv("SLACK_TEST_CHANNEL", "U_O_PING")
+    monkeypatch.setenv("SLACK_DEV_GUARD", "0")
+
+    class _StubClient:
+        def __init__(self):
+            self.calls = []
+
+        def chat_postMessage(self, channel, text, blocks):
+            self.calls.append({"channel": channel, "text": text, "blocks": blocks})
+            return {"ok": True, "ts": "1.0", "channel": channel}
+
+    stub = _StubClient()
+    sender = SlackSender(client=stub)
+    result = sender.ping_o_dm()
+    assert result["ok"] is True
+    assert stub.calls[0]["channel"] == "U_O_PING"
+    assert "bootstrap" in stub.calls[0]["text"].lower()
+
+
+def test_ping_o_dm_falls_back_to_default_user_id(monkeypatch):
+    monkeypatch.delenv("SLACK_TEST_CHANNEL", raising=False)
+    monkeypatch.setenv("SLACK_DEV_GUARD", "0")
+
+    class _StubClient:
+        def __init__(self): self.calls = []
+        def chat_postMessage(self, channel, text, blocks):
+            self.calls.append({"channel": channel})
+            return {"ok": True, "ts": "1.0", "channel": channel}
+
+    stub = _StubClient()
+    SlackSender(client=stub).ping_o_dm()
+    assert stub.calls[0]["channel"] == "U07P4GX9YLQ"
+
+
 def test_dm_handler_passes_thread_ts_to_dispatch_and_say():
     """`_on_dm` must thread DM replies under event['ts'] so a multi-turn DM
     conversation stays in one thread instead of fanning out new top-level

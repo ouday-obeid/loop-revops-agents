@@ -35,4 +35,22 @@ fi
 
 mkdir -p "$REVOPS_REPO_ROOT/var/log" "$REVOPS_REPO_ROOT/var/chroma" "$REVOPS_REPO_ROOT/var/launchd"
 
+echo "[bootstrap] verifying SF CLI auth (read-only)"
+if command -v sf >/dev/null 2>&1; then
+  if sf org list --json >/dev/null 2>&1; then
+    echo "[bootstrap]   OK: sf org list returned authenticated orgs"
+  else
+    echo "[bootstrap]   WARN: sf org list failed — run 'sf org login web' before first use" >&2
+  fi
+else
+  echo "[bootstrap]   WARN: sf CLI not on PATH — install via 'brew install sf-cli'" >&2
+fi
+
+echo "[bootstrap] verifying Slack bot token (ping O DM)"
+if python -c "from shared.slack_dispatcher import SlackSender; SlackSender().ping_o_dm()" 2>/dev/null; then
+  echo "[bootstrap]   OK: Slack bot token reached O's DM"
+else
+  echo "[bootstrap]   WARN: Slack ping failed — check SLACK_BOT_TOKEN in .env" >&2
+fi
+
 echo "[bootstrap] done. Activate with: source $REVOPS_REPO_ROOT/.venv/bin/activate"

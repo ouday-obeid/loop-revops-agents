@@ -107,6 +107,12 @@ class SlackSender:
         resp = client.chat_postMessage(channel=channel, text=text_, blocks=blocks)
         return {"ok": resp["ok"], "ts": resp.get("ts"), "channel": resp.get("channel")}
 
+    def ping_o_dm(self) -> dict[str, Any]:
+        """Post a one-line liveness ping to O's DM. Used by infra/bootstrap.sh
+        to verify SLACK_BOT_TOKEN is wired before the daemon comes up."""
+        target = get_config("SLACK_TEST_CHANNEL") or "U07P4GX9YLQ"
+        return self.send(target, ":wave: bootstrap ping — Slack bot token wired correctly")
+
 
 def approval_blocks(gate_id: int, action_type: str, summary: str) -> list[dict[str, Any]]:
     return [
