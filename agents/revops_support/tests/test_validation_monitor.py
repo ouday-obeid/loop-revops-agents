@@ -255,6 +255,82 @@ def test_poll_no_issues_no_tasks(_fresh_state):
     assert tasks == 0
 
 
+def _prod_rule_no_formula(
+    id_: str = "03dHp000000vhqvIAA",
+    name: str = "Block_Test_Int_Changes",
+    obj: str = "rh2__PS_Describe__c",
+    last_modified: str = "2024-12-16T15:26:23.000+0000",
+    owner: str = "Jon Van",
+) -> dict[str, Any]:
+    """Tooling-API response shape from prod: no ``ErrorConditionFormula``.
+
+    Mirrors an actual ``SELECT Id, ValidationName, Active, ErrorMessage,
+    Description, EntityDefinition.QualifiedApiName, LastModifiedDate,
+    LastModifiedBy.Name FROM ValidationRule`` row against
+    ``salesops@tryloop.ai`` — proves the module doesn't blow up when the
+    formula column is absent (the perm-gated case the v0.9 deploy hit).
+    """
+    return {
+        "Id": id_,
+        "ValidationName": name,
+        "Active": True,
+        "ErrorMessage": "You have been stopped from changing Test Integer by a validation rule.",
+        "Description": "Prevents the test integer field from being set.",
+        "EntityDefinition": {"QualifiedApiName": obj},
+        "LastModifiedDate": last_modified,
+        "LastModifiedBy": {"Name": owner},
+    }
+
+
+def test_fetch_active_rules_survives_missing_formula_column():
+    """Prod column set (no ErrorConditionFormula) should normalize cleanly."""
+    rules = vm.fetch_active_rules(
+        tooling_query=_mk_tooling([_prod_rule_no_formula()])
+    )
+    assert len(rules) == 1
+    assert rules[0]["formula"] == ""
+    assert rules[0]["object"] == "rh2__PS_Describe__c"
+    assert rules[0]["owner"] == "Jon Van"
+
+
+def test_detect_orphans_noop_when_no_formula_available(caplog):
+    """When the Tooling query drops ErrorConditionFormula, orphan detection
+    degrades to an empty list + a single WARN log."""
+    import logging
+    rules = vm.fetch_active_rules(
+        tooling_query=_mk_tooling([
+            _prod_rule_no_formula(id_="R1"),
+            _prod_rule_no_formula(id_="R2", name="Another"),
+        ])
+    )
+    with caplog.at_level(logging.WARNING, logger=vm.__name__):
+        orphans = vm.detect_orphans(
+            rules,
+            describe_fn=_mk_describe({"rh2__PS_Describe__c": []}),
+        )
+    assert orphans == []
+    assert any("orphan detection skipped" in rec.message for rec in caplog.records)
+
+
+def test_poll_end_to_end_without_formula_column(_fresh_state):
+    """End-to-end poll against the prod column set: no crashes, stale path
+    still works, orphan path returns empty, summary + audit stamped."""
+    now = datetime(2026, 4, 16, tzinfo=timezone.utc)
+    stale_ts = (now - timedelta(days=700)).isoformat()
+    records = [
+        _prod_rule_no_formula(id_="R1", name="Recent"),
+        _prod_rule_no_formula(id_="R2", name="Stale", last_modified=stale_ts),
+    ]
+    result = vm.poll(
+        tooling_query=_mk_tooling(records),
+        describe_fn=_mk_describe({"rh2__PS_Describe__c": []}),
+    )
+    assert result["summary"]["total"] == 2
+    assert result["orphans"] == []
+    assert len(result["stale"]) == 1
+    assert len(result["task_ids"]) == 1
+
+
 def test_dispatcher_routes_validation_monitor():
     """Smoke: @oo admin validation monitor should dispatch into the module."""
     import asyncio
