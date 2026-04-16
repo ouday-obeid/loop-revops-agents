@@ -37,3 +37,25 @@ def test_run_records_error():
         ).fetchone()
     assert row[0] == "error"
     assert "boom" in row[1]
+
+
+def test_agent_base_init_with_mcp_dict():
+    sf_stub, ff_stub, kn_stub, sl_stub = object(), object(), object(), object()
+    agent = DemoAgent(
+        name="demo_mcp",
+        mcp={"sf": sf_stub, "fireflies": ff_stub, "knowledge": kn_stub, "slack": sl_stub},
+    )
+    assert agent.sf is sf_stub
+    assert agent.fireflies is ff_stub
+    assert agent.knowledge is kn_stub
+    assert agent.slack is sl_stub
+
+
+def test_agent_base_attach_still_works_after_mcp_init():
+    first = object()
+    replacement = object()
+    agent = DemoAgent(name="demo_attach", mcp={"sf": first})
+    assert agent.sf is first
+    agent.attach(sf=replacement, fireflies=object())
+    assert agent.sf is replacement
+    assert agent.fireflies is not None

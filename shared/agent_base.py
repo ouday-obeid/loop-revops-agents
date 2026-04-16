@@ -37,7 +37,12 @@ class AgentBase:
     slack_channel: str = ""
     sf_service_user: str | None = None
     monthly_token_budget: int = 5_000_000
+    mcp: dict[str, Any] | None = None
     _mcps: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if self.mcp:
+            self._mcps.update(self.mcp)
 
     # ---- Lifecycle ----
     def on_start(self) -> None:
