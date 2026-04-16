@@ -4,11 +4,18 @@ Read-only surface over every active `ValidationRule` in the org:
   - fetches rules via Tooling API (grouped by object, enriched with
     LastModifiedBy name + LastModifiedDate)
   - flags orphaned rules (formula references a custom field that no longer
-    exists on the object)
+    exists on the object) — **gated on SF perm**; see note below
   - flags stale rules (not modified in ``stale_days`` — default 540 ≈ 18mo)
   - writes a ``tasks`` row for each flagged rule so Duncan can review
 
 No Salesforce writes, no approval gate. Runs against the read alias.
+
+Perm note: ``ErrorConditionFormula`` on ``ValidationRule`` requires the
+"View Setup and Configuration" system permission on the running user.
+Loop's ``salesops@tryloop.ai`` does not have it, so the field is dropped
+from the Tooling query and ``detect_orphans()`` degrades to a no-op when
+no formula text is available. Stale detection + rule inventory work
+without that perm.
 """
 from __future__ import annotations
 
@@ -33,7 +40,7 @@ CUSTOM_FIELD_RE = re.compile(
 
 _RULE_QUERY = (
     "SELECT Id, ValidationName, Active, ErrorMessage, Description, "
-    "ErrorConditionFormula, EntityDefinition.QualifiedApiName, "
+    "EntityDefinition.QualifiedApiName, "
     "LastModifiedDate, LastModifiedBy.Name "
     "FROM ValidationRule WHERE Active = true"
 )
@@ -81,7 +88,19 @@ def detect_orphans(
     *,
     describe_fn: Callable[[str], dict[str, Any]] = salesforce_mcp.describe_sobject,
 ) -> list[dict[str, Any]]:
-    """Return rules whose formula references a __c field missing from describe."""
+    """Return rules whose formula references a __c field missing from describe.
+
+    Degrades to an empty list when no rule has formula text (the Tooling query
+    skips ``ErrorConditionFormula`` under the current perm set). A single WARN
+    makes the degradation visible without fanning out to per-rule noise.
+    """
+    if rules and not any((rule.get("formula") or "").strip() for rule in rules):
+        log.warning(
+            "detect_orphans: no formula text available on any of %d rules — "
+            "orphan detection skipped (ErrorConditionFormula perm-gated)",
+            len(rules),
+        )
+        return []
     field_cache: dict[str, set[str]] = {}
     orphans: list[dict[str, Any]] = []
     for rule in rules:
