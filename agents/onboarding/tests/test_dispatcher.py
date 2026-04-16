@@ -26,6 +26,18 @@ async def test_help_returns_command_list(ob_payload):
 
 
 @pytest.mark.asyncio
+async def test_help_long_flag_routes_to_help(ob_payload):
+    result = await OnboardingDispatcher().handle("slack", ob_payload(text="--help"))
+    assert result["text"] == HELP_TEXT
+
+
+@pytest.mark.asyncio
+async def test_help_short_flag_routes_to_help(ob_payload):
+    result = await OnboardingDispatcher().handle("slack", ob_payload(text="-h"))
+    assert result["text"] == HELP_TEXT
+
+
+@pytest.mark.asyncio
 async def test_unknown_command_shows_help(ob_payload):
     result = await OnboardingDispatcher().handle("slack", ob_payload(text="frobnicate"))
     assert "unknown onboarding command" in result["text"].lower()

@@ -36,7 +36,11 @@ class SalesRepsAgent(AgentBase):
             return {"text": "pong — sales_reps online."}
 
         cmd, _, rest = text_in.partition(" ")
-        cmd = cmd.lower().replace("-", "_")
+        cmd_lower = cmd.lower()
+        if cmd_lower in ("--help", "-h"):
+            cmd = "help"
+        else:
+            cmd = cmd_lower.replace("-", "_")
 
         handler = _SUBCOMMANDS.get(cmd)
         if handler is None:

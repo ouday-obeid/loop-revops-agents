@@ -43,6 +43,8 @@ class CSDispatcher(AgentBase):
         parts = text_in.split(maxsplit=1)
         cmd = parts[0].lower()
         rest = parts[1].strip() if len(parts) > 1 else ""
+        if cmd in ("--help", "-h"):
+            cmd = "help"
 
         if cmd == "help":
             return {"text": HELP_TEXT}

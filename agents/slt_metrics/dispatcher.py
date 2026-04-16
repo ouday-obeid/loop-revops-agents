@@ -25,7 +25,11 @@ async def route(agent: SltMetricsAgent, trigger: str, payload: dict[str, Any]) -
         return {"text": "pong — slt_metrics online."}
 
     cmd, _, rest = text_in.partition(" ")
-    cmd = cmd.lower().replace("-", "_")
+    cmd_lower = cmd.lower()
+    if cmd_lower in ("--help", "-h"):
+        cmd = "help"
+    else:
+        cmd = cmd_lower.replace("-", "_")
 
     handler = _SUBCOMMANDS.get(cmd)
     if handler is None:

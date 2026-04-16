@@ -58,6 +58,22 @@ async def test_help_explicit():
     assert "credits" in r["text"]
 
 
+@pytest.mark.asyncio
+async def test_help_long_flag_routes_to_help():
+    a = TopOfFunnelAgent()
+    r = await a.handle("slack", {"text": "--help"})
+    assert "enrich" in r["text"]
+    assert "Unknown" not in r["text"]
+
+
+@pytest.mark.asyncio
+async def test_help_short_flag_routes_to_help():
+    a = TopOfFunnelAgent()
+    r = await a.handle("slack", {"text": "-h"})
+    assert "enrich" in r["text"]
+    assert "Unknown" not in r["text"]
+
+
 # ---------------------------------------------------------- command routing
 
 
