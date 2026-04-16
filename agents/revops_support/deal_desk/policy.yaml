@@ -1,0 +1,48 @@
+# Deal Desk Policy — A5 Admin Phase 1.5
+#
+# Each section must be signed by Henry + Anand before merge to main. While any
+# value is `UNSIGNED`, the merge-blocker test fails and the branch cannot ship.
+#
+# To sign a section:
+#   1. Replace `UNSIGNED` in the `signed_by` list with the approver's name.
+#   2. Fill the section's values with real data.
+#   3. Record the approval gate id that captured the sign-off in `approval_gate_id`.
+#
+# Until then, every placeholder below is intentional.
+
+version: 1
+effective_from: UNSIGNED  # ISO date, e.g. 2026-04-20
+
+territory:
+  signed_by: [UNSIGNED, UNSIGNED]
+  approval_gate_id: UNSIGNED
+  # Map: rep_username (SF) -> list of predicates that define the rep's territory.
+  # A predicate is {field, op, values}. Op is one of: in, eq, starts_with.
+  # Example once signed:
+  #   rep_assignments:
+  #     nate.smith@tryloop.ai:
+  #       - {field: BillingState, op: in, values: [NY, NJ, CT, MA]}
+  #       - {field: AnnualRevenue, op: lte, values: [10000000]}
+  rep_assignments: UNSIGNED
+
+quota:
+  signed_by: [UNSIGNED, UNSIGNED]
+  approval_gate_id: UNSIGNED
+  # Map: rep_username -> quarter -> segment -> amount (USD).
+  # Segments: enterprise, mid_market, smb.
+  # Example once signed:
+  #   quarterly_quota:
+  #     nate.smith@tryloop.ai:
+  #       2026-Q2:
+  #         mid_market: 450000
+  quarterly_quota: UNSIGNED
+
+commissions:
+  signed_by: [UNSIGNED, UNSIGNED]
+  approval_gate_id: UNSIGNED
+  # Rate tiers applied against attainment %. Accelerators kick in above the
+  # final threshold. Spiffs are named bonuses with fixed amounts.
+  # v1 is report-only — computed values do not push to SF or payroll.
+  rate_tiers: UNSIGNED       # [{attainment_lte: 0.5, rate: 0.05}, ...]
+  accelerators: UNSIGNED     # [{attainment_gt: 1.0, multiplier: 1.5}, ...]
+  spiffs: UNSIGNED           # [{name: new_logo, amount: 500, qualifier: IsNewLogo__c}]
