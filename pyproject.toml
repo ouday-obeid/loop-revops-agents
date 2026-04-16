@@ -42,6 +42,7 @@ include = ["shared*", "agents*"]
 [tool.pytest.ini_options]
 testpaths = [
   "tests",
+  "tests/scenarios",
   "agents/oo/tests",
   "agents/top_of_funnel/tests",
   "agents/sales_reps/tests",
