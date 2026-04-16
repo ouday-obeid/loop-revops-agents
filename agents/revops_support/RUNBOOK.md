@@ -477,3 +477,27 @@ pre-merge dupe IDs for forensic reference only.
 | `ApprovalRequired: contact_merge` | Gate rejected or not dual-approved | Gate needs both primary + secondary approvers on `dual_approval` tier. |
 | Cluster master picks wrong record | Scoring tie broken to oldest; real owner expected newest | Pass a custom `propose_merges` replacement or override master manually before calling `apply_merge`. |
 | `SF REST merges at most 2 duplicates` ValueError | Caller bypassed `apply_merge` and called `merge_records` directly with 3+ | Use `apply_merge(proposal, ...)` which chunks; never call `merge_records` with >2 duplicates. |
+
+### `@admin dedup accounts`
+Fuzzy-clusters Accounts by normalized name + domain | city+state. More
+conservative than Contact dedup because an Account merge collapses TLO
+rollups and children (Contacts, Opps, Cases) into the master. Master pick:
+most opportunities > most recent activity > oldest CreatedDate. Tasks are
+Duncan-assigned; execute via `repair_=True` + approved `account_merge` gate.
+
+**Manual poll (detect only):**
+```
+python -c "from agents.revops_support.data_quality import dedup_accounts; \
+  import json; print(json.dumps(dedup_accounts.poll(), default=str, indent=2))"
+```
+
+**Rollback:** SF merge is one-way — restore the dupe Account from the Recycle
+Bin within 15 days. TLO rollups may need manual recomputation after the
+merge depending on which rollup fields are configured.
+
+**Troubleshooting:**
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Clusters empty even with obvious dupes | Normalization stripping too much — "Acme Inc" + "Acme Technologies Inc" have different non-noise tokens | Override `normalize_name` at call site or add to `_NAME_NOISE` pattern. |
+| Merge succeeds but TLO rollups stale | SF async job hasn't run yet | `sf data query --query "SELECT Id FROM Account WHERE Id = '<master>'"` triggers a recompute; or wait for nightly rollup. |
+| `dual_approval` gate hangs at approved_primary | Second approver hasn't clicked | Check `SELECT * FROM approval_gates WHERE id = <id>` — both distinct approvers must approve before promotion. |

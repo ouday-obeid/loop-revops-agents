@@ -18,6 +18,7 @@ from shared.agent_base import AgentBase
 
 from agents.revops_support.data_quality import (
     bad_conversions,
+    dedup_accounts,
     dedup_contacts,
     validation_monitor,
 )
@@ -40,6 +41,7 @@ HELP_TEXT = (
     "• `@oo revops-support validation monitor` — org-wide validation-rule health check\n"
     "• `@oo revops-support bad conversions` — orphaned Lead-conversions (no opp/account/contact)\n"
     "• `@oo revops-support dedup contacts` — cluster duplicate Contacts by email + propose merges\n"
+    "• `@oo revops-support dedup accounts` — fuzzy-cluster duplicate Accounts + propose merges\n"
     "• `@oo revops-support help` — this message\n"
     "Alias: `@oo admin …` routes here too."
 )
@@ -79,6 +81,8 @@ class RevOpsSupportAgent(AgentBase):
                 return _run_canned(canned.accounts_with_no_tlo)
             if "dedup contact" in lower:
                 return _format_dedup_contacts(dedup_contacts.poll())
+            if "dedup account" in lower:
+                return _format_dedup_accounts(dedup_accounts.poll())
             if "duplicate contact" in lower or "dup contact" in lower:
                 return _run_canned(canned.duplicate_contacts_by_email)
             if "active user" in lower:
@@ -156,6 +160,31 @@ def _run_canned(fn: Callable[..., dict[str, Any]], *args: Any) -> dict[str, Any]
         "blocks": result.get("blocks", []),
         "records": result.get("records", []),
     }
+
+
+def _format_dedup_accounts(result: dict[str, Any]) -> dict[str, Any]:
+    clusters = result.get("clusters", [])
+    proposals = result.get("proposals", [])
+    merges = result.get("merges", [])
+    lines = [
+        "*Account Dedup*",
+        f"• Clusters: {len(clusters)}",
+        f"• Proposals: {len(proposals)}",
+        f"• Tasks created: {len(result.get('task_ids', []))}",
+        f"• Merges executed: {len(merges)}",
+    ]
+    if proposals:
+        sample = proposals[:5]
+        lines.append("_Top clusters:_")
+        for p in sample:
+            master = p.get("master", {})
+            lines.append(
+                f"  · {master.get('name')} (master {p.get('master_id')}, "
+                f"{master.get('opp_count', 0)} opps) → {len(p.get('duplicate_ids', []))} dupes"
+            )
+        if len(proposals) > len(sample):
+            lines.append(f"  …and {len(proposals) - len(sample)} more")
+    return {"text": "\n".join(lines), "result": result}
 
 
 def _format_dedup_contacts(result: dict[str, Any]) -> dict[str, Any]:
