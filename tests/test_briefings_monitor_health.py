@@ -66,6 +66,127 @@ def test_board_monitor_scan_entrypoint_nocrash():
     assert result == {"slack": 0, "fireflies": 0}
 
 
+# --------------------------- Tier 6: alertworthy DM alerts (parent 11736893953)
+
+
+class _SenderCapture:
+    """Stand-in for SlackSender that records every send() call."""
+
+    def __init__(self, client=None):
+        self.sent: list[dict] = []
+
+    def send(self, channel, text_, blocks=None):
+        self.sent.append({"channel": channel, "text": text_})
+        return {"ok": True, "ts": f"{len(self.sent)}.0", "channel": channel}
+
+
+import pytest  # noqa: E402 — fixture is local to this section
+
+
+@pytest.fixture
+def _wipe_oo_tasks_after():
+    """Clean up oo-created tasks so later tests (e.g. test_board_summary_
+    with_seeded_task in test_dispatcher.py) see a quiet board. The board
+    monitor tests insert many urgent tasks that would otherwise crowd CEO
+    out of the LIMIT 10 board summary."""
+    yield
+    with get_engine().begin() as conn:
+        conn.execute(
+            text("DELETE FROM tasks WHERE agent_name = 'oo' AND source LIKE 'slack:%'")
+        )
+        conn.execute(
+            text("DELETE FROM tasks WHERE agent_name = 'oo' AND source LIKE 'fireflies:%'")
+        )
+
+
+def _single_channel_slack(message_text: str, ts: str):
+    """Build a slack mock that returns the given message ONLY for #revops
+    and empty for the other 4 CHANNELS — keeps the test from inserting 5
+    duplicate tasks (one per scanned channel)."""
+    mock = MagicMock()
+
+    def _hist(channel, limit):
+        if channel == "#revops":
+            return {"messages": [{"ts": ts, "text": message_text, "user": "U_X"}]}
+        return {"messages": []}
+
+    mock.conversations_history.side_effect = _hist
+    return mock
+
+
+def test_urgent_fire_in_slack_message_triggers_o_dm(_wipe_oo_tasks_after):
+    from agents.oo import board_monitor
+    capture = _SenderCapture()
+    mock_slack = _single_channel_slack(
+        "URGENT — sf write API down, blocking all releases", "1101.1"
+    )
+    asyncio.run(board_monitor.scan_slack(mock_slack, sender=capture))
+    assert len(capture.sent) == 1
+    assert "urgent_fire" in capture.sent[0]["text"]
+
+
+def test_automation_broken_in_slack_message_triggers_o_dm(_wipe_oo_tasks_after):
+    from agents.oo import board_monitor
+    capture = _SenderCapture()
+    mock_slack = _single_channel_slack(
+        "the renewal flow is broken since this morning", "1102.1"
+    )
+    asyncio.run(board_monitor.scan_slack(mock_slack, sender=capture))
+    assert len(capture.sent) == 1
+    assert "automation_broken" in capture.sent[0]["text"]
+
+
+def test_data_quality_100pct_hidden_triggers_o_dm(_wipe_oo_tasks_after):
+    """100%-hidden Momentum activity is the canonical 'silent break' that
+    parent 11736893953 calls out as needing immediate DM escalation."""
+    from agents.oo import board_monitor
+    capture = _SenderCapture()
+    mock_slack = _single_channel_slack(
+        "noticed our Momentum activity is 100% hidden again", "1103.1"
+    )
+    asyncio.run(board_monitor.scan_slack(mock_slack, sender=capture))
+    assert len(capture.sent) == 1
+    assert "data_quality" in capture.sent[0]["text"]
+
+
+def test_non_alertworthy_classification_does_not_dm(_wipe_oo_tasks_after):
+    """Pipeline_hygiene + similar non-alert categories create a task but do
+    NOT page O via DM. Otherwise the DM channel would become noise and the
+    2-min SLO promise loses its meaning."""
+    from agents.oo import board_monitor
+    capture = _SenderCapture()
+    mock_slack = _single_channel_slack(
+        "this opportunity has been stale for 60 days, no next step", "1104.1"
+    )
+    asyncio.run(board_monitor.scan_slack(mock_slack, sender=capture))
+    assert capture.sent == []
+
+
+def test_fireflies_alertworthy_signal_triggers_o_dm(_wipe_oo_tasks_after):
+    from agents.oo import board_monitor
+    capture = _SenderCapture()
+    ff = MagicMock()
+    ff.list_transcripts.return_value = [
+        {"id": "FFFIRE", "title": "URGENT call: prod CRM is on fire",
+         "summary": {"overview": "discussed sev1"}},
+    ]
+    asyncio.run(board_monitor.scan_fireflies(ff, sender=capture))
+    assert len(capture.sent) >= 1
+
+
+def test_alert_o_swallows_send_exceptions():
+    """A Slack outage must NOT prevent task creation in the same scan loop."""
+    from agents.oo import board_monitor
+
+    class _BadSender:
+        def __init__(self, client=None): pass
+        def send(self, *a, **kw):
+            raise RuntimeError("slack down")
+
+    # Should NOT raise.
+    board_monitor._alert_o("title", "urgent_fire", "src", "snip", sender=_BadSender())
+
+
 def test_integration_health_records_status():
     from agents.oo import integration_health
 
