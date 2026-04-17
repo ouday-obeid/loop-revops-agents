@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-04-17T19:41:58.935002+00:00",
+  "org_alias": "revagents",
+  "probes": [
+    {
+      "label": "dedup_contacts.scan_clusters",
+      "ok": true,
+      "result": {
+        "clusters": 0,
+        "total_contacts": 0,
+        "sample": []
+      }
+    },
+    {
+      "label": "license_audit.run",
+      "ok": true,
+      "result": {
+        "inactive_user_count": 61,
+        "sample": [
+          {
+            "id": "005Hp00000kLtneIAC",
+            "username": "autoproc@00dwb000007wzsb2ae",
+            "email": "noreply@00dhp00000dwgnvmab",
+            "last_login": null,
+            "profile": null
+          },
+          {
+            "id": "005Hp00000kLtnhIAC",
+            "username": "cloud@00dwb000007wzsb2ae",
+            "email": "noreply@00dhp00000dwgnvmab",
+            "last_login": null,
+            "profile": null
+          },
+          {
+            "id": "005Hp00000kNKpGIAW",
+            "username": "henry@tryloop.ai.revagents",
+            "email": "henry@tryloop.ai.invalid",
+            "last_login": null,
+            "profile": "System Administrator"
+          },
+          {
+            "id": "005Hp00000kNdUqIAK",
+            "username": "help@loop.ai.revagents",
+            "email": "help@whyminded.com",
+            "last_login": null,
+            "profile": "System Administrator"
+          },
+          {
+            "id": "005Hp00000kPvTNIA0",
+            "username": "devyn@tryloop.ai.revagents",
+            "email": "devyn@tryloop.ai.invalid",
+            "last_login": null,
+            "profile": "Loop.AI User"
+          }
+        ]
+      }
+    },
+    {
+      "label": "integration_health.sweep",
+      "ok": true,
+      "result": {
+        "apex_problems": 0,
+        "apex_sample": [],
+        "sync_probes": 5,
+        "sync_sample": [
+          {
+            "task_id": 2,
+            "integration": "vitally",
+            "status": "error",
+            "latest": "never"
+          },
+          {
+            "task_id": 3,
+            "integration": "zenskar",
+            "status": "error",
+            "latest": "never"
+          },
+          {
+            "task_id": 4,
+            "integration": "docusign",
+            "status": "stale",
+            "latest": "never"
+          }
+        ]
+      }
+    },
+    {
+      "label": "knowledge_refresh.snapshot",
+      "ok": true,
+      "result": {
+        "object_model": "/Users/ottimate/loop-revops-agents/var/knowledge_snapshots/2026-04-17/sf_object_model.md",
+        "automations": "/Users/ottimate/loop-revops-agents/var/knowledge_snapshots/2026-04-17/sf_automations.md",
+        "users_roles": "/Users/ottimate/loop-revops-agents/var/knowledge_snapshots/2026-04-17/sf_users_roles.md"
+      }
+    },
+    {
+      "label": "sf_perm_audit.outbounder_access",
+      "ok": true,
+      "result": {
+        "permset_found": true,
+        "permset_label": "Outbounder Access",
+        "error_condition_formula_readable": false,
+        "errors": [
+          "SalesforceError: \nSELECT Id, Active, ErrorConditionFormula FROM ValidationRule\n                   ^\nERROR at Row:1:Column:20\nNo such column 'ErrorConditionFormula' on entity 'ValidationRule'. If you are attempting to "
+        ],
+        "impact": "validation_monitor workaround is still required; ECF column remains Tooling-gated"
+      }
+    }
+  ]
+}

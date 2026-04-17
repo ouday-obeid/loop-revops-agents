@@ -1,0 +1,86 @@
+{
+  "text": "*Pipeline hygiene \u2014 all AEs*\nTotals: missing_next_step=2 \u00b7 past_close=2 \u00b7 single_threaded=1 \u00b7 stale_activity=2\n\n\u2022 *dan.varela@tryloop.ai.invalid* (2)\n   - `006WB00000JcWn7YAF` SEED-Crave Tacos - stale_demo \u00b7 Demo \u00b7 $75,000 \u00b7 close 2026-06-12 \u00b7 _stale_activity_ Last activity 2026-03-14 (>14d)\n   - `006WB00000JcWrxYAF` SEED-Horizon Grill - past_close_proposal \u00b7 Proposal \u00b7 $150,000 \u00b7 close 2026-04-08 \u00b7 _past_close_ Close date 2026-04-08 is past\n\n\u2022 *jessy.calderon@tryloop.ai.invalid* (2)\n   - `006WB00000JcUYQYA3` SEED-Dragon Wok - stale_proposal \u00b7 Proposal \u00b7 $200,000 \u00b7 close 2026-07-12 \u00b7 _stale_activity_ Last activity 2026-03-14 (>14d)\n   - `006WB00000JcRh0YAF` SEED-Acme Pizza - single_threaded_propos \u00b7 Proposal \u00b7 $80,000 \u00b7 close 2026-05-18 \u00b7 _single_threaded_ Only 1 contact role(s) on opp\n\n\u2022 *alex@tryloop.ai.invalid* (1)\n   - `006WB00000JcWX0YAN` SEED-Fjord Fish Co - missing_next_step_d \u00b7 Demo \u00b7 $60,000 \u00b7 close 2026-05-03 \u00b7 _missing_next_step_ Stage Demo with no next step defined\n\n\u2022 *nick.barbo@tryloop.ai.invalid* (1)\n   - `006WB00000JcWojYAF` SEED-Evergreen Bakery - missing_next_ste \u00b7 Proposal \u00b7 $95,000 \u00b7 close 2026-05-13 \u00b7 _missing_next_step_ Stage Proposal with no next step defined\n\n\u2022 *clay@tryloop.ai.invalid* (1)\n   - `006WB00000JcWqLYAV` SEED-Grove Kitchen - past_close_demo \u00b7 Demo \u00b7 $40,000 \u00b7 close 2026-04-03 \u00b7 _past_close_ Close date 2026-04-03 is past",
+  "ae_filter": null,
+  "total_findings": 7,
+  "totals_by_issue": {
+    "stale_activity": 2,
+    "missing_next_step": 2,
+    "past_close": 2,
+    "single_threaded": 1
+  },
+  "findings_by_ae": {
+    "dan.varela@tryloop.ai.invalid": [
+      {
+        "opportunity_id": "006WB00000JcWn7YAF",
+        "name": "SEED-Crave Tacos - stale_demo",
+        "stage": "Demo",
+        "amount": 75000,
+        "close_date": "2026-06-12",
+        "issue": "stale_activity",
+        "details": "Last activity 2026-03-14 (>14d)"
+      },
+      {
+        "opportunity_id": "006WB00000JcWrxYAF",
+        "name": "SEED-Horizon Grill - past_close_proposal",
+        "stage": "Proposal",
+        "amount": 150000,
+        "close_date": "2026-04-08",
+        "issue": "past_close",
+        "details": "Close date 2026-04-08 is past"
+      }
+    ],
+    "jessy.calderon@tryloop.ai.invalid": [
+      {
+        "opportunity_id": "006WB00000JcUYQYA3",
+        "name": "SEED-Dragon Wok - stale_proposal",
+        "stage": "Proposal",
+        "amount": 200000,
+        "close_date": "2026-07-12",
+        "issue": "stale_activity",
+        "details": "Last activity 2026-03-14 (>14d)"
+      },
+      {
+        "opportunity_id": "006WB00000JcRh0YAF",
+        "name": "SEED-Acme Pizza - single_threaded_proposal",
+        "stage": "Proposal",
+        "amount": 80000,
+        "close_date": "2026-05-18",
+        "issue": "single_threaded",
+        "details": "Only 1 contact role(s) on opp"
+      }
+    ],
+    "alex@tryloop.ai.invalid": [
+      {
+        "opportunity_id": "006WB00000JcWX0YAN",
+        "name": "SEED-Fjord Fish Co - missing_next_step_demo",
+        "stage": "Demo",
+        "amount": 60000,
+        "close_date": "2026-05-03",
+        "issue": "missing_next_step",
+        "details": "Stage Demo with no next step defined"
+      }
+    ],
+    "nick.barbo@tryloop.ai.invalid": [
+      {
+        "opportunity_id": "006WB00000JcWojYAF",
+        "name": "SEED-Evergreen Bakery - missing_next_step_proposal",
+        "stage": "Proposal",
+        "amount": 95000,
+        "close_date": "2026-05-13",
+        "issue": "missing_next_step",
+        "details": "Stage Proposal with no next step defined"
+      }
+    ],
+    "clay@tryloop.ai.invalid": [
+      {
+        "opportunity_id": "006WB00000JcWqLYAV",
+        "name": "SEED-Grove Kitchen - past_close_demo",
+        "stage": "Demo",
+        "amount": 40000,
+        "close_date": "2026-04-03",
+        "issue": "past_close",
+        "details": "Close date 2026-04-03 is past"
+      }
+    ]
+  }
+}

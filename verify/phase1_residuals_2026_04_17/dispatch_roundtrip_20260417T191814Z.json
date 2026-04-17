@@ -1,0 +1,168 @@
+{
+  "generated_at": "2026-04-17T19:18:14.395010+00:00",
+  "registered": [
+    "oo",
+    "sales_reps",
+    "revops_support",
+    "slt_metrics",
+    "top_of_funnel",
+    "cs",
+    "onboarding"
+  ],
+  "agent_probes": {
+    "oo": {
+      "ping": {
+        "ok": true,
+        "response": {
+          "text": "pong \u2014 OO online."
+        }
+      },
+      "help": {
+        "ok": true,
+        "response": {
+          "text": "OO received: _help_ (no handler wired \u2014 Phase 1 will route this)."
+        }
+      }
+    },
+    "sales_reps": {
+      "ping": {
+        "ok": true,
+        "response": {
+          "text": "pong \u2014 sales_reps online."
+        }
+      },
+      "help": {
+        "ok": true,
+        "response": {
+          "text": "sales_reps \u2014 specialist agent. Available:\n\u2022 `ping` \u2014 health check\n\u2022 `grade <meeting_id>` \u2014 grade a single call\n\u2022 `batch-grade <from> <to>` \u2014 grade calls over a date range (YYYY-MM-DD)\n\u2022 `brief <opp_id|account_name>` \u2014 pre-demo brief\n\u2022 `hygiene [ae_email]` \u2014 pipeline hygiene report\n\u2022 `leaderboard [ae|sdr] [week]` \u2014 weekly rankings\n\u2022 `scorecard <rep_email>` \u2014 per-rep scorecard\n\u2022 `sync-check` \u2014 Momentum\u2194SF sync diff\n\u2022 `risk-sweep` \u2014 deal-risk signal sweep (pushed close, amount drop, competitor)\nAlias: `@oo closer \u2026` routes here too.\n"
+        }
+      }
+    },
+    "revops_support": {
+      "ping": {
+        "ok": true,
+        "response": {
+          "text": "pong \u2014 RevOps Support online."
+        }
+      },
+      "help": {
+        "ok": true,
+        "response": {
+          "text": "RevOps Support commands:\n\u2022 `@oo revops-support ping` \u2014 health check\n\u2022 `@oo revops-support soql <query>` \u2014 run read-only SOQL\n\u2022 `@oo revops-support pipeline by stage` \u2014 open opps grouped by stage\n\u2022 `@oo revops-support stale opportunities [days]` \u2014 opps stale > N days (default 30)\n\u2022 `@oo revops-support tlos with no opps` \u2014 TLOs with zero opportunities\n\u2022 `@oo revops-support opps missing products` \u2014 Closed Won without line items\n\u2022 `@oo revops-support accounts with no tlo` \u2014 accounts missing TLO linkage\n\u2022 `@oo revops-support duplicate contacts` \u2014 emails with >1 contact\n\u2022 `@oo revops-support active users` \u2014 users with login in last 30 days\n\u2022 `@oo revops-support validation rules <ObjectName>` \u2014 active rules for object\n\u2022 `@oo revops-support validation monitor` \u2014 org-wide validation-rule health check\n\u2022 `@oo revops-support bad conversions` \u2014 orphaned Lead-conversions (no opp/account/contact)\n\u2022 `@oo revops-support dedup contacts` \u2014 cluster duplicate Contacts by email + propose merges\n\u2022 `@oo revops-support dedup accounts` \u2014 fuzzy-cluster duplicate Accounts + propose merges\n\u2022 `@oo revops-support help` \u2014 this message\nAlias: `@oo admin \u2026` routes here too."
+        }
+      }
+    },
+    "slt_metrics": {
+      "ping": {
+        "ok": true,
+        "response": {
+          "text": "pong \u2014 slt_metrics online."
+        }
+      },
+      "help": {
+        "ok": true,
+        "response": {
+          "text": "slt_metrics \u2014 SLT revenue intelligence. Available:\n\u2022 `ping` \u2014 health check\n\u2022 `forecast <quarter>` \u2014 commit / best-case / weighted rollup\n\u2022 `movers [period]` \u2014 top deal movers over a window\n\u2022 `scorecard ae|sdr|team <target>` \u2014 per-rep or team scorecard\n\u2022 `briefing` \u2014 daily 8:30 AM narrative (DM draft to O)\n\u2022 `friday` \u2014 Friday 4 PM weekly review (DM draft to O)\n\u2022 `weights show|set|propose` \u2014 inspect / adjust forecast weights\n\u2022 `backtest <from> <to>` \u2014 replay scorer over a date range\nAlias: `@oo urkel \u2026` routes here too.\n"
+        }
+      }
+    },
+    "top_of_funnel": {
+      "ping": {
+        "ok": true,
+        "response": {
+          "text": "pong \u2014 top_of_funnel online."
+        }
+      },
+      "help": {
+        "ok": true,
+        "response": {
+          "text": "top_of_funnel \u2014 Phase 1 specialist agent. Available:\n\u2022 `ping` \u2014 health check\n\u2022 `enrich <domain>` \u2014 run the full pipeline on one account\n\u2022 `score <domain>` \u2014 ICP score only, no writes\n\u2022 `daily [dry-run]` \u2014 trigger or preview the 07:55 SDR briefing\n\u2022 `suppress <email> [reason]` \u2014 add to local suppression cache\n\u2022 `queue status` \u2014 pending outbound-sequence approval gates\n\u2022 `queue approve <gate_id>` \u2014 approve today's enrollment queue\n\u2022 `credits` \u2014 Clay credit usage this month\nAlias: `@oo outbounder \u2026` routes here too.\n"
+        }
+      }
+    },
+    "cs": {
+      "ping": {
+        "ok": true,
+        "response": {
+          "text": "pong \u2014 CS online."
+        }
+      },
+      "help": {
+        "ok": true,
+        "response": {
+          "text": "CS agent commands:\n\u2022 `@oo cs ping` \u2014 health check\n\u2022 `@oo cs status <account>` \u2014 account summary\n\u2022 `@oo cs health <account>` \u2014 Vitally health + trend\n\u2022 `@oo cs renewals` \u2014 T-120 window + stalls\n\u2022 `@oo cs churn-risk [50|70|85]` \u2014 scored accounts\n\u2022 `@oo cs brief <account>` \u2014 pre-renewal brief\n\u2022 `@oo cs qbr <account>` \u2014 QBR markdown\nAlias: `@oo supporter \u2026` routes here too."
+        }
+      }
+    },
+    "onboarding": {
+      "ping": {
+        "ok": true,
+        "response": {
+          "text": "pong \u2014 onboarding online."
+        }
+      },
+      "help": {
+        "ok": true,
+        "response": {
+          "text": "Onboarding agent commands:\n\u2022 `@oo onboarding ping` \u2014 health check\n\u2022 `@oo onboarding status <account>` \u2014 Onboarding__c snapshot\n\u2022 `@oo onboarding stalls [days]` \u2014 stalled onboardings (default \u22655 business days)\n\u2022 `@oo onboarding unassigned` \u2014 onboardings with null OwnerId\n\u2022 `@oo onboarding stuck-locations [account]` \u2014 stuck locations\n\u2022 `@oo onboarding handoff <account>` \u2014 run handoff checklist on demand\n\u2022 `@oo onboarding skip <opp_id> <justification>` \u2014 override a blocking handoff item\n\u2022 `@oo onboarding assign <gate_id> <user_id>` \u2014 complete an approved CSM reassignment\n\u2022 `@oo onboarding backfill --preview` \u2014 count historical Closed Won gaps\nAlias: `@oo onboarder \u2026` routes here too."
+        }
+      }
+    }
+  },
+  "persona_probes": {
+    "outbounder help": {
+      "expected_target": "top_of_funnel",
+      "result": {
+        "ok": true,
+        "response": {
+          "text": "top_of_funnel \u2014 Phase 1 specialist agent. Available:\n\u2022 `ping` \u2014 health check\n\u2022 `enrich <domain>` \u2014 run the full pipeline on one account\n\u2022 `score <domain>` \u2014 ICP score only, no writes\n\u2022 `daily [dry-run]` \u2014 trigger or preview the 07:55 SDR briefing\n\u2022 `suppress <email> [reason]` \u2014 add to local suppression cache\n\u2022 `queue status` \u2014 pending outbound-sequence approval gates\n\u2022 `queue approve <gate_id>` \u2014 approve today's enrollment queue\n\u2022 `credits` \u2014 Clay credit usage this month\nAlias: `@oo outbounder \u2026` routes here too.\n"
+        }
+      }
+    },
+    "closer help": {
+      "expected_target": "sales_reps",
+      "result": {
+        "ok": true,
+        "response": {
+          "text": "sales_reps \u2014 specialist agent. Available:\n\u2022 `ping` \u2014 health check\n\u2022 `grade <meeting_id>` \u2014 grade a single call\n\u2022 `batch-grade <from> <to>` \u2014 grade calls over a date range (YYYY-MM-DD)\n\u2022 `brief <opp_id|account_name>` \u2014 pre-demo brief\n\u2022 `hygiene [ae_email]` \u2014 pipeline hygiene report\n\u2022 `leaderboard [ae|sdr] [week]` \u2014 weekly rankings\n\u2022 `scorecard <rep_email>` \u2014 per-rep scorecard\n\u2022 `sync-check` \u2014 Momentum\u2194SF sync diff\n\u2022 `risk-sweep` \u2014 deal-risk signal sweep (pushed close, amount drop, competitor)\nAlias: `@oo closer \u2026` routes here too.\n"
+        }
+      }
+    },
+    "onboarder help": {
+      "expected_target": "onboarding",
+      "result": {
+        "ok": true,
+        "response": {
+          "text": "Onboarding agent commands:\n\u2022 `@oo onboarding ping` \u2014 health check\n\u2022 `@oo onboarding status <account>` \u2014 Onboarding__c snapshot\n\u2022 `@oo onboarding stalls [days]` \u2014 stalled onboardings (default \u22655 business days)\n\u2022 `@oo onboarding unassigned` \u2014 onboardings with null OwnerId\n\u2022 `@oo onboarding stuck-locations [account]` \u2014 stuck locations\n\u2022 `@oo onboarding handoff <account>` \u2014 run handoff checklist on demand\n\u2022 `@oo onboarding skip <opp_id> <justification>` \u2014 override a blocking handoff item\n\u2022 `@oo onboarding assign <gate_id> <user_id>` \u2014 complete an approved CSM reassignment\n\u2022 `@oo onboarding backfill --preview` \u2014 count historical Closed Won gaps\nAlias: `@oo onboarder \u2026` routes here too."
+        }
+      }
+    },
+    "supporter help": {
+      "expected_target": "cs",
+      "result": {
+        "ok": true,
+        "response": {
+          "text": "CS agent commands:\n\u2022 `@oo cs ping` \u2014 health check\n\u2022 `@oo cs status <account>` \u2014 account summary\n\u2022 `@oo cs health <account>` \u2014 Vitally health + trend\n\u2022 `@oo cs renewals` \u2014 T-120 window + stalls\n\u2022 `@oo cs churn-risk [50|70|85]` \u2014 scored accounts\n\u2022 `@oo cs brief <account>` \u2014 pre-renewal brief\n\u2022 `@oo cs qbr <account>` \u2014 QBR markdown\nAlias: `@oo supporter \u2026` routes here too."
+        }
+      }
+    },
+    "admin help": {
+      "expected_target": "revops_support",
+      "result": {
+        "ok": true,
+        "response": {
+          "text": "RevOps Support commands:\n\u2022 `@oo revops-support ping` \u2014 health check\n\u2022 `@oo revops-support soql <query>` \u2014 run read-only SOQL\n\u2022 `@oo revops-support pipeline by stage` \u2014 open opps grouped by stage\n\u2022 `@oo revops-support stale opportunities [days]` \u2014 opps stale > N days (default 30)\n\u2022 `@oo revops-support tlos with no opps` \u2014 TLOs with zero opportunities\n\u2022 `@oo revops-support opps missing products` \u2014 Closed Won without line items\n\u2022 `@oo revops-support accounts with no tlo` \u2014 accounts missing TLO linkage\n\u2022 `@oo revops-support duplicate contacts` \u2014 emails with >1 contact\n\u2022 `@oo revops-support active users` \u2014 users with login in last 30 days\n\u2022 `@oo revops-support validation rules <ObjectName>` \u2014 active rules for object\n\u2022 `@oo revops-support validation monitor` \u2014 org-wide validation-rule health check\n\u2022 `@oo revops-support bad conversions` \u2014 orphaned Lead-conversions (no opp/account/contact)\n\u2022 `@oo revops-support dedup contacts` \u2014 cluster duplicate Contacts by email + propose merges\n\u2022 `@oo revops-support dedup accounts` \u2014 fuzzy-cluster duplicate Accounts + propose merges\n\u2022 `@oo revops-support help` \u2014 this message\nAlias: `@oo admin \u2026` routes here too."
+        }
+      }
+    },
+    "urkel help": {
+      "expected_target": "slt_metrics",
+      "result": {
+        "ok": true,
+        "response": {
+          "text": "slt_metrics \u2014 SLT revenue intelligence. Available:\n\u2022 `ping` \u2014 health check\n\u2022 `forecast <quarter>` \u2014 commit / best-case / weighted rollup\n\u2022 `movers [period]` \u2014 top deal movers over a window\n\u2022 `scorecard ae|sdr|team <target>` \u2014 per-rep or team scorecard\n\u2022 `briefing` \u2014 daily 8:30 AM narrative (DM draft to O)\n\u2022 `friday` \u2014 Friday 4 PM weekly review (DM draft to O)\n\u2022 `weights show|set|propose` \u2014 inspect / adjust forecast weights\n\u2022 `backtest <from> <to>` \u2014 replay scorer over a date range\nAlias: `@oo urkel \u2026` routes here too.\n"
+        }
+      }
+    }
+  }
+}

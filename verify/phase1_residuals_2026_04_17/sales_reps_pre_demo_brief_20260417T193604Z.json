@@ -1,0 +1,47 @@
+{
+  "target": "006WB00000JcWn7YAF",
+  "opportunity_id": "006WB00000JcWn7YAF",
+  "opportunity_name": "SEED-Crave Tacos - stale_demo",
+  "account_id": "001WB000010OKZoYAO",
+  "account_name": "SEED-Crave Tacos",
+  "domain": "crave-tacos.example.com",
+  "stage": "Demo",
+  "amount": 75000,
+  "close_date": "2026-06-12",
+  "owner_email": "dan.varela@tryloop.ai.invalid",
+  "people": [
+    {
+      "name": null,
+      "email": "jordan.buyer@crave-tacos.example.com",
+      "title": null,
+      "linkedin_url": null,
+      "source": "attendee_only",
+      "attending": true
+    },
+    {
+      "name": null,
+      "email": "pat.dm@crave-tacos.example.com",
+      "title": null,
+      "linkedin_url": null,
+      "source": "attendee_only",
+      "attending": true
+    },
+    {
+      "name": null,
+      "email": "morgan.champ@crave-tacos.example.com",
+      "title": null,
+      "linkedin_url": null,
+      "source": "attendee_only",
+      "attending": true
+    }
+  ],
+  "prior_calls": [],
+  "knowledge": [],
+  "news": [],
+  "funding": [],
+  "talking_points": [],
+  "gaps": [
+    "No decision-maker titles enriched \u2014 manual LinkedIn pass may be needed."
+  ],
+  "text": "*Pre-demo brief \u2014 SEED-Crave Tacos*\n  \u00b7 Stage: Demo  \u00b7 Amount: $75,000  \u00b7 Close: 2026-06-12\n\n*Who's on the call (and decision-makers to know)*\n   - \u2708\ufe0f attending \u00b7 *jordan.buyer@crave-tacos.example.com* \u00b7 \u2014\n   - \u2708\ufe0f attending \u00b7 *pat.dm@crave-tacos.example.com* \u00b7 \u2014\n   - \u2708\ufe0f attending \u00b7 *morgan.champ@crave-tacos.example.com* \u00b7 \u2014\n\n*Gaps to close before the call*\n   - No decision-maker titles enriched \u2014 manual LinkedIn pass may be needed."
+}

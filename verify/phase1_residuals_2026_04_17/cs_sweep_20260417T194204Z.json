@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-04-17T19:42:04.842491+00:00",
+  "org_alias": "revagents",
+  "probes": [
+    {
+      "label": "uid_resolver.synthetic",
+      "ok": true,
+      "result": {
+        "with_externalId": "001WB000010OIOTYA4",
+        "without_externalId": null,
+        "behavior_ok": true
+      }
+    },
+    {
+      "label": "expansion_detector.run_sweep",
+      "ok": true,
+      "result": {
+        "call_keyword": 0,
+        "location_growth": 0,
+        "brand_added": 0,
+        "deduped": 0
+      }
+    },
+    {
+      "label": "renewal.pipeline.run_sweep_dryrun",
+      "ok": true,
+      "result": {
+        "candidates": 0,
+        "created": 0,
+        "skipped": 0,
+        "provisional": 0,
+        "errors": 0
+      }
+    },
+    {
+      "label": "reports.weekly.build_report",
+      "ok": true,
+      "result": {
+        "length_chars": 385,
+        "preview": "# CS weekly digest \u2014 2026-04-17\n\n_Window:_ 2026-04-10 \u2192 2026-04-17\n\n## Top churn risks (tier \u226570)\n- _No accounts scored tier \u226570 this week._\n\n## Renewal pipeline\n- New renewal opps this week: **0**\n- Open stalls (\u226514d): 0\n\n## Expansion signals\n- New expansion tasks this week: **0**\n\n## Data quality\n- Vitally UID match: _no poll data yet_\n- NPS freshness: _no account health rows yet_"
+      }
+    },
+    {
+      "label": "vitally.key_status",
+      "ok": true,
+      "result": {
+        "vitally_api_key_set": false,
+        "note": "UID match-rate scan requires live key"
+      }
+    }
+  ]
+}

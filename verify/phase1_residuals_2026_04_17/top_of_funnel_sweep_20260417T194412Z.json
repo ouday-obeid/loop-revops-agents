@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-04-17T19:44:12.727818+00:00",
+  "org_alias": "revagents",
+  "probes": [
+    {
+      "label": "icp_scorer.backtest_100_closed_won",
+      "ok": true,
+      "result": {
+        "accounts_scored": 5,
+        "errors": 0,
+        "grade_distribution": {
+          "ICPScore(total=0, tier='D', signals={'ownership': 0, 'location_count': 0, 'brand_vertical': 0, 'growth_signals': 0, 'tech_stack_fit': 0, 'product_attach': 0}, explanation='*ICP 0/100 \u2014 tier D* for `?`\\n\u2022 Ownership 0/25 (\u2014)\\n\u2022 Locations 0/25 (\u2014)\\n\u2022 Vertical 0/20 (\u2014)\\n\u2022 Growth signals 0/20\\n\u2022 Tech-stack fit 0/10')": 5
+        },
+        "sample_top": [
+          {
+            "account_id": "001WB000010OROUYA4",
+            "name": "[Onb Walkthrough] TestCo 05",
+            "grade": "ICPScore(total=0, tier='D', signals={'ownership': 0, 'location_count': 0, 'brand_vertical': 0, 'growth_signals': 0, 'tech_stack_fit': 0, 'product_attach': 0}, explanation='*ICP 0/100 \u2014 tier D* for `?`\\n\u2022 Ownership 0/25 (\u2014)\\n\u2022 Locations 0/25 (\u2014)\\n\u2022 Vertical 0/20 (\u2014)\\n\u2022 Growth signals 0/20\\n\u2022 Tech-stack fit 0/10')",
+            "score": null
+          },
+          {
+            "account_id": "001WB000010OZIlYAO",
+            "name": "[Onb Walkthrough] TestCo 04",
+            "grade": "ICPScore(total=0, tier='D', signals={'ownership': 0, 'location_count': 0, 'brand_vertical': 0, 'growth_signals': 0, 'tech_stack_fit': 0, 'product_attach': 0}, explanation='*ICP 0/100 \u2014 tier D* for `?`\\n\u2022 Ownership 0/25 (\u2014)\\n\u2022 Locations 0/25 (\u2014)\\n\u2022 Vertical 0/20 (\u2014)\\n\u2022 Growth signals 0/20\\n\u2022 Tech-stack fit 0/10')",
+            "score": null
+          },
+          {
+            "account_id": "001WB000010OLatYAG",
+            "name": "[Onb Walkthrough] TestCo 03",
+            "grade": "ICPScore(total=0, tier='D', signals={'ownership': 0, 'location_count': 0, 'brand_vertical': 0, 'growth_signals': 0, 'tech_stack_fit': 0, 'product_attach': 0}, explanation='*ICP 0/100 \u2014 tier D* for `?`\\n\u2022 Ownership 0/25 (\u2014)\\n\u2022 Locations 0/25 (\u2014)\\n\u2022 Vertical 0/20 (\u2014)\\n\u2022 Growth signals 0/20\\n\u2022 Tech-stack fit 0/10')",
+            "score": null
+          }
+        ]
+      }
+    },
+    {
+      "label": "sf_lead_writer.sandbox_probe",
+      "ok": true,
+      "result": {
+        "custom_fields_count": 1,
+        "custom_fields_sample": [
+          "Location_Count__c"
+        ],
+        "dup_object_type": null,
+        "dup_record_id": null,
+        "tlo_resolver_return": null
+      }
+    },
+    {
+      "label": "daily_briefing.send_dry_run",
+      "ok": true,
+      "result": {
+        "status": "dry_run",
+        "previews": 0,
+        "sent_count": null,
+        "mock_sends_captured": 0,
+        "first_send": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-04-17T19:42:00.331989+00:00",
+  "org_alias": "revagents",
+  "probes": [
+    {
+      "label": "pipeline.fetcher.fetch_open_opps",
+      "ok": false,
+      "error": "SalesforceError: \nNext_Steps__c, Next_Step_Date__c, Segment__c, ICP_Score__c, Count_Balance__c\n                                  ^\nERROR at Row:1:Column:411\nNo such column 'Segment__c' on entity 'Opportunity'. If you are attempting to use a custom field, be sure to append the '__c' after the custom field name. Pleas"
+    },
+    {
+      "label": "forecast.backtest",
+      "ok": false,
+      "error": "TypeError: backtest() got an unexpected keyword argument 'start_date'"
+    },
+    {
+      "label": "excel_model.builder",
+      "ok": true,
+      "result": {
+        "build_called": false,
+        "public_callables": [
+          "AeScorecardSheet",
+          "BaseSheet",
+          "DealDetailsSheet",
+          "Path",
+          "RevenueModelPayload",
+          "SdrScorecardSheet",
+          "Sequence",
+          "UnitEconomicsSheet",
+          "Workbook",
+          "build"
+        ]
+      }
+    },
+    {
+      "label": "briefings.friday_review.dry_run",
+      "ok": true,
+      "result": {
+        "entry_points": [
+          "AeCard",
+          "Any",
+          "BoardMetrics",
+          "ClaudeRouter",
+          "ForecastRollup",
+          "FridayReviewContext",
+          "MoverSet",
+          "RevenueModelPayload",
+          "ScoredDeal",
+          "SdrCard"
+        ],
+        "note": "no obvious dry-run fn"
+      }
+    },
+    {
+      "label": "bigquery.loop_pulse_client.graceful_degradation",
+      "ok": true,
+      "result": {
+        "public": [
+          "Any",
+          "BigQueryUnavailable",
+          "LoopPulseClient",
+          "Path",
+          "datetime",
+          "get_config",
+          "get_engine",
+          "text",
+          "timezone"
+        ],
+        "note": "no is_available probe"
+      }
+    }
+  ]
+}
