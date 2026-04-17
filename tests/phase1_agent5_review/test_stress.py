@@ -57,7 +57,7 @@ def test_schema_delete_approval_enters_cooldown():
         payload={"field": "Opportunity.Legacy__c"},
         justification="unused since 2024-06",
     )
-    decide_approval_gate(gate_id, approved=True, approver="U07P4GX9YLQ")
+    decide_approval_gate(gate_id, approved=True, approver="U08K2UTG3G8")
     gate = get_approval_gate(gate_id)
     assert gate is not None
     assert gate["status"] == "approved_primary", f"expected approved_primary, got {gate['status']}"

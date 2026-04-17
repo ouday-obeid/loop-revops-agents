@@ -239,7 +239,7 @@ def _alert_o_dm(integration: str, prev_status: str, status: str, err: str | None
     try:
         from shared.slack_dispatcher import SlackSender
         sender = SlackSender()
-        o_dm = get_config("SLACK_TEST_CHANNEL") or "U07P4GX9YLQ"
+        o_dm = get_config("SLACK_TEST_CHANNEL") or "U08K2UTG3G8"
         msg = f":rotating_light: Integration `{integration}` transitioned `{prev_status}` → `{status}`"
         if err:
             msg += f"\n> {err}"

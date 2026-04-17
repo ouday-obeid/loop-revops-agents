@@ -145,7 +145,7 @@ def test_handle_gate_decision_writes_gate_decided_audit():
 
 
 def test_ping_o_dm_targets_slack_test_channel(monkeypatch):
-    """ping_o_dm() must target SLACK_TEST_CHANNEL (or U07P4GX9YLQ default)
+    """ping_o_dm() must target SLACK_TEST_CHANNEL (or U08K2UTG3G8 default)
     and post a recognizable bootstrap message. Used by infra/bootstrap.sh
     to verify the bot token before the daemon comes up."""
 
@@ -180,7 +180,7 @@ def test_ping_o_dm_falls_back_to_default_user_id(monkeypatch):
 
     stub = _StubClient()
     SlackSender(client=stub).ping_o_dm()
-    assert stub.calls[0]["channel"] == "U07P4GX9YLQ"
+    assert stub.calls[0]["channel"] == "U08K2UTG3G8"
 
 
 def test_error_reply_formats_with_persona_and_truncation():

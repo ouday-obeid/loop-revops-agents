@@ -44,7 +44,7 @@ python -c "import asyncio; from agents.top_of_funnel.enrichment.pipeline import 
 python -c "import asyncio; from agents.top_of_funnel.enrichment.pipeline import run_pipeline; print(asyncio.run(run_pipeline(dry_run=True)))"
 
 # SDR briefing preview to O's DM (NOT to real SDRs — SLACK_DEV_GUARD=1 pins to test channel):
-python -c "import asyncio; from agents.top_of_funnel.daily_briefing import send_dry_run; print(asyncio.run(send_dry_run('U07P4GX9YLQ')))"
+python -c "import asyncio; from agents.top_of_funnel.daily_briefing import send_dry_run; print(asyncio.run(send_dry_run('U08K2UTG3G8')))"
 ```
 
 ## Threshold tuning
@@ -96,7 +96,7 @@ Briefing's stale-pipeline guard triggers: instead of spamming SDRs with 0-lead D
 
 ## Escalation
 - Non-urgent: post to `#agent-tof-log`
-- Urgent (pipeline down, Clay bill >$X, schema drift): DM O at `U07P4GX9YLQ`
+- Urgent (pipeline down, Clay bill >$X, schema drift): DM O at `U08K2UTG3G8`
 - Dept-head access: emails in `config/territory.yaml:dept_heads` (Hutch, Charles). `routing.is_dept_head(email)` is the hook downstream callers use when gating `@oo tof` commands beyond O-only.
 
 ## Cross-agent import lint

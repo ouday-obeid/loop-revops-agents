@@ -33,7 +33,7 @@ async def test_pipeline_by_stage_dispatched_to_real_handler():
         mock_fn.return_value = {"records": [], "text": "PIPELINE", "blocks": []}
         result = await slack_dispatcher.dispatch(
             "<@U0BOT> oo revops-support pipeline by stage",
-            context={"user": "U07P4GX9YLQ", "channel": "C_TEST"},
+            context={"user": "U08K2UTG3G8", "channel": "C_TEST"},
         )
     mock_fn.assert_called_once()
     assert result["text"] == "PIPELINE"
@@ -47,7 +47,7 @@ async def test_unregistered_specialist_still_routed_to_oo():
     slack_dispatcher.register("oo", oo_main.oo_dispatcher.handle)
     result = await slack_dispatcher.dispatch(
         "<@U0BOT> oo sales_reps some_cmd",
-        context={"user": "U07P4GX9YLQ", "channel": "C_TEST"},
+        context={"user": "U08K2UTG3G8", "channel": "C_TEST"},
     )
     # OO's current fallback for unknown commands returns a "no handler wired" note.
     assert "received" in result["text"].lower() or "handler" in result["text"].lower() or "sales_reps" in result["text"].lower()
@@ -59,7 +59,7 @@ async def test_persona_alias_admin_routes_to_revops_support():
     register_with_dispatcher()
     result = await slack_dispatcher.dispatch(
         "<@U0BOT> admin ping",
-        context={"user": "U07P4GX9YLQ", "channel": "C_TEST"},
+        context={"user": "U08K2UTG3G8", "channel": "C_TEST"},
     )
     assert "pong" in result["text"].lower()
     assert "revops support" in result["text"].lower()
@@ -71,11 +71,11 @@ async def test_persona_alias_admin_matches_canonical_help():
     register_with_dispatcher()
     alias = await slack_dispatcher.dispatch(
         "<@U0BOT> admin help",
-        context={"user": "U07P4GX9YLQ", "channel": "C_TEST"},
+        context={"user": "U08K2UTG3G8", "channel": "C_TEST"},
     )
     canonical = await slack_dispatcher.dispatch(
         "<@U0BOT> revops_support help",
-        context={"user": "U07P4GX9YLQ", "channel": "C_TEST"},
+        context={"user": "U08K2UTG3G8", "channel": "C_TEST"},
     )
     assert alias["text"] == canonical["text"]
     assert "admin" in alias["text"]

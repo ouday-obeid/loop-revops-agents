@@ -3,7 +3,7 @@
 # runtime. Slack user IDs must be filled in by O before daily briefing ships.
 
 default_owner_id: PLACEHOLDER_TOF_AGENT_USER_ID   # tof-agent@ SF user.Id
-default_slack_fallback_channel: U07P4GX9YLQ       # O's DM
+default_slack_fallback_channel: U08K2UTG3G8       # O's DM
 
 segments:
   ENT:

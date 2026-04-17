@@ -183,7 +183,7 @@ async def send_weekly_review(sender: Any | None = None) -> dict[str, Any]:
 async def _send(msg: str, sender: Any | None) -> dict[str, Any]:
     if _is_user_ooo_now():
         return {"ok": True, "skipped": "ooo", "preview": msg[:500]}
-    target = get_config("SLACK_TEST_CHANNEL") or "U07P4GX9YLQ"
+    target = get_config("SLACK_TEST_CHANNEL") or "U08K2UTG3G8"
     if sender is None:
         from shared.slack_dispatcher import SlackSender
         sender = SlackSender()
