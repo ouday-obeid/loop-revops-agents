@@ -42,7 +42,7 @@ _TOP_N_IN_BODY = 20
 _MAX_THREAD = 200
 _EXPLORATION_MAX = 20
 _EXPLORATION_MIN_SCORE = 40
-_O_DM_CHANNEL = "U07P4GX9YLQ"  # O's Slack DM — stale-guard fallback
+_O_DM_CHANNEL = "U08K2UTG3G8"  # O's Slack DM — stale-guard fallback
 
 
 # -------------------------------------------------------------- latest run

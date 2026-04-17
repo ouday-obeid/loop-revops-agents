@@ -111,7 +111,7 @@ class SlackSender:
     def ping_o_dm(self) -> dict[str, Any]:
         """Post a one-line liveness ping to O's DM. Used by infra/bootstrap.sh
         to verify SLACK_BOT_TOKEN is wired before the daemon comes up."""
-        target = get_config("SLACK_TEST_CHANNEL") or "U07P4GX9YLQ"
+        target = get_config("SLACK_TEST_CHANNEL") or "U08K2UTG3G8"
         return self.send(target, ":wave: bootstrap ping — Slack bot token wired correctly")
 
 

@@ -63,7 +63,7 @@ Rubric: 1–5 integer per section, weighted → percentage → pass/fail at 35/5
 - `web_research.py` — Apollo only in Phase 1; returns `[]` when `APOLLO_API_KEY` missing.
 
 ## Safety posture (Phase 1)
-- `SLACK_DEV_GUARD=1` during build pins all Slack posts to O's DM (`U07P4GX9YLQ`). Promotion to rep channels happens at Phase 3 Week 9 rollout.
+- `SLACK_DEV_GUARD=1` during build pins all Slack posts to O's DM (`U08K2UTG3G8`). Promotion to rep channels happens at Phase 3 Week 9 rollout.
 - Grader runs against historical transcripts during build; production coaching DMs gated by Hutch until week 4 of Phase 3.
 - Rubric weights immutable in code during build; tuning requires Hutch approval.
 - Sync-break alerts rate-limited to 1/hour/integration.

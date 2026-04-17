@@ -36,7 +36,7 @@ log = logging.getLogger(__name__)
 
 # O's Slack DM — routing destination for every SLT draft (decision locked
 # 2026-04-13). Slack accepts user IDs as channel IDs for DMs.
-_O_DM_CHANNEL = "U07P4GX9YLQ"
+_O_DM_CHANNEL = "U08K2UTG3G8"
 
 SenderFn = Callable[[str, str, list[dict[str, Any]] | None], dict[str, Any]]
 

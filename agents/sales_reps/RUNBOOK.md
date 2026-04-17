@@ -162,5 +162,5 @@ If the key rotates during an in-flight `grader_poll` or `batch.grade_range`, Fir
 
 ## Escalation
 - Non-urgent: post to `#agent-sales-reps-log`
-- Urgent (grader cost spike, sync-break storm, false coaching DM): DM O at `U07P4GX9YLQ`
+- Urgent (grader cost spike, sync-break storm, false coaching DM): DM O at `U08K2UTG3G8`
 - Dept-head access: Hutch (VP Sales, full `sales_reps` access), Charles (ENT), Nate (MM)
