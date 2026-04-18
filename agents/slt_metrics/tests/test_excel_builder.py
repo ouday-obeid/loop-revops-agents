@@ -35,6 +35,7 @@ EXPECTED_SHEETS = (
     "Deal Details", "AE Scorecard", "SDR Scorecard", "Unit Economics",
     "Quota", "Pipeline by Segment", "Deal Movers",
     "Forecast Summary", "Board Metrics",
+    "Expansion", "Monthly Revenue", "Funnel Metrics", "Rep Forecast",
 )
 
 
