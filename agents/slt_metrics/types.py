@@ -228,6 +228,19 @@ class CallIntelSignal:
 # ------------------------------------------------------------------ composite
 
 @dataclass
+class RepForecastEntry:
+    """One rep-submitted forecast for a single quarter. Written via
+    `@oo slt ingest-rep-forecast`, read by RepForecastSheet."""
+    owner_name: str
+    quarter: str
+    commit_acv: float | None
+    best_case_acv: float | None
+    notes: str | None = None
+    source: str | None = None
+    submitted_at: datetime | None = None
+
+
+@dataclass
 class RevenueModelPayload:
     """Single argument to excel_model.builder.build(). Also drives briefings."""
     run_date: date
@@ -242,3 +255,4 @@ class RevenueModelPayload:
     notes: list[str] = field(default_factory=list)
     closed_opps_quarter: list[OppRecord] = field(default_factory=list)
     all_opps_snapshot: list[OppRecord] = field(default_factory=list)
+    rep_forecast_submissions: dict[str, RepForecastEntry] = field(default_factory=dict)

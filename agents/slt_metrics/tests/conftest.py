@@ -36,10 +36,13 @@ def _slt_metrics_isolate_db():
     from shared.db.connection import init_schema
     init_schema()
 
-    # Apply migrations 0004 + 0005 immediately — downstream tests (snapshotter,
-    # jobs, movers, quota) read these tables regardless of collection order.
+    # Apply migrations 0004 + 0005 + 0007 immediately — downstream tests
+    # (snapshotter, jobs, movers, quota, rep_forecast_store) read these tables
+    # regardless of collection order.
     m4 = importlib.import_module("shared.db.migrations.versions.0004_slt_revenue_metrics")
     m4.upgrade()
     m5 = importlib.import_module("shared.db.migrations.versions.0005_slt_rep_config")
     m5.upgrade()
+    m7 = importlib.import_module("shared.db.migrations.versions.0007_rep_forecasts")
+    m7.upgrade()
     yield
