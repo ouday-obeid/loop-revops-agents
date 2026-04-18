@@ -188,6 +188,16 @@ SEASONALITY: Final[dict[int, float]] = {
 }
 
 
+# ---------------------------------------------------------------- board targets
+
+# Target thresholds rendered in the Board Metrics sheet's "Target" column.
+# Source: SLT planning deck, 2026-04 revision. Change here to change the
+# workbook — sheet reads these at render time, not via .xlsx hardcode.
+NRR_TARGET: Final[float] = 1.10              # Net Revenue Retention
+LOGO_RETENTION_TARGET: Final[float] = 0.90
+EXPANSION_RATE_TARGET: Final[float] = 0.15
+
+
 # ---------------------------------------------------------------- headcount
 
 @dataclass(frozen=True)

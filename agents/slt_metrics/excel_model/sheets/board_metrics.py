@@ -10,6 +10,12 @@ from openpyxl.worksheet.worksheet import Worksheet
 
 from agents.slt_metrics.excel_model import helpers as H, styles as S
 from agents.slt_metrics.excel_model.sheets import BaseSheet
+from agents.slt_metrics.pipeline.config import COVERAGE_TARGETS
+from agents.slt_metrics.pipeline.planning import (
+    EXPANSION_RATE_TARGET,
+    LOGO_RETENTION_TARGET,
+    NRR_TARGET,
+)
 from agents.slt_metrics.types import RevenueModelPayload
 
 
@@ -29,13 +35,15 @@ class BoardMetricsSheet(BaseSheet):
         )
         H.write_header_row(ws, row=2, headers=["Metric", "Value", "Target"])
 
+        mm_target = COVERAGE_TARGETS.get("MM", 3.0)
+        ent_target = COVERAGE_TARGETS.get("ENT", 4.0)
         rows: list[tuple[str, object, object, str | None]] = [
-            ("ARR",                      _value_or_gap(bm.arr),                    "",       S.FMT_MONEY),
-            ("Net Revenue Retention",    _value_or_gap(bm.nrr),                    ">=1.10", S.FMT_PCT),
-            ("Logo Retention",           _value_or_gap(bm.logo_retention),         ">=0.90", S.FMT_PCT),
-            ("Expansion Rate",           _value_or_gap(bm.expansion_rate),         ">=0.15", S.FMT_PCT),
-            ("MM Pipeline Coverage",     _value_or_gap(bm.pipeline_coverage_mm),   "3x",     S.FMT_RATIO),
-            ("ENT Pipeline Coverage",    _value_or_gap(bm.pipeline_coverage_ent),  "4x",     S.FMT_RATIO),
+            ("ARR",                      _value_or_gap(bm.arr),                    "",                           S.FMT_MONEY),
+            ("Net Revenue Retention",    _value_or_gap(bm.nrr),                    f">={NRR_TARGET:.2f}",        S.FMT_PCT),
+            ("Logo Retention",           _value_or_gap(bm.logo_retention),         f">={LOGO_RETENTION_TARGET:.2f}", S.FMT_PCT),
+            ("Expansion Rate",           _value_or_gap(bm.expansion_rate),         f">={EXPANSION_RATE_TARGET:.2f}", S.FMT_PCT),
+            ("MM Pipeline Coverage",     _value_or_gap(bm.pipeline_coverage_mm),   f"{mm_target:g}x",            S.FMT_RATIO),
+            ("ENT Pipeline Coverage",    _value_or_gap(bm.pipeline_coverage_ent),  f"{ent_target:g}x",           S.FMT_RATIO),
         ]
         for i, (label, value, target, fmt) in enumerate(rows, start=3):
             H.write_body_row(
