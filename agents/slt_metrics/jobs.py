@@ -206,6 +206,8 @@ def _build_payload(
     board = build_board_metrics(
         as_of=run_date, arr_nrr=arr_nrr, coverage=coverage, unit_economics=ue,
     )
+    closed_q = fetcher.fetch_closed_opps_quarter()
+    all_opps = fetcher.fetch_all_opps_snapshot()
     return RevenueModelPayload(
         run_date=run_date,
         horizon_quarter=horizon,
@@ -216,6 +218,8 @@ def _build_payload(
         ae_cards=[],
         sdr_cards=[],
         board_metrics=board,
+        closed_opps_quarter=closed_q,
+        all_opps_snapshot=all_opps,
     )
 
 

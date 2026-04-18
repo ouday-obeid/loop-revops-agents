@@ -240,3 +240,5 @@ class RevenueModelPayload:
     sdr_cards: list[SdrCard]
     board_metrics: BoardMetrics
     notes: list[str] = field(default_factory=list)
+    closed_opps_quarter: list[OppRecord] = field(default_factory=list)
+    all_opps_snapshot: list[OppRecord] = field(default_factory=list)
