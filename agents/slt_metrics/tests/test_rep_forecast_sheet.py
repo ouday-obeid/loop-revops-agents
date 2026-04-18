@@ -15,6 +15,7 @@ from agents.slt_metrics.types import (
     MoverSet,
     OppRecord,
     PillarScore,
+    RepForecastEntry,
     RevenueModelPayload,
     ScoredDeal,
     UnitEconomics,
@@ -61,6 +62,7 @@ def _payload(
     *,
     closed: list[OppRecord] | None = None,
     deals: list[ScoredDeal] | None = None,
+    submissions: dict[str, RepForecastEntry] | None = None,
 ) -> RevenueModelPayload:
     return RevenueModelPayload(
         run_date=date(2026, 4, 17),
@@ -85,6 +87,7 @@ def _payload(
         ),
         closed_opps_quarter=closed or [],
         all_opps_snapshot=[],
+        rep_forecast_submissions=submissions or {},
     )
 
 
@@ -156,8 +159,25 @@ def test_rep_forecast_open_pipeline_column():
     assert ws.cell(row=alex_row, column=7).value == 550_000.0
 
 
-def test_rep_forecast_submitted_forecast_column_is_blank():
+def test_rep_forecast_submitted_forecast_column_is_blank_without_submissions():
     ws = _render()
     sarra_row = _find_row(ws, "Sarra Herlich")
     assert sarra_row is not None
     assert ws.cell(row=sarra_row, column=8).value is None
+
+
+def test_rep_forecast_submitted_forecast_populates_from_submissions():
+    submissions = {
+        "Sarra Herlich": RepForecastEntry(
+            owner_name="Sarra Herlich", quarter="FY2026-Q2",
+            commit_acv=275_000.0, best_case_acv=400_000.0,
+        ),
+    }
+    ws = _render(submissions=submissions)
+    sarra_row = _find_row(ws, "Sarra Herlich")
+    assert sarra_row is not None
+    assert ws.cell(row=sarra_row, column=8).value == 275_000.0
+    # Reps without submissions remain blank.
+    alex_row = _find_row(ws, "Alex Reyes")
+    assert alex_row is not None
+    assert ws.cell(row=alex_row, column=8).value is None

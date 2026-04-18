@@ -101,6 +101,8 @@ class RepForecastSheet(BaseSheet):
                 won = won_by_owner.get(entry.name, 0.0)
                 attainment = (won / q_quota) if q_quota else 0.0
                 open_pipe = open_by_owner.get(entry.name, 0.0)
+                submission = payload.rep_forecast_submissions.get(entry.name)
+                submitted_commit = submission.commit_acv if submission else None
                 H.write_body_row(
                     ws, row=row,
                     values=(
@@ -109,7 +111,7 @@ class RepForecastSheet(BaseSheet):
                         entry.annual_quota,
                         won, attainment,
                         open_pipe,
-                        None,
+                        submitted_commit,
                     ),
                     number_formats=list(_FORMATS),
                 )

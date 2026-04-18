@@ -23,7 +23,7 @@ from agents.slt_metrics.briefings.daily_830 import compose_daily
 from agents.slt_metrics.briefings.friday_review import compose_friday
 from agents.slt_metrics.briefings.narrator import ClaudeRouter
 from agents.slt_metrics.forecast import commit_best
-from agents.slt_metrics.pipeline import fetcher, movers, snapshotter
+from agents.slt_metrics.pipeline import fetcher, movers, rep_forecast_store, snapshotter
 from agents.slt_metrics.types import (
     ForecastWeights,
     PillarScore,
@@ -208,6 +208,7 @@ def _build_payload(
     )
     closed_q = fetcher.fetch_closed_opps_quarter()
     all_opps = fetcher.fetch_all_opps_snapshot()
+    rep_submissions = rep_forecast_store.read_rep_forecasts(horizon)
     return RevenueModelPayload(
         run_date=run_date,
         horizon_quarter=horizon,
@@ -220,6 +221,7 @@ def _build_payload(
         board_metrics=board,
         closed_opps_quarter=closed_q,
         all_opps_snapshot=all_opps,
+        rep_forecast_submissions=rep_submissions,
     )
 
 
