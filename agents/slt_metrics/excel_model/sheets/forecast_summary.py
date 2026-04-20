@@ -10,6 +10,10 @@ from openpyxl.worksheet.worksheet import Worksheet
 
 from agents.slt_metrics.excel_model import helpers as H, styles as S
 from agents.slt_metrics.excel_model.sheets import BaseSheet
+from agents.slt_metrics.pipeline.config import (
+    BEST_CASE_SCORE_THRESHOLD,
+    COMMIT_SCORE_THRESHOLD,
+)
 from agents.slt_metrics.types import RevenueModelPayload
 
 
@@ -41,12 +45,18 @@ class ForecastSummarySheet(BaseSheet):
         H.write_header_row(ws, row=2, headers=["Metric", "Amount", "Weights", "Deal Count"])
         H.write_body_row(
             ws, row=3,
-            values=("Commit (score ≥ 80)", rollup.commit_amount, payload.weights.version, rollup.deal_count),
+            values=(
+                f"Commit (score ≥ {COMMIT_SCORE_THRESHOLD})",
+                rollup.commit_amount, payload.weights.version, rollup.deal_count,
+            ),
             number_formats=(None, S.FMT_MONEY, None, S.FMT_INT),
         )
         H.write_body_row(
             ws, row=4,
-            values=("Best Case (score ≥ 50)", rollup.best_case_amount, "", ""),
+            values=(
+                f"Best Case (score ≥ {BEST_CASE_SCORE_THRESHOLD})",
+                rollup.best_case_amount, "", "",
+            ),
             number_formats=(None, S.FMT_MONEY, None, None),
         )
         H.write_body_row(

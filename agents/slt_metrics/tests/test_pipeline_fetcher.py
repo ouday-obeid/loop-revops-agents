@@ -238,3 +238,153 @@ def test_fetch_open_opps_empty_result(monkeypatch):
         salesforce_mcp, "soql_query", lambda q, limit=100: {"records": []}
     )
     assert fetcher.fetch_open_opps() == []
+
+
+# ------------------------------------------------------------------ closed-quarter SOQL
+
+def test_closed_quarter_soql_shape():
+    soql = fetcher.build_closed_quarter_soql()
+    assert "FROM Opportunity" in soql
+    assert "WHERE IsClosed = true" in soql
+    assert "CloseDate = THIS_QUARTER" in soql
+    assert "ORDER BY ACV__c DESC NULLS LAST" in soql
+    assert "LIMIT 1000" in soql
+
+
+def test_closed_quarter_soql_honors_quarter_override():
+    soql = fetcher.build_closed_quarter_soql(quarter="LAST_QUARTER", limit=250)
+    assert "CloseDate = LAST_QUARTER" in soql
+    assert "LIMIT 250" in soql
+
+
+def test_closed_quarter_soql_includes_core_and_product_fields():
+    soql = fetcher.build_closed_quarter_soql()
+    for field_ in ("Id", "Name", "StageName", "ACV__c", "CloseDate", "Segment__c",
+                   "OpportunityContactRoles"):
+        assert field_ in soql
+    for sf_field in PRODUCT_FIELDS:
+        assert sf_field in soql
+
+
+def test_closed_quarter_soql_include_icp_toggle():
+    with_icp = fetcher.build_closed_quarter_soql(include_icp=True)
+    without_icp = fetcher.build_closed_quarter_soql(include_icp=False)
+    assert "ICP_Score__c" in with_icp
+    assert "ICP_Score__c" not in without_icp
+
+
+# ------------------------------------------------------------------ all-opps SOQL
+
+def test_all_opps_soql_shape():
+    soql = fetcher.build_all_opps_soql()
+    assert "FROM Opportunity" in soql
+    assert "IsClosed = false" in soql
+    assert "IsClosed = true AND CloseDate >= LAST_N_MONTHS:12" in soql
+    assert "ORDER BY ACV__c DESC NULLS LAST" in soql
+    assert "LIMIT 10000" in soql
+
+
+def test_all_opps_soql_honors_lookback_and_limit():
+    soql = fetcher.build_all_opps_soql(lookback_months=24, limit=5000)
+    assert "LAST_N_MONTHS:24" in soql
+    assert "LIMIT 5000" in soql
+
+
+def test_all_opps_soql_include_icp_toggle():
+    with_icp = fetcher.build_all_opps_soql(include_icp=True)
+    without_icp = fetcher.build_all_opps_soql(include_icp=False)
+    assert "ICP_Score__c" in with_icp
+    assert "ICP_Score__c" not in without_icp
+
+
+# ------------------------------------------------------------------ fetch_closed_opps_quarter
+
+def test_fetch_closed_opps_quarter_calls_soql(monkeypatch):
+    captured: dict[str, Any] = {}
+
+    def fake_soql(query: str, limit: int = 100):
+        captured["query"] = query
+        captured["limit"] = limit
+        return {"records": [_sf_row(IsClosed=True, IsWon=True, StageName="Closed Won")]}
+
+    monkeypatch.setattr(salesforce_mcp, "soql_query", fake_soql)
+    opps = fetcher.fetch_closed_opps_quarter()
+    assert len(opps) == 1
+    assert opps[0].is_closed is True
+    assert opps[0].is_won is True
+    assert "IsClosed = true" in captured["query"]
+    assert captured["limit"] == 1000
+
+
+def test_fetch_closed_opps_quarter_retries_without_icp(monkeypatch):
+    calls: list[str] = []
+
+    def fake_soql(query: str, limit: int = 100):
+        calls.append(query)
+        if "ICP_Score__c" in query:
+            raise salesforce_mcp.SalesforceError(
+                "INVALID_FIELD: No such column 'ICP_Score__c' on entity 'Opportunity'"
+            )
+        return {"records": []}
+
+    monkeypatch.setattr(salesforce_mcp, "soql_query", fake_soql)
+    assert fetcher.fetch_closed_opps_quarter() == []
+    assert len(calls) == 2
+    assert "ICP_Score__c" in calls[0]
+    assert "ICP_Score__c" not in calls[1]
+
+
+def test_fetch_closed_opps_quarter_propagates_non_icp_errors(monkeypatch):
+    def fake_soql(query: str, limit: int = 100):
+        raise salesforce_mcp.SalesforceError("MALFORMED_QUERY: unexpected token")
+
+    monkeypatch.setattr(salesforce_mcp, "soql_query", fake_soql)
+    with pytest.raises(salesforce_mcp.SalesforceError):
+        fetcher.fetch_closed_opps_quarter()
+
+
+# ------------------------------------------------------------------ fetch_all_opps_snapshot
+
+def test_fetch_all_opps_snapshot_calls_soql(monkeypatch):
+    captured: dict[str, Any] = {}
+
+    def fake_soql(query: str, limit: int = 100):
+        captured["query"] = query
+        captured["limit"] = limit
+        return {
+            "records": [
+                _sf_row(Id="0061OPEN", IsClosed=False),
+                _sf_row(Id="0061CLSD", IsClosed=True, IsWon=True, StageName="Closed Won"),
+            ]
+        }
+
+    monkeypatch.setattr(salesforce_mcp, "soql_query", fake_soql)
+    opps = fetcher.fetch_all_opps_snapshot()
+    assert {o.id for o in opps} == {"0061OPEN", "0061CLSD"}
+    assert "IsClosed = false" in captured["query"]
+    assert "LAST_N_MONTHS:12" in captured["query"]
+    assert captured["limit"] == 10000
+
+
+def test_fetch_all_opps_snapshot_retries_without_icp(monkeypatch):
+    calls: list[str] = []
+
+    def fake_soql(query: str, limit: int = 100):
+        calls.append(query)
+        if "ICP_Score__c" in query:
+            raise salesforce_mcp.SalesforceError(
+                "INVALID_FIELD: No such column 'ICP_Score__c' on entity 'Opportunity'"
+            )
+        return {"records": []}
+
+    monkeypatch.setattr(salesforce_mcp, "soql_query", fake_soql)
+    assert fetcher.fetch_all_opps_snapshot() == []
+    assert len(calls) == 2
+    assert "ICP_Score__c" not in calls[1]
+
+
+def test_fetch_all_opps_snapshot_empty_result(monkeypatch):
+    monkeypatch.setattr(
+        salesforce_mcp, "soql_query", lambda q, limit=100: {"records": []}
+    )
+    assert fetcher.fetch_all_opps_snapshot() == []

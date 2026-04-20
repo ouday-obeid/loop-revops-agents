@@ -1,0 +1,18 @@
+# Environment variables
+.env
+slack_bot/.env
+
+# Snapshot data (regenerated daily)
+slack_bot/data/yesterday.json
+
+# Generated workbooks
+slack_bot/data/*.xlsx
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/

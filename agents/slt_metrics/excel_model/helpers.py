@@ -103,6 +103,16 @@ def conditional_color_scale(
 
 # ---------------------------------------------------------------- charts
 
+def _quoted_sheet_ref(ws: Worksheet, ref: str) -> str:
+    """openpyxl requires sheet names with spaces/specials to be single-quoted
+    in range strings (`'Monthly Revenue'!A1:B2`)."""
+    title = ws.title
+    needs_quotes = any(c in title for c in " -'!")
+    if needs_quotes:
+        title = "'" + title.replace("'", "''") + "'"
+    return f"{title}!{ref}"
+
+
 def add_bar_chart(
     ws: Worksheet,
     *,
@@ -115,8 +125,11 @@ def add_bar_chart(
     chart.title = title
     chart.y_axis.title = None
     chart.x_axis.title = None
-    chart.add_data(Reference(ws, range_string=f"{ws.title}!{data_ref}"), titles_from_data=True)
-    chart.set_categories(Reference(ws, range_string=f"{ws.title}!{categories_ref}"))
+    chart.add_data(
+        Reference(ws, range_string=_quoted_sheet_ref(ws, data_ref)),
+        titles_from_data=True,
+    )
+    chart.set_categories(Reference(ws, range_string=_quoted_sheet_ref(ws, categories_ref)))
     chart.height = 9
     chart.width = 18
     ws.add_chart(chart, anchor)
@@ -132,8 +145,11 @@ def add_line_chart(
 ) -> None:
     chart = LineChart()
     chart.title = title
-    chart.add_data(Reference(ws, range_string=f"{ws.title}!{data_ref}"), titles_from_data=True)
-    chart.set_categories(Reference(ws, range_string=f"{ws.title}!{categories_ref}"))
+    chart.add_data(
+        Reference(ws, range_string=_quoted_sheet_ref(ws, data_ref)),
+        titles_from_data=True,
+    )
+    chart.set_categories(Reference(ws, range_string=_quoted_sheet_ref(ws, categories_ref)))
     chart.height = 9
     chart.width = 18
     ws.add_chart(chart, anchor)

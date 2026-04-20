@@ -25,6 +25,14 @@ def _clean_snapshots():
     yield
 
 
+@pytest.fixture(autouse=True)
+def _stub_briefing_fetchers(monkeypatch):
+    """`_build_payload` calls closed + all-opps fetchers; default them to empty
+    so briefing tests stay DB-driven. Individual tests can override."""
+    monkeypatch.setattr(fetcher, "fetch_closed_opps_quarter", lambda **_: [])
+    monkeypatch.setattr(fetcher, "fetch_all_opps_snapshot", lambda **_: [])
+
+
 def _opp(**overrides: Any) -> OppRecord:
     base = dict(
         id="0061x100",
@@ -276,3 +284,47 @@ def test_horizon_quarter_computes_fiscal_label():
     assert jobs._horizon_quarter(date(2026, 4, 13)) == "FY2026-Q2"
     assert jobs._horizon_quarter(date(2026, 7, 1)) == "FY2026-Q3"
     assert jobs._horizon_quarter(date(2026, 12, 31)) == "FY2026-Q4"
+
+
+# ------------------------------------------------------------------ payload extensions
+
+def test_build_payload_populates_closed_and_all_opps(monkeypatch):
+    """_build_payload threads both new fetchers into the payload."""
+    closed = [_opp(id="0061CLOSED", stage="Closed Won", is_closed=True, is_won=True)]
+    all_opps = [
+        _opp(id="0061OPEN1"),
+        _opp(id="0061CLOSED", stage="Closed Won", is_closed=True, is_won=True),
+    ]
+    monkeypatch.setattr(fetcher, "fetch_closed_opps_quarter", lambda **_: closed)
+    monkeypatch.setattr(fetcher, "fetch_all_opps_snapshot", lambda **_: all_opps)
+
+    today = date(2026, 4, 13)
+    _seed_scored_snapshot(snapshot_date=today, opp_id="0061AA")
+
+    cap = _CapturingSender()
+    payload_holder: dict[str, Any] = {}
+
+    def spy_compose(payload, **kwargs):
+        payload_holder["payload"] = payload
+        return {"text": "stub", "blocks": []}
+
+    monkeypatch.setattr(jobs, "compose_daily", spy_compose)
+    jobs.run_daily_briefing(today=today, sender=cap, router=_StubRouter())
+
+    payload = payload_holder["payload"]
+    assert [o.id for o in payload.closed_opps_quarter] == ["0061CLOSED"]
+    assert {o.id for o in payload.all_opps_snapshot} == {"0061OPEN1", "0061CLOSED"}
+
+
+def test_run_morning_snapshot_does_not_call_new_fetchers(monkeypatch):
+    """Morning snapshot writes open opps only; the closed + all-opps fetchers
+    are briefing-time concerns."""
+    monkeypatch.setattr(fetcher, "fetch_open_opps", lambda: [_opp()])
+
+    def _boom(**_):
+        raise AssertionError("morning snapshot must not call this fetcher")
+
+    monkeypatch.setattr(fetcher, "fetch_closed_opps_quarter", _boom)
+    monkeypatch.setattr(fetcher, "fetch_all_opps_snapshot", _boom)
+
+    assert jobs.run_morning_snapshot() == {"fetched": 1, "inserted": 1}

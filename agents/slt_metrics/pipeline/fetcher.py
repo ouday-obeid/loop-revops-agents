@@ -13,11 +13,14 @@ from __future__ import annotations
 
 import logging
 from datetime import date, datetime
-from typing import Any
+from typing import Any, Callable
 
 from shared.mcp import salesforce_mcp
 
 from agents.slt_metrics.pipeline.config import (
+    ALL_OPPS_DEFAULT_LOOKBACK_MONTHS,
+    ALL_OPPS_FETCH_LIMIT,
+    CLOSED_QUARTER_FETCH_LIMIT,
     DEFAULT_FETCH_FROM,
     DEFAULT_FETCH_LIMIT,
     DEFAULT_FETCH_TO,
@@ -53,6 +56,16 @@ _CONTACT_ROLES_SUBQUERY: str = (
 )
 
 
+def _select_clause(*, include_icp: bool) -> str:
+    """Shared SELECT clause builder — keeps column order and contact-role
+    subquery identical across open/closed/all-opps fetchers."""
+    columns = list(_CORE_COLUMNS)
+    if include_icp:
+        columns.append(_ICP_COLUMN)
+    columns.extend(PRODUCT_FIELDS.keys())
+    return ", ".join(columns) + ", " + _CONTACT_ROLES_SUBQUERY
+
+
 def build_open_pipeline_soql(
     *,
     date_from: str = DEFAULT_FETCH_FROM,
@@ -66,14 +79,8 @@ def build_open_pipeline_soql(
     `date_from` / `date_to` accept SOQL date literals (THIS_QUARTER, LAST_N_DAYS:30)
     or ISO dates — callers format appropriately.
     """
-    columns = list(_CORE_COLUMNS)
-    if include_icp:
-        columns.append(_ICP_COLUMN)
-    columns.extend(PRODUCT_FIELDS.keys())
-
-    select_clause = ", ".join(columns) + ", " + _CONTACT_ROLES_SUBQUERY
     return (
-        f"SELECT {select_clause} "
+        f"SELECT {_select_clause(include_icp=include_icp)} "
         "FROM Opportunity "
         f"WHERE IsClosed = false "
         f"AND CloseDate >= {date_from} "
@@ -81,6 +88,78 @@ def build_open_pipeline_soql(
         "ORDER BY ACV__c DESC NULLS LAST "
         f"LIMIT {limit}"
     )
+
+
+def build_closed_quarter_soql(
+    *,
+    quarter: str = "THIS_QUARTER",
+    limit: int = CLOSED_QUARTER_FETCH_LIMIT,
+    include_icp: bool = True,
+) -> str:
+    """Return the closed-quarter SOQL (won + lost, single quarter).
+
+    `quarter` accepts any SOQL date literal that narrows to a quarter
+    (THIS_QUARTER, LAST_QUARTER, THIS_FISCAL_QUARTER, ...).
+    """
+    return (
+        f"SELECT {_select_clause(include_icp=include_icp)} "
+        "FROM Opportunity "
+        f"WHERE IsClosed = true "
+        f"AND CloseDate = {quarter} "
+        "ORDER BY ACV__c DESC NULLS LAST "
+        f"LIMIT {limit}"
+    )
+
+
+def build_all_opps_soql(
+    *,
+    lookback_months: int = ALL_OPPS_DEFAULT_LOOKBACK_MONTHS,
+    limit: int = ALL_OPPS_FETCH_LIMIT,
+    include_icp: bool = True,
+) -> str:
+    """Return the all-opps SOQL: open pipeline + trailing N months of closed.
+
+    `CloseDate >= LAST_N_MONTHS:n` starts at the first day of the calendar
+    month N months ago and has no upper bound, so it includes the current
+    month and any (effectively empty) future-dated closed rows.
+    """
+    return (
+        f"SELECT {_select_clause(include_icp=include_icp)} "
+        "FROM Opportunity "
+        f"WHERE IsClosed = false "
+        f"OR (IsClosed = true AND CloseDate >= LAST_N_MONTHS:{lookback_months}) "
+        "ORDER BY ACV__c DESC NULLS LAST "
+        f"LIMIT {limit}"
+    )
+
+
+def _run_with_icp_retry(
+    *,
+    build: Callable[..., str],
+    build_kwargs: dict[str, Any],
+    limit: int,
+    log_prefix: str,
+) -> list[OppRecord]:
+    """Execute a builder's SOQL, retrying once without ICP_Score__c when SF
+    reports `INVALID_FIELD` for that column. Shared across open/closed/all
+    fetchers so the retry path stays in one place.
+    """
+    query = build(**build_kwargs, include_icp=True)
+    try:
+        result = salesforce_mcp.soql_query(query, limit=limit)
+    except salesforce_mcp.SalesforceError as e:
+        if "INVALID_FIELD" in str(e) and _ICP_COLUMN in str(e):
+            log.warning(
+                "%s: ICP_Score__c missing from Opportunity; "
+                "retrying without it and relying on proxy path",
+                log_prefix,
+            )
+            query = build(**build_kwargs, include_icp=False)
+            result = salesforce_mcp.soql_query(query, limit=limit)
+        else:
+            raise
+    records = result.get("records", []) if isinstance(result, dict) else []
+    return [_parse_record(row) for row in records]
 
 
 def fetch_open_opps(
@@ -95,24 +174,45 @@ def fetch_open_opps(
     the ICP pillar falls back to its proxy path and the Deal Details sheet
     shows `proxy-capped` instead of the raw score.
     """
-    query = build_open_pipeline_soql(date_from=date_from, date_to=date_to, limit=limit)
-    try:
-        result = salesforce_mcp.soql_query(query, limit=limit)
-    except salesforce_mcp.SalesforceError as e:
-        if "INVALID_FIELD" in str(e) and _ICP_COLUMN in str(e):
-            log.warning(
-                "fetch_open_opps: ICP_Score__c missing from Opportunity; "
-                "retrying without it and relying on proxy path"
-            )
-            query = build_open_pipeline_soql(
-                date_from=date_from, date_to=date_to, limit=limit, include_icp=False
-            )
-            result = salesforce_mcp.soql_query(query, limit=limit)
-        else:
-            raise
+    return _run_with_icp_retry(
+        build=build_open_pipeline_soql,
+        build_kwargs={"date_from": date_from, "date_to": date_to, "limit": limit},
+        limit=limit,
+        log_prefix="fetch_open_opps",
+    )
 
-    records = result.get("records", []) if isinstance(result, dict) else []
-    return [_parse_record(row) for row in records]
+
+def fetch_closed_opps_quarter(
+    *,
+    quarter: str = "THIS_QUARTER",
+    limit: int = CLOSED_QUARTER_FETCH_LIMIT,
+) -> list[OppRecord]:
+    """Pull closed-won + closed-lost Opportunities for a single quarter."""
+    return _run_with_icp_retry(
+        build=build_closed_quarter_soql,
+        build_kwargs={"quarter": quarter, "limit": limit},
+        limit=limit,
+        log_prefix="fetch_closed_opps_quarter",
+    )
+
+
+def fetch_all_opps_snapshot(
+    *,
+    lookback_months: int = ALL_OPPS_DEFAULT_LOOKBACK_MONTHS,
+    limit: int = ALL_OPPS_FETCH_LIMIT,
+) -> list[OppRecord]:
+    """Pull open pipeline + trailing N months of closed Opportunities.
+
+    Drives the monthly-revenue, stage-distribution, and seasonality
+    aggregates. Sized for ~3-8K rows at Loop's scale; see
+    `ALL_OPPS_FETCH_LIMIT`.
+    """
+    return _run_with_icp_retry(
+        build=build_all_opps_soql,
+        build_kwargs={"lookback_months": lookback_months, "limit": limit},
+        limit=limit,
+        log_prefix="fetch_all_opps_snapshot",
+    )
 
 
 # ------------------------------------------------------------------ parsing

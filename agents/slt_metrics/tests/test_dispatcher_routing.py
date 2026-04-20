@@ -414,3 +414,84 @@ def test_agent_run_persists_to_db():
     assert row is not None
     assert row[0] == "success"
     assert row[1] == "slt_metrics"
+
+
+# ---------- ingest-rep-forecast ----------
+
+@pytest.fixture(autouse=True)
+def _clean_rep_forecasts():
+    with get_engine().begin() as conn:
+        conn.execute(text("DELETE FROM rep_forecasts"))
+    yield
+
+
+def test_ingest_rep_forecast_requires_path():
+    out = asyncio.run(SltMetricsAgent().run("test", {"text": "ingest-rep-forecast"}))
+    assert "usage" in out["text"].lower()
+
+
+def test_ingest_rep_forecast_missing_file():
+    out = asyncio.run(SltMetricsAgent().run(
+        "test", {"text": "ingest-rep-forecast /tmp/nope-xyz-123.csv"},
+    ))
+    assert ":warning:" in out["text"]
+    assert "not found" in out["text"].lower()
+
+
+def test_ingest_rep_forecast_upserts_csv(tmp_path):
+    csv = tmp_path / "forecast.csv"
+    csv.write_text(
+        "rep_name,quarter,commit_acv,best_case_acv,notes\n"
+        "Sarra Herlich,FY2026-Q2,250000,400000,ramping\n"
+        "Alex Reyes,FY2026-Q2,350000,500000,\n",
+        encoding="utf-8",
+    )
+    out = asyncio.run(SltMetricsAgent().run(
+        "test", {"text": f"ingest-rep-forecast {csv}"},
+    ))
+    assert out["cmd"] == "ingest_rep_forecast"
+    assert out["accepted"] == 2
+    assert out["rejected"] == 0
+    assert out["quarters"] == ["FY2026-Q2"]
+
+    with get_engine().begin() as conn:
+        count = conn.execute(
+            text("SELECT COUNT(*) FROM rep_forecasts WHERE quarter = :q"),
+            {"q": "FY2026-Q2"},
+        ).scalar()
+    assert count == 2
+
+
+def test_ingest_rep_forecast_reports_rejections(tmp_path):
+    csv = tmp_path / "mixed.csv"
+    csv.write_text(
+        "rep_name,quarter,commit_acv,best_case_acv,notes\n"
+        "Sarra Herlich,FY2026-Q2,250000,400000,\n"
+        "Ghost Rep,FY2026-Q2,100000,200000,\n",
+        encoding="utf-8",
+    )
+    out = asyncio.run(SltMetricsAgent().run(
+        "test", {"text": f"ingest-rep-forecast {csv}"},
+    ))
+    assert out["accepted"] == 1
+    assert out["rejected"] == 1
+    assert "Ghost Rep" in out["errors"][0]["reason"]
+    assert "Rejected: 1" in out["text"]
+
+
+def test_ingest_rep_forecast_strips_quoted_path(tmp_path):
+    csv = tmp_path / "forecast.csv"
+    csv.write_text(
+        "rep_name,quarter,commit_acv,best_case_acv,notes\n"
+        "Sarra Herlich,FY2026-Q2,250000,400000,\n",
+        encoding="utf-8",
+    )
+    out = asyncio.run(SltMetricsAgent().run(
+        "test", {"text": f'ingest-rep-forecast "{csv}"'},
+    ))
+    assert out["accepted"] == 1
+
+
+def test_ingest_rep_forecast_help_text_mentions_command():
+    out = asyncio.run(SltMetricsAgent().run("test", {"text": "help"}))
+    assert "ingest-rep-forecast" in out["text"]

@@ -1,0 +1,7226 @@
+[
+  {
+    "opp_name": "Huey Magoo - Franchisee - 4",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 2400.0,
+    "organization": "Huey Magoos"
+  },
+  {
+    "opp_name": "Centennial Hospitality Group - Expansion - All Logos",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 13680.0,
+    "organization": "Centennial Hospitality Group"
+  },
+  {
+    "opp_name": "Craveworthy Plan Gen Pilot (Taim)",
+    "owner": "Alexis Marrero",
+    "stage": "Pilot",
+    "acv": 18000.0,
+    "organization": "Craveworthy"
+  },
+  {
+    "opp_name": "Dog Haus Corp - TruROI+",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Won",
+    "acv": 8640.0,
+    "organization": "Dog Haus"
+  },
+  {
+    "opp_name": "Islands Restaurants - Islands Restaurant -",
+    "owner": "Matt Bullock",
+    "stage": "Proposal",
+    "acv": 46800.0,
+    "organization": "Islands Restaurants"
+  },
+  {
+    "opp_name": "JCK Birds, LLC - Expansion - Carl's Jr",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 28656.0,
+    "organization": "JCK Birds, LLC"
+  },
+  {
+    "opp_name": "Kernel - Counter Service - 7",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 4200.0,
+    "organization": "Kernel"
+  },
+  {
+    "opp_name": "Maman -TruROI+",
+    "owner": "James Chavious",
+    "stage": "Closed Lost",
+    "acv": 59400.0,
+    "organization": "Maman"
+  },
+  {
+    "opp_name": "Marinara Pizza - Expansion - TruROI+ (10)",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 18990.0,
+    "organization": "Marinara Pizza"
+  },
+  {
+    "opp_name": "Bauer Foods LLC - Expansion - McDonald's",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 8940.0,
+    "organization": "Bauer Foods LLC"
+  },
+  {
+    "opp_name": "Bauer Foods LLC - Expansion - All Logos",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 6000.0,
+    "organization": "Bauer Foods LLC"
+  },
+  {
+    "opp_name": "WBF_Expansion - 5 loc add-on",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 4140.0,
+    "organization": "McDonald's WBF"
+  },
+  {
+    "opp_name": "Nara Thai - Nara Thai -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 4800.0,
+    "organization": "Nara Thai"
+  },
+  {
+    "opp_name": "One Table - Expansion - Tender Greens",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Won",
+    "acv": 54000.0,
+    "organization": "One Table"
+  },
+  {
+    "opp_name": "R&R BBQ - Expansion - All Logos",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 10944.0,
+    "organization": "R&R BBQ"
+  },
+  {
+    "opp_name": "Savory Brands - South Block - Balance upsell",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 6732.0,
+    "organization": "Savory Brands"
+  },
+  {
+    "opp_name": "Seoulspice - Expansion - Seoulspice",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 600.0,
+    "organization": "Seoulspice"
+  },
+  {
+    "opp_name": "Silvercreek Group LLC - Expansion - Whataburger",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 948.0,
+    "organization": "Silvercreek Group LLC"
+  },
+  {
+    "opp_name": "Silvercreek Group LLC - Expansion - All Logos",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 180.0,
+    "organization": "Silvercreek Group LLC"
+  },
+  {
+    "opp_name": "Smashburger - 3 loc add-on",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 5004.0,
+    "organization": "Smashburger"
+  },
+  {
+    "opp_name": "Spice Digital - Teleferic - 6",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 4320.0,
+    "organization": "Spice Digital"
+  },
+  {
+    "opp_name": "The Great Greek Mediterranean Grill - Expansion - The Great Greek Mediterranean Grill",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 17799.0,
+    "organization": "The Great Greek Mediterranean Grill"
+  },
+  {
+    "opp_name": "Tso Chinese - Expansion - Tso Chinese",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 3000.0,
+    "organization": "Tso Chinese"
+  },
+  {
+    "opp_name": "Opelika Eatery LLC",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 2400.0,
+    "organization": "Tucker Eatery, NEC the Forum-Newks"
+  },
+  {
+    "opp_name": "Via 313 Pizzeria - Expansion - Via 313 Pizzeria",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 43800.0,
+    "organization": "Via 313 Pizzeria"
+  },
+  {
+    "opp_name": "Piada",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Won",
+    "acv": 74400.0,
+    "organization": "Piada"
+  },
+  {
+    "opp_name": "Bandanas BBQ -  -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 29700.0,
+    "organization": "Bandanas BBQ"
+  },
+  {
+    "opp_name": "Fork CPA - Expansion - Five Guys",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 8400.0,
+    "organization": "Fork CPA"
+  },
+  {
+    "opp_name": "Fork CPA - Mala Project - 4",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 1800.0,
+    "organization": "Fork CPA"
+  },
+  {
+    "opp_name": "Killer Burger - Killer Burger -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "Killer Burger"
+  },
+  {
+    "opp_name": "MAPS PH Management, LLC (DBA Pizza Hut) - Pizza Hut -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 20400.0,
+    "organization": "MAPS PH Management, LLC (DBA Pizza Hut)"
+  },
+  {
+    "opp_name": "Robeks- Franchisee - 2",
+    "owner": "Peter Milillo",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Robek's"
+  },
+  {
+    "opp_name": "The Restaurant Assistant",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Business Case",
+    "acv": 0.0,
+    "organization": "The Restaurant Assistant"
+  },
+  {
+    "opp_name": "El Pollo Loco - Corporate - 485",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 300000.0,
+    "organization": "El Pollo Loco"
+  },
+  {
+    "opp_name": "Scott Kinsman- Jersey Mike's Subs - 3",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 3564.0,
+    "organization": "Jersey Mike's"
+  },
+  {
+    "opp_name": "CAD Restaurants Group Ltd [Jersey Mikes] - Franchisee - 4",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "Jersey Mike's"
+  },
+  {
+    "opp_name": "Teriyaki Madness - Corporate - 156",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Proposal",
+    "acv": 222768.0,
+    "organization": "Teriyaki Madness"
+  },
+  {
+    "opp_name": "goop Kitchen - goop Kitchen -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 33600.0,
+    "organization": "goop Kitchen"
+  },
+  {
+    "opp_name": "MPUT Holdings, LLC - Marco's Pizza -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 39000.0,
+    "organization": "MPUT Holdings, LLC"
+  },
+  {
+    "opp_name": "True Food Kitchen - True Food Kitchen -",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 27000.0,
+    "organization": "True Food Kitchen"
+  },
+  {
+    "opp_name": "CLA Accounting Firm -  -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 2138400.0,
+    "organization": "CLA Accounting Firm"
+  },
+  {
+    "opp_name": "PDQ - Corporate - 75",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 89100.0,
+    "organization": "PDQ"
+  },
+  {
+    "opp_name": "Tacombi - Tacombi -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 10200.0,
+    "organization": "Tacombi"
+  },
+  {
+    "opp_name": "Small's Sliders - Small's Sliders - 20",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 107460.0,
+    "organization": "Small's Sliders"
+  },
+  {
+    "opp_name": "My Rosati's Group - Rosati's Pizza -",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 600.0,
+    "organization": "My Rosati's Group"
+  },
+  {
+    "opp_name": "Hooters of America",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 90000.0,
+    "organization": "Hooters of America"
+  },
+  {
+    "opp_name": "Fat Brands",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Fat Brands"
+  },
+  {
+    "opp_name": "WaWa - Wawa - 1100",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 2880000.0,
+    "organization": "WaWa"
+  },
+  {
+    "opp_name": "Jim 'N Nick's Bar-B-Q - Jim 'N Nicks - 59",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 70800.0,
+    "organization": "Jim 'N Nick's Bar-B-Q"
+  },
+  {
+    "opp_name": "BRIX Holdings",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 150000.0,
+    "organization": "BRIX Holdings"
+  },
+  {
+    "opp_name": "Orginal Chopshop - Expansion - All Logos",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Won",
+    "acv": 16200.0,
+    "organization": "Orginal Chopshop"
+  },
+  {
+    "opp_name": "Zaxby's - Corporate",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Proposal",
+    "acv": 107880.0,
+    "organization": "Zaxby's"
+  },
+  {
+    "opp_name": "Rucker Restaurant Holdings - Corporate - 90",
+    "owner": "Devyn Schwartzberg",
+    "stage": "No Show",
+    "acv": 54000.0,
+    "organization": "Rucker Restaurant Holdings"
+  },
+  {
+    "opp_name": "The International Restaurant Management Group (IRMG) -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "The International Restaurant Management Group (IRMG)"
+  },
+  {
+    "opp_name": "Fake Franchise Group - Fake Pizza Place - 2",
+    "owner": "Jon Van",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Fake Franchise Group"
+  },
+  {
+    "opp_name": "WonLife Brands - TLO Opp",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 34272.0,
+    "organization": "WonLife Brands"
+  },
+  {
+    "opp_name": "Freerange concepts - 6",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "Freerange concepts"
+  },
+  {
+    "opp_name": "Tropical Smoothie Cafe - Tropical Smoothie Cafe -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Tropical Smoothie Cafe"
+  },
+  {
+    "opp_name": "Tropical Smoothie Cafe",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 29400.0,
+    "organization": "Tropical Smoothie Cafe"
+  },
+  {
+    "opp_name": "Swensons Drive-In - Swensons Drive-in Restaurants -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 26136.0,
+    "organization": "Swensons Drive-In"
+  },
+  {
+    "opp_name": "Royal Restaurant Group - TLO Opp",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 38400.0,
+    "organization": "Royal Restaurant Group"
+  },
+  {
+    "opp_name": "Shakey's USA - Shakey's USA -",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 25800.0,
+    "organization": "Shakey's USA"
+  },
+  {
+    "opp_name": "Blaze Pizza - Blaze Pizza -",
+    "owner": "Alex Reyes",
+    "stage": "Business Case",
+    "acv": 301800.0,
+    "organization": "Blaze Pizza"
+  },
+  {
+    "opp_name": "The Gillis Organization",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 30396.0,
+    "organization": "Gillis Organization - McDs"
+  },
+  {
+    "opp_name": "Amazing Mex Foods - Expansion - Qdoba Mexican Eats",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 2400.0,
+    "organization": "Amazing Mex Foods"
+  },
+  {
+    "opp_name": "Twin Peaks - Corporate - 115 - Twin Peaks -",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Twin Peaks - Corporate - 115"
+  },
+  {
+    "opp_name": "Twin Peaks - Twin Peaks - 110",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 21000.0,
+    "organization": "Twin Peaks - Corporate - 115"
+  },
+  {
+    "opp_name": "Carter Organization - Expansion - McDonald's",
+    "owner": "Alexis Marrero",
+    "stage": "Proposal",
+    "acv": 7152.0,
+    "organization": "Carter Organization"
+  },
+  {
+    "opp_name": "Old Bag of Nails - Old Bag of Nails -",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 9000.0,
+    "organization": "Old Bag of Nails"
+  },
+  {
+    "opp_name": "Din Tai Fung - Expansion - Din Tai Fung",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 2100.0,
+    "organization": "Din Tai Fung"
+  },
+  {
+    "opp_name": "TGI Fridays -  -",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 180000.0,
+    "organization": "TGI Fridays"
+  },
+  {
+    "opp_name": "Abuelo's - Abuelo's - 13",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 31044.0,
+    "organization": "Abuelo's"
+  },
+  {
+    "opp_name": "City BBQ - City BBQ -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "City BBQ"
+  },
+  {
+    "opp_name": "City BBQ - City BBQ - 75",
+    "owner": "Devyn Schwartzberg",
+    "stage": "No Show",
+    "acv": 45600.0,
+    "organization": "City BBQ"
+  },
+  {
+    "opp_name": "City BBQ",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 45000.0,
+    "organization": "City BBQ"
+  },
+  {
+    "opp_name": "Eggs Up 901 - Eggs Up Grill -",
+    "owner": "Eric Azaren",
+    "stage": "Closed Won",
+    "acv": 1788.0,
+    "organization": "Eggs Up 901"
+  },
+  {
+    "opp_name": "Aurify Brands - Melt Shop - 2",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 4800.0,
+    "organization": "Aurify Brands"
+  },
+  {
+    "opp_name": "Aurify Brands - Fields Good Chicken - 2",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 4800.0,
+    "organization": "Aurify Brands"
+  },
+  {
+    "opp_name": "Mize CPAs - McDonald's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 44688.0,
+    "organization": "Mize CPAs"
+  },
+  {
+    "opp_name": "Osmow's - Osmow's - 175",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 178500.0,
+    "organization": "Osmow's"
+  },
+  {
+    "opp_name": "N&G Management (McDonalds) - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 16632.0,
+    "organization": "N&G Management (McDonalds)"
+  },
+  {
+    "opp_name": "Ford's Fish Shack - TLO Opp- 4",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 4800.0,
+    "organization": "Ford's Fish Shack"
+  },
+  {
+    "opp_name": "CSM Group",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 162000.0,
+    "organization": "CSM Group"
+  },
+  {
+    "opp_name": "Kei Concepts - Expansion - Yeanies",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 1440.0,
+    "organization": "Kei Concepts"
+  },
+  {
+    "opp_name": "a2z QSR - Wingstop - 4",
+    "owner": "Matt Bullock",
+    "stage": "Closed Won",
+    "acv": 7200.0,
+    "organization": "a2z QSR"
+  },
+  {
+    "opp_name": "Dewey's Pizza",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 48600.0,
+    "organization": "Dewey's Pizza"
+  },
+  {
+    "opp_name": "Prime Pizza - Expansion - Prime Pizza",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 2388.0,
+    "organization": "Prime Pizza"
+  },
+  {
+    "opp_name": "S&L Companies - Expansion - Culver's",
+    "owner": "Matt Bullock",
+    "stage": "Closed Won",
+    "acv": 4536.0,
+    "organization": "S&L Companies"
+  },
+  {
+    "opp_name": "Fake Ouday Test TLO - Fake Sandwich shop -",
+    "owner": "Jon Van",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Fake Ouday Test TLO"
+  },
+  {
+    "opp_name": "Fake Ouday Test TLO - Fake Sandwich shop - 1",
+    "owner": "Jon Van",
+    "stage": "Demo",
+    "acv": 300.0,
+    "organization": "Fake Ouday Test TLO"
+  },
+  {
+    "opp_name": "EAT Brands - Eggholic - 5",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 10500.0,
+    "organization": "EAT Brands"
+  },
+  {
+    "opp_name": "EAT Brands - TacoPros - 5",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 10500.0,
+    "organization": "EAT Brands"
+  },
+  {
+    "opp_name": "NCG Enterprises - Expansion - Whataburger",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 5400.0,
+    "organization": "NCG Enterprises"
+  },
+  {
+    "opp_name": "The Halal Guys - Halal Guys -",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 8940.0,
+    "organization": "The Halal Guys"
+  },
+  {
+    "opp_name": "The Halal Guys",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "The Halal Guys"
+  },
+  {
+    "opp_name": "Qdoba Corporate - Qdoba Mexican Eats -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Business Case",
+    "acv": 155472.0,
+    "organization": "Qdoba Corporate"
+  },
+  {
+    "opp_name": "Pita Jungle",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Pita Jungle"
+  },
+  {
+    "opp_name": "Jollibee",
+    "owner": "James Chavious",
+    "stage": "Proposal",
+    "acv": 119616.0,
+    "organization": "Jollibee"
+  },
+  {
+    "opp_name": "Sanchez Family Corporation -McDonalds - TruROI+ Product Expansion",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 36000.0,
+    "organization": "Sanchez Family Corporation -McDonalds"
+  },
+  {
+    "opp_name": "The Falcon Group - American Burger - 20",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 23760.0,
+    "organization": "The Falcon Group"
+  },
+  {
+    "opp_name": "Tex's Chicken & Burgers - 52",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 31200.0,
+    "organization": "Tex's Chicken & Burgers"
+  },
+  {
+    "opp_name": "District Taco - District Taco - 17",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 30396.0,
+    "organization": "District Taco"
+  },
+  {
+    "opp_name": "PJ Foods - Burger King",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 23880.0,
+    "organization": "PJ Foods"
+  },
+  {
+    "opp_name": "Creative Foods Corp. - TLO Opp",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 14400.0,
+    "organization": "Creative Foods Corp."
+  },
+  {
+    "opp_name": "SDG Restaurants - Burger King -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 12516.0,
+    "organization": "SDG Restaurants"
+  },
+  {
+    "opp_name": "Laird Management - BK Opp",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 16800.0,
+    "organization": "Laird Management"
+  },
+  {
+    "opp_name": "The Salad House - The Salad House - 20",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 47760.0,
+    "organization": "The Salad House"
+  },
+  {
+    "opp_name": "Golden B Enterprises - TLO Opp",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 12600.0,
+    "organization": "Golden B Enterprises"
+  },
+  {
+    "opp_name": "Flis Enterprises - BK Opp",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 12000.0,
+    "organization": "Flis Enterprises"
+  },
+  {
+    "opp_name": "Viking Restaurants - Burger King - 26",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 15600.0,
+    "organization": "Viking Restaurants"
+  },
+  {
+    "opp_name": "Erbert and Gerbert's - Erbert & Gerbert's - 45",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 27000.0,
+    "organization": "Erbert and Gerbert's"
+  },
+  {
+    "opp_name": "JSC Management - Burger King -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 42000.0,
+    "organization": "JSC Management"
+  },
+  {
+    "opp_name": "Pei Wei - Pei Wei -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Business Case",
+    "acv": 214200.0,
+    "organization": "Pei Wei"
+  },
+  {
+    "opp_name": "Made to Order - Whataburger - Whataburger -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 9360.0,
+    "organization": "Made to Order - Whataburger"
+  },
+  {
+    "opp_name": "CB Restaurants- Burger King",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 3600.0,
+    "organization": "CB Restaurants- Burger King"
+  },
+  {
+    "opp_name": "KFMS - Burger King",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 12600.0,
+    "organization": "KFMS - Burger King"
+  },
+  {
+    "opp_name": "Pec Management- Burger King",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Pec Management- Burger King"
+  },
+  {
+    "opp_name": "Conscious Hospitality Group - Just Poke - 20",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Conscious Hospitality Group"
+  },
+  {
+    "opp_name": "Bobby Cox - Taco Villa - 17",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Bobby Cox"
+  },
+  {
+    "opp_name": "Wayback Burgers (Corporate) - 170",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 102000.0,
+    "organization": "Wayback Burgers"
+  },
+  {
+    "opp_name": "Wayback Burgers - Jasmin Patel - 4",
+    "owner": "Taylor Ludwick",
+    "stage": "Disqualified",
+    "acv": 2400.0,
+    "organization": "Wayback Burgers"
+  },
+  {
+    "opp_name": "Wings Over - Wings Over -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 24480.0,
+    "organization": "Wings Over"
+  },
+  {
+    "opp_name": "BDO - TLO Opp",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 45600.0,
+    "organization": "BDO"
+  },
+  {
+    "opp_name": "Hill Organization",
+    "owner": "James Chavious",
+    "stage": "Closed Lost",
+    "acv": 14940.0,
+    "organization": "McDonald's"
+  },
+  {
+    "opp_name": "MD Restaurant Group - Expansion - Culver's",
+    "owner": "Matt Bullock",
+    "stage": "Closed Won",
+    "acv": 6600.0,
+    "organization": "MD Restaurant Group"
+  },
+  {
+    "opp_name": "O'reilly Group - Expansion - McDonald's",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 14040.0,
+    "organization": "O'reilly Group"
+  },
+  {
+    "opp_name": "Red Lobster - Red Lobster -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Red Lobster"
+  },
+  {
+    "opp_name": "Napoli Management - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 21384.0,
+    "organization": "Napoli Management"
+  },
+  {
+    "opp_name": "Costa Vida",
+    "owner": "Devyn Schwartzberg",
+    "stage": "No Show",
+    "acv": 56400.0,
+    "organization": "Costa Vida"
+  },
+  {
+    "opp_name": "Meyer Foods Mgmt - Expansion - Culver's",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 5400.0,
+    "organization": "Meyer Foods Mgmt"
+  },
+  {
+    "opp_name": "Steele Brands",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Lost",
+    "acv": 122400.0,
+    "organization": "Steele Brands"
+  },
+  {
+    "opp_name": "Steele Brands - 51",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 89400.0,
+    "organization": "Steele Brands"
+  },
+  {
+    "opp_name": "Jack's Family Restaurants - Jack's Family Restaurants - 300",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 180000.0,
+    "organization": "Jack's Family Restaurants"
+  },
+  {
+    "opp_name": "Firebirds Wood Fired Grill",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 167160.0,
+    "organization": "Firebirds Wood Fired Grill"
+  },
+  {
+    "opp_name": "Gyro Republic - Gyro Republic -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 5976.0,
+    "organization": "Gyro Republic"
+  },
+  {
+    "opp_name": "Dias Management",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 26136.0,
+    "organization": "Dias Management (McDs)"
+  },
+  {
+    "opp_name": "Church's Chicken - Corporate - 785",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Church's Chicken"
+  },
+  {
+    "opp_name": "Church's Chicken - Church's Chicken - 785",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Lost",
+    "acv": 471000.0,
+    "organization": "Church's Chicken"
+  },
+  {
+    "opp_name": "Dine Plus - Denny's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 10800.0,
+    "organization": "Dine Plus"
+  },
+  {
+    "opp_name": "LVM Partners - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 17400.0,
+    "organization": "LVM Partners"
+  },
+  {
+    "opp_name": "LVM Partners - McDonald's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 17400.0,
+    "organization": "LVM Partners"
+  },
+  {
+    "opp_name": "Denny's-  1558",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 934800.0,
+    "organization": "Denny's"
+  },
+  {
+    "opp_name": "Swamp Dawg Restaurant Management Group - 13",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 7800.0,
+    "organization": "Swamp Dawg Restaurant Management Group"
+  },
+  {
+    "opp_name": "K Mac Enterprises - Whataburger -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 288000.0,
+    "organization": "K Mac Enterprises"
+  },
+  {
+    "opp_name": "23 Restaurant Services - Tiki Dock's -",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 4800.0,
+    "organization": "23 Restaurant Services"
+  },
+  {
+    "opp_name": "23 Restaurant Services - Ford's Garage -",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 27600.0,
+    "organization": "23 Restaurant Services"
+  },
+  {
+    "opp_name": "23 Restaurant Services - Yeoman's - 1",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 1200.0,
+    "organization": "23 Restaurant Services"
+  },
+  {
+    "opp_name": "North Star Dining - Five Guys -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 28704.0,
+    "organization": "North Star Dining"
+  },
+  {
+    "opp_name": "Askar Brands - 245",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 291060.0,
+    "organization": "Askar Brands"
+  },
+  {
+    "opp_name": "Bagel Brands",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Bagel Brands"
+  },
+  {
+    "opp_name": "Bagel Brands",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Bagel Brands"
+  },
+  {
+    "opp_name": "Super Chix - Super Chix - 35",
+    "owner": "Alex Reyes",
+    "stage": "Disqualified",
+    "acv": 27000.0,
+    "organization": "Super Chix"
+  },
+  {
+    "opp_name": "Mines Enterprises - McDonald's -",
+    "owner": "Alex Reyes",
+    "stage": "Proposal",
+    "acv": 27000.0,
+    "organization": "Mines Enterprises"
+  },
+  {
+    "opp_name": "Alia Corp - Expansion - McDonald's",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 11940.0,
+    "organization": "Alia Corp"
+  },
+  {
+    "opp_name": "Bojangles - Bojangles -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Business Case",
+    "acv": 239400.0,
+    "organization": "Bojangles"
+  },
+  {
+    "opp_name": "NISAMEX Restaurant Group - Jersey Mike's - 90",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 81000.0,
+    "organization": "NISAMEX Restaurant Group"
+  },
+  {
+    "opp_name": "Protein Bar & Kitchen - Protein Bar & Kitchen (5)",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 8940.0,
+    "organization": "Protein Bar & Kitchen"
+  },
+  {
+    "opp_name": "Saladworks - Saladworks -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "Saladworks"
+  },
+  {
+    "opp_name": "Savvy Sliders",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 4800.0,
+    "organization": "Savvy Sliders"
+  },
+  {
+    "opp_name": "Wayside Bookkeeping - TLO Opp",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 1788.0,
+    "organization": "Wayside Bookkeeping"
+  },
+  {
+    "opp_name": "All Good Industries - Expansion - All Logos",
+    "owner": "Bryan Peguero",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "All Good Industries"
+  },
+  {
+    "opp_name": "All Good Industries - Expansion - All Logos",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 5400.0,
+    "organization": "All Good Industries"
+  },
+  {
+    "opp_name": "Hawkers Asian Street Food - Hawkers Asian Street Food -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Won",
+    "acv": 22500.0,
+    "organization": "Hawkers Asian Street Food"
+  },
+  {
+    "opp_name": "Zaza Cuban Comfort Food - (7)",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 20916.0,
+    "organization": "Zaza Cuban Comfort"
+  },
+  {
+    "opp_name": "World Wide Wings - Buffalo Wild Wings -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 40200.0,
+    "organization": "World Wide Wings"
+  },
+  {
+    "opp_name": "Eat On Management - Aplos - 2",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 2400.0,
+    "organization": "Eat On Management"
+  },
+  {
+    "opp_name": "Jackmont Hospitality - TGIFridays -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 12000.0,
+    "organization": "Jackmont Hospitality"
+  },
+  {
+    "opp_name": "Jackmont Hospitality - TGIFridays - 33",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 19800.0,
+    "organization": "Jackmont Hospitality"
+  },
+  {
+    "opp_name": "Pollo Campero - Pollo Campero - 150",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 270000.0,
+    "organization": "Pollo Campero"
+  },
+  {
+    "opp_name": "The Rardin Companies - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 46332.0,
+    "organization": "The Rardin Companies"
+  },
+  {
+    "opp_name": "Centurion Restaurant Group - Centurion Restaurant Group -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 8400.0,
+    "organization": "Centurion Restaurant Group"
+  },
+  {
+    "opp_name": "Mambo Seafood - Mambos Seafood - 16",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 28800.0,
+    "organization": "Mambo Seafood"
+  },
+  {
+    "opp_name": "Sweetgreen - Expansion - Sweetgreen",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Won",
+    "acv": 105240.12,
+    "organization": "Sweetgreen"
+  },
+  {
+    "opp_name": "Mcdy Franchizee - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 5940.0,
+    "organization": "Mcdy Franchizee"
+  },
+  {
+    "opp_name": "Slim & Husky - Slim and Huskys - 11",
+    "owner": "Nick Barbo",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Slim & Husky"
+  },
+  {
+    "opp_name": "Pashann LCC- McDonalds - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 7128.0,
+    "organization": "Pashann LCC- McDonalds"
+  },
+  {
+    "opp_name": "Thrive Restaurant Group - TLO Opp",
+    "owner": "Matt Bullock",
+    "stage": "Business Case",
+    "acv": 32640.0,
+    "organization": "Thrive Restaurant Group"
+  },
+  {
+    "opp_name": "TAG Restaurant Group - TLO Opp (11)",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 14304.0,
+    "organization": "TAG Restaurant Group"
+  },
+  {
+    "opp_name": "Jeff Hungerford - Culvers - Expansion - Culver's",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 3600.0,
+    "organization": "Jeff Hungerford - Culvers"
+  },
+  {
+    "opp_name": "Blue Scoops - Culvers - (25)",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 85200.0,
+    "organization": "Steve buchmeier - Culvers"
+  },
+  {
+    "opp_name": "Culver's of Mission - Culver's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 9552.0,
+    "organization": "Culver's of Mission"
+  },
+  {
+    "opp_name": "Surcheros - 46",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 27600.0,
+    "organization": "Surcheros"
+  },
+  {
+    "opp_name": "Jason Nance - Culvers - Michigan (2)",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 3576.0,
+    "organization": "Jason Nance - Culvers"
+  },
+  {
+    "opp_name": "Bridge Restaurant Group - Wingstop - 16",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 28608.0,
+    "organization": "Bridge Restaurant Group"
+  },
+  {
+    "opp_name": "Senor Sisig Vegano - SENOR SISIG -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 12000.0,
+    "organization": "Senor Sisig Vegano"
+  },
+  {
+    "opp_name": "Pauline's Fish and Lobster - 2",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 2388.0,
+    "organization": "Pauline's Fish and Lobster"
+  },
+  {
+    "opp_name": "JRM Group - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 35640.0,
+    "organization": "JRM Group"
+  },
+  {
+    "opp_name": "JRM Group -  -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 16800.0,
+    "organization": "JRM Group"
+  },
+  {
+    "opp_name": "McDonalds - Colleen - Cicero NY (11) - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 11880.0,
+    "organization": "McDonalds - Colleen - Cicero NY"
+  },
+  {
+    "opp_name": "Mcdy franchise 3 -  -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 8316.0,
+    "organization": "Mcdy franchise 3"
+  },
+  {
+    "opp_name": "Bridge and Tunnel Restaurant Group -  -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 3000.0,
+    "organization": "Bridge and Tunnel Restaurant Group"
+  },
+  {
+    "opp_name": "Roggenart - 12",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 21456.0,
+    "organization": "Roggenart"
+  },
+  {
+    "opp_name": "Morris True Blue - Culver's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 4752.0,
+    "organization": "Morris True Blue"
+  },
+  {
+    "opp_name": "Culver's Franchising System - Culver's - 1,039",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 144000.0,
+    "organization": "Culver's Franchising System"
+  },
+  {
+    "opp_name": "Williams Chicken - Williams Chicken - 34",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 40800.0,
+    "organization": "Williams Chicken"
+  },
+  {
+    "opp_name": "Lane Enterprises - Mcdonalds 7 - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Proposal",
+    "acv": 12600.0,
+    "organization": "Lane Enterprises - Mcdonalds 11"
+  },
+  {
+    "opp_name": "Willis Langley - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 7128.0,
+    "organization": "Willis Langley"
+  },
+  {
+    "opp_name": "Ben Gathje - Culvers 13 - Culver's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 23904.0,
+    "organization": "Ben Gathje - Culvers 12"
+  },
+  {
+    "opp_name": "Johnny Griggs - Firehouse subs/Culvers/Slim Chicke - Culver's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 2376.0,
+    "organization": "Johnny Griggs - Firehouse subs/Culvers/Slim Chickens"
+  },
+  {
+    "opp_name": "Johnny Griggs - Firehouse subs/Culvers/Slim Chicke - Slim Chicken -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 1188.0,
+    "organization": "Johnny Griggs - Firehouse subs/Culvers/Slim Chickens"
+  },
+  {
+    "opp_name": "Dimitro Group LLC - Corner Bakery Cafe - 2",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 4776.0,
+    "organization": "Dimitro Group LLC"
+  },
+  {
+    "opp_name": "Pinnacle Restaurant Management & Services - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 9600.0,
+    "organization": "Pinnacle Restaurant Management & Services"
+  },
+  {
+    "opp_name": "Aces Pizza - Little Caesars & Tropical Smoothie Cafe - 90",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 106920.0,
+    "organization": "Aces Pizza"
+  },
+  {
+    "opp_name": "Liotta Brothers - Jersey Mike's Subs -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 1080.0,
+    "organization": "Liotta Brothers"
+  },
+  {
+    "opp_name": "Liotta Brothers - Jersey Mike's Subs -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 2388.0,
+    "organization": "Liotta Brothers"
+  },
+  {
+    "opp_name": "The Melt - The Melt - Corp",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 11400.0,
+    "organization": "The Melt"
+  },
+  {
+    "opp_name": "Estep & Company",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 14400.0,
+    "organization": "Estep & Co"
+  },
+  {
+    "opp_name": "Phelan Brands",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 28080.0,
+    "organization": "Phelan Brands"
+  },
+  {
+    "opp_name": "McDonalds - John Boyle - Descher Organization (18)",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 21384.0,
+    "organization": "McDonalds - John - Mississippi"
+  },
+  {
+    "opp_name": "Westshore Pizza - Westshore Pizza - 28",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 33264.0,
+    "organization": "Westshore Pizza"
+  },
+  {
+    "opp_name": "Salsarita?s",
+    "owner": "Alexis Marrero",
+    "stage": "Pilot",
+    "acv": 3576.0,
+    "organization": "Salsarita?s"
+  },
+  {
+    "opp_name": "Salsarita?s -  -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 45000.0,
+    "organization": "Salsarita?s"
+  },
+  {
+    "opp_name": "Kelly Partners + FRSCPA - McDonald's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 72000.0,
+    "organization": "Kelly Partners + FRSCPA"
+  },
+  {
+    "opp_name": "Huse Cullinary - St Elmo Steakhouse - 1",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Huse Cullinary"
+  },
+  {
+    "opp_name": "East Coast Subs -  Subway",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 3000.0,
+    "organization": "East Coast Subs"
+  },
+  {
+    "opp_name": "The Retzer Group - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 30000.0,
+    "organization": "The Retzer Group"
+  },
+  {
+    "opp_name": "Del Taco - Corporate - 600",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Del Taco"
+  },
+  {
+    "opp_name": "Sim Subs - Expansion - Jersey Mike's Subs",
+    "owner": "Sarra Herlich",
+    "stage": "Proposal",
+    "acv": 1800.0,
+    "organization": "Sim Subs"
+  },
+  {
+    "opp_name": "C & T management LLC - Subway - 5",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "C & T management LLC"
+  },
+  {
+    "opp_name": "Gregoire - Gregoire -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 2376.0,
+    "organization": "Gregoire"
+  },
+  {
+    "opp_name": "Gregoire - Gregoire -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 1200.0,
+    "organization": "Gregoire"
+  },
+  {
+    "opp_name": "Todd McMillan - McDonald's - 3",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 3564.0,
+    "organization": "Todd McMillan"
+  },
+  {
+    "opp_name": "Ison Family Restaurants - McDonald's - 19",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 2376.0,
+    "organization": "Ison Family Restaurants"
+  },
+  {
+    "opp_name": "Maurene Smith - McDonalds - 2 - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 3576.0,
+    "organization": "Maurene Smith - McDonalds - 2"
+  },
+  {
+    "opp_name": "Middle Eats - Middle Eats -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 4800.0,
+    "organization": "Middle Eats"
+  },
+  {
+    "opp_name": "Blue Ribbon Sushi",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 8400.0,
+    "organization": "Blue Ribbon"
+  },
+  {
+    "opp_name": "Westar Foods - Hardee's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 18000.0,
+    "organization": "Westar Foods"
+  },
+  {
+    "opp_name": "Trefz Corp. - McDonald's -50",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 54000.0,
+    "organization": "Trefz Corp."
+  },
+  {
+    "opp_name": "Tomtreyco - McDonald's - (54)",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 58320.0,
+    "organization": "Tomtreyco"
+  },
+  {
+    "opp_name": "McWorth Management Group - McDonalds - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 10692.0,
+    "organization": "McWorth Management Group - McDonalds"
+  },
+  {
+    "opp_name": "McDonalds Reno Nv - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 3240.0,
+    "organization": "McDonalds Reno Nv"
+  },
+  {
+    "opp_name": "The Glaser Group - McDonald's -21",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 37548.0,
+    "organization": "The Glaser Group"
+  },
+  {
+    "opp_name": "The Glaser Group - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 28512.0,
+    "organization": "The Glaser Group"
+  },
+  {
+    "opp_name": "Kalo Companies - Jersey Mike Sub's - 70",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 58800.0,
+    "organization": "Kalo Companies"
+  },
+  {
+    "opp_name": "G2G Management Group - 49",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 107460.0,
+    "organization": "G2G Management Group"
+  },
+  {
+    "opp_name": "G2G Management Group - 46",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 82248.0,
+    "organization": "G2G Management Group"
+  },
+  {
+    "opp_name": "Sellia Corporation - McDonald's -33",
+    "owner": "Alexis Marrero",
+    "stage": "Business Case",
+    "acv": 39204.0,
+    "organization": "Sellia Corporation"
+  },
+  {
+    "opp_name": "Todd Grafmiller- McDonald's -8",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 7200.0,
+    "organization": "Todd Grafmiller- McDonald's"
+  },
+  {
+    "opp_name": "Rise Up Restaurants - 240 - Wingstop & Pizza Patron",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 285120.0,
+    "organization": "Rise Up Restaurants - 240"
+  },
+  {
+    "opp_name": "Hot Palette America - Pepper Lunch Restaurants - 9",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 21600.0,
+    "organization": "Hot Palette America"
+  },
+  {
+    "opp_name": "McDonalds - Oliver Parrish - Expansion - McDonald's",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 8376.0,
+    "organization": "McDonalds - Oliver Parrish"
+  },
+  {
+    "opp_name": "VDM Management Group LLC - Little Caesars -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 38016.0,
+    "organization": "VDM Management Group LLC"
+  },
+  {
+    "opp_name": "Aftermath Subs LLC - 15",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 17820.0,
+    "organization": "Aftermath Subs LLC - 11"
+  },
+  {
+    "opp_name": "Duffy's Sports Grill - Duffy's Sports Grill - 28",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 83664.0,
+    "organization": "Duffy's Sports Grill"
+  },
+  {
+    "opp_name": "Mcdy Franchise (Texas) - McDonald's - DJV (3)",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 1188.0,
+    "organization": "Mcdy Franchise (Texas)"
+  },
+  {
+    "opp_name": "313 Investments, LLC - Jersey Mike's Subs - 24",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 42912.0,
+    "organization": "313 Investments, LLC"
+  },
+  {
+    "opp_name": "313 Investments, LLC - Jersey Mike's Subs - 24",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 14400.0,
+    "organization": "313 Investments, LLC"
+  },
+  {
+    "opp_name": "Insomnia - Insomnia Cookies - 350",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 252000.0,
+    "organization": "Insomnia"
+  },
+  {
+    "opp_name": "Tariq Samji - Church's Chicken - Church's Chicken -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 14400.0,
+    "organization": "Tariq Samji - Church's Chicken"
+  },
+  {
+    "opp_name": "Sunshine & Sunrise McDonald's - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 3576.0,
+    "organization": "Sunshine & Sunrise McDonald's"
+  },
+  {
+    "opp_name": "Pacific Catch",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 17820.0,
+    "organization": "Pacific Catch"
+  },
+  {
+    "opp_name": "Inspire Brands - Dunkin -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Inspire Brands"
+  },
+  {
+    "opp_name": "TT Group LLC - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 18900.0,
+    "organization": "TT Group LLC"
+  },
+  {
+    "opp_name": "Figo Pasta - Expansion - Figo Pasta",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 1200.0,
+    "organization": "Figo Pasta"
+  },
+  {
+    "opp_name": "Figo Pasta - 4 (FSTec)",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 5400.0,
+    "organization": "Figo Pasta"
+  },
+  {
+    "opp_name": "Lojo Restaurant Management - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 4752.0,
+    "organization": "Lojo Restaurant Management"
+  },
+  {
+    "opp_name": "Reginald Foster - Tropical Smoothie - Tropical Smoothie Cafe -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 1788.0,
+    "organization": "Reginald Foster - Tropical Smoothie"
+  },
+  {
+    "opp_name": "SFRG - McDonald's",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 5400.0,
+    "organization": "SFRG"
+  },
+  {
+    "opp_name": "Heather Hendrikson - Tropical Smoothie - Tropical Smoothie Cafe -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 5364.0,
+    "organization": "Heather Hendrikson - Tropical Smoothie"
+  },
+  {
+    "opp_name": "Tony Tampa Subways- 5",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 11940.0,
+    "organization": "Tony Tampa Subways- 5"
+  },
+  {
+    "opp_name": "Mcdonald's Adderley - Expansion - McDonald's",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 4752.0,
+    "organization": "Mcdonald's Adderley"
+  },
+  {
+    "opp_name": "MAP Management LLC - McDonald's - 18 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 10800.0,
+    "organization": "MAP Management LLC - McDonald's - 18"
+  },
+  {
+    "opp_name": "Braichem LLC - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 5940.0,
+    "organization": "Braichem LLC"
+  },
+  {
+    "opp_name": "Nick the Greek - Expansion - Nick The Greek",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 135780.0,
+    "organization": "Nick the Greek"
+  },
+  {
+    "opp_name": "Moura CFO - TLO Opp",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 2700.0,
+    "organization": "Moura CFO"
+  },
+  {
+    "opp_name": "Mary-Anne Rider - McDonalds's 3 - McDonald's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 3564.0,
+    "organization": "Mary-Anne Rider - McDonalds's 3"
+  },
+  {
+    "opp_name": "Parlay Group - Mesita - 3",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 5364.0,
+    "organization": "Parlay Group"
+  },
+  {
+    "opp_name": "Mac Haik Restaurant Group - First Watch - 30",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 18000.0,
+    "organization": "Mac Haik Restaurant Group"
+  },
+  {
+    "opp_name": "LuFrankton LCC - Dunkin",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 21000.0,
+    "organization": "LuFrankton LCC"
+  },
+  {
+    "opp_name": "Paulina KOSTECKI- McDonald's - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 10692.0,
+    "organization": "ANDREW KOSTECKI- McDonald's"
+  },
+  {
+    "opp_name": "ANDREW KOSTECKI- McDonald's - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Proposal",
+    "acv": 5400.0,
+    "organization": "ANDREW KOSTECKI- McDonald's"
+  },
+  {
+    "opp_name": "Culvers Arizona - Sierra Vista - Culver's - (4)",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 7152.0,
+    "organization": "Culvers Arizona - Sierra Vista"
+  },
+  {
+    "opp_name": "Jacobs Franchise Partners - Jersey Mike's Subs -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 3564.0,
+    "organization": "Jacobs Franchise Partners"
+  },
+  {
+    "opp_name": "Jair Reyes - Domino's 3 - Domino's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 3564.0,
+    "organization": "Jair Reyes - Domino's 3"
+  },
+  {
+    "opp_name": "MESK Investments - IHOP - (29)",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 34452.0,
+    "organization": "MESK Investments"
+  },
+  {
+    "opp_name": "S&D Restaurants, LLC - Expansion - McDonald's",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 1788.0,
+    "organization": "S&D Restaurants, LLC"
+  },
+  {
+    "opp_name": "TMR BBQ -  -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "TMR BBQ"
+  },
+  {
+    "opp_name": "Bush's Chicken - Bush's Chicken - 21",
+    "owner": "Alex Reyes",
+    "stage": "Proposal",
+    "acv": 75600.0,
+    "organization": "Bush's Chicken"
+  },
+  {
+    "opp_name": "Scott Acarregui- McDonald's - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Scott Acarregui- McDonald's"
+  },
+  {
+    "opp_name": "Jeff Poe - Wendy's 6 - Wendy's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 7128.0,
+    "organization": "Jeff Poe - Wendy's 6"
+  },
+  {
+    "opp_name": "Samuel Organization - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 4200.0,
+    "organization": "Samuel Organization"
+  },
+  {
+    "opp_name": "Texas Subs Inc - 110",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 130680.0,
+    "organization": "Texas Subs Inc"
+  },
+  {
+    "opp_name": "Bonchon Holdings - 150",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 178200.0,
+    "organization": "Bonchon Holdings"
+  },
+  {
+    "opp_name": "MESK Investments - Super Chix 7 - Super Chix -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 8316.0,
+    "organization": "MESK Investments - Super Chix 7"
+  },
+  {
+    "opp_name": "LAL Restaurant Group - Popeye's Louisiana Kitchen -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "LAL Restaurant Group"
+  },
+  {
+    "opp_name": "LAL Restaurant Group - Tim Horton's -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "LAL Restaurant Group"
+  },
+  {
+    "opp_name": "GLS Enterprises 2007 LLC - 12 - McDonald's -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 15444.0,
+    "organization": "GLS Enterprises 2007 LLC - 12"
+  },
+  {
+    "opp_name": "Buckeye Bells - Expansion - Taco Bell",
+    "owner": "Matt Bullock",
+    "stage": "Business Case",
+    "acv": 3600.0,
+    "organization": "Buckeye Bells"
+  },
+  {
+    "opp_name": "Vertex Hospitality Group - 200",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 120000.0,
+    "organization": "Vertex Hospitality Group"
+  },
+  {
+    "opp_name": "Secret Burger Kitchen - Secret Burger Kitchen - 2",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 5976.0,
+    "organization": "Secret Burger Kitchen"
+  },
+  {
+    "opp_name": "Bambu dessert Drinks - Bambu Dessert Drinks  - 33",
+    "owner": "Alex Reyes",
+    "stage": "Disqualified",
+    "acv": 37200.0,
+    "organization": "Bambu dessert Drinks"
+  },
+  {
+    "opp_name": "Fieldtrip - Fieldtrip - 2",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 2376.0,
+    "organization": "Fieldtrip"
+  },
+  {
+    "opp_name": "Dustin Morgan- Mcdonald's - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 9504.0,
+    "organization": "Dustin Morgan- McDonald's"
+  },
+  {
+    "opp_name": "Red Door Brands - Del Taco - 1",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 1188.0,
+    "organization": "Red Door Brands"
+  },
+  {
+    "opp_name": "Red Door Brands - McAlister's Deli - 5",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 5940.0,
+    "organization": "Red Door Brands"
+  },
+  {
+    "opp_name": "LV Petroleum - 200",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 237600.0,
+    "organization": "LV Petroleum"
+  },
+  {
+    "opp_name": "Paul Davis- Big Table Restaurants - Big Table Restaurants -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Paul Davis- Big Table Restaurants"
+  },
+  {
+    "opp_name": "Kelly Companies - 30",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Kelly Companies"
+  },
+  {
+    "opp_name": "ARGO Management - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "ARGO Management"
+  },
+  {
+    "opp_name": "High Noon Restaurant Group - Popeye's Louisiana Kitchen -100",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 269844.0,
+    "organization": "High Noon Restaurant Group"
+  },
+  {
+    "opp_name": "Trident Burger LLC - Freddy's - 6",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 3600.0,
+    "organization": "Trident Holdings LLC"
+  },
+  {
+    "opp_name": "Trident Chicken LLC - Slim Chicken - 8",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 4800.0,
+    "organization": "Trident Holdings LLC"
+  },
+  {
+    "opp_name": "Trident Holdings LLC - Captain D's - 50",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 48000.0,
+    "organization": "Trident Holdings LLC"
+  },
+  {
+    "opp_name": "Convive Brands - Le Pain Quotidien - 48",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 28800.0,
+    "organization": "Convive Brands"
+  },
+  {
+    "opp_name": "Convive Brands - Little Beet - 10",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 6000.0,
+    "organization": "Convive Brands"
+  },
+  {
+    "opp_name": "Hogan Company -  -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 13800.0,
+    "organization": "Hogan Company"
+  },
+  {
+    "opp_name": "The Prado Group - 30 - McDonald's -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "The Prado Group - 30"
+  },
+  {
+    "opp_name": "Walcorp - Jersey Mike's Subs -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 12000.0,
+    "organization": "Walcorp"
+  },
+  {
+    "opp_name": "Sam-Cas Enterprises, Inc. - McDonald's - 9",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 32400.0,
+    "organization": "Sam-Cas Enterprises, Inc."
+  },
+  {
+    "opp_name": "Alicart Restaurant Group",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Alicart Restaurant Group"
+  },
+  {
+    "opp_name": "Allman Enterprises - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Business Case",
+    "acv": 4800.0,
+    "organization": "Allman Enterprises"
+  },
+  {
+    "opp_name": "Essig Management - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 43956.0,
+    "organization": "Essig Management"
+  },
+  {
+    "opp_name": "McDonald's - 4",
+    "owner": "James Chavious",
+    "stage": "Proposal",
+    "acv": 9552.0,
+    "organization": "McDonald's - 4"
+  },
+  {
+    "opp_name": "Tasty Treat Holdings 10 - Baskin Robbins - 10",
+    "owner": "Alex Reyes",
+    "stage": "Disqualified",
+    "acv": 18000.0,
+    "organization": "Tasty Treat Holdings"
+  },
+  {
+    "opp_name": "Yontz Enterprises - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 13068.0,
+    "organization": "Yontz Enterprises"
+  },
+  {
+    "opp_name": "Masker Family McDonald's - 11 - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 13068.0,
+    "organization": "Masker Family McDonald's - 11"
+  },
+  {
+    "opp_name": "Jack's BBQ",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 10692.0,
+    "organization": "Jack's BBQ"
+  },
+  {
+    "opp_name": "Matt Wilcoxon- Johnson's Real Ice Cream - Johnson's Real Ice Cream -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 19668.0,
+    "organization": "Matt Wilcoxon- Johnson's Real Ice Cream"
+  },
+  {
+    "opp_name": "The Home Team Restaurant Group - 28 locs",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 66864.0,
+    "organization": "The Home Team Restaurant Group"
+  },
+  {
+    "opp_name": "WorktoLive LLC - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 12439.8,
+    "organization": "WorktoLive LLC"
+  },
+  {
+    "opp_name": "Coffee Fellows North America",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "Coffee Fellows North America"
+  },
+  {
+    "opp_name": "Shoney's - Shoney's - 58",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 68904.0,
+    "organization": "Shoney's"
+  },
+  {
+    "opp_name": "The Bottom Line - The Bottom Line - 2,500",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 900000.0,
+    "organization": "The Bottom Line"
+  },
+  {
+    "opp_name": "Life's Food: A Five Guys Franchise - Five Guys -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 39204.0,
+    "organization": "Life's Food: A Five Guys Franchise"
+  },
+  {
+    "opp_name": "Laurie Henry - McDonalds - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 4752.0,
+    "organization": "Laurie Henry - McDonalds"
+  },
+  {
+    "opp_name": "Perkins - Perkins - 300",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Business Case",
+    "acv": 180000.0,
+    "organization": "Perkins"
+  },
+  {
+    "opp_name": "Golden Aces - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 15444.0,
+    "organization": "Golden Aces"
+  },
+  {
+    "opp_name": "Patrick Bryant- Bryant Restaurants - Bryant Restaurants -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Patrick Bryant- Bryant Restaurants"
+  },
+  {
+    "opp_name": "Barfly - HopCat - 13",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 31200.0,
+    "organization": "BarFly"
+  },
+  {
+    "opp_name": "King & Wallin - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 10692.0,
+    "organization": "King & Wallin"
+  },
+  {
+    "opp_name": "Andrew Habich - Culvers 2 - Culver's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 1200.0,
+    "organization": "Andrew Habich - Culvers 2"
+  },
+  {
+    "opp_name": "BSBC Chicken LLC -  -",
+    "owner": "Alexis Marrero",
+    "stage": "Pilot",
+    "acv": 23244.0,
+    "organization": "BSBC Chicken LLC"
+  },
+  {
+    "opp_name": "ODW Hospitality - Culver's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 33264.0,
+    "organization": "ODW Hospitality"
+  },
+  {
+    "opp_name": "LSH GRP - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 1800.0,
+    "organization": "LSH GRP"
+  },
+  {
+    "opp_name": "The Secret Sauce",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 1188.0,
+    "organization": "The Secret Sauce"
+  },
+  {
+    "opp_name": "Symons Rodriguez Organization - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 11880.0,
+    "organization": "Symons Rodriguez Organization"
+  },
+  {
+    "opp_name": "Graham Management LP - Expansion - McDonald's",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 25032.0,
+    "organization": "Graham Management LP"
+  },
+  {
+    "opp_name": "Adcock QSR Management - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 3564.0,
+    "organization": "Adcock QSR Management"
+  },
+  {
+    "opp_name": "Third Generation Management - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 15444.0,
+    "organization": "Third Generation Management"
+  },
+  {
+    "opp_name": "Culver's of Minnetonka - Culver's -",
+    "owner": "Simon Salomon",
+    "stage": "Proposal",
+    "acv": 14352.0,
+    "organization": "Culver's of Minnetonka"
+  },
+  {
+    "opp_name": "Jersey Mikes Franchisee (Jeff & Elizabeth Trevino) - Jersey Mike's Subs - 3",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 3564.0,
+    "organization": "Jersey Mikes Franchisee (Jeff & Elizabeth Trevino)"
+  },
+  {
+    "opp_name": "R&R Brands - Walk-On's - 12",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 18000.0,
+    "organization": "R&R Brands"
+  },
+  {
+    "opp_name": "R&R Brands - Bravo Brio - 85",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 127500.0,
+    "organization": "R&R Brands"
+  },
+  {
+    "opp_name": "R&R Brands - Cody's Original Roadhouse - 7",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 10500.0,
+    "organization": "R&R Brands"
+  },
+  {
+    "opp_name": "R&R Brands - Party Fowl - 2",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 3000.0,
+    "organization": "R&R Brands"
+  },
+  {
+    "opp_name": "R&R Brands - Sante Fe - 12",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 18000.0,
+    "organization": "R&R Brands"
+  },
+  {
+    "opp_name": "Sienna Foods - McDonald's",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 4752.0,
+    "organization": "Sienna Foods"
+  },
+  {
+    "opp_name": "Peyton Foster - Jersey Mikes 5 - Jersey Mike's Subs -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 6000.0,
+    "organization": "Peyton Foster - Jersey Mikes 5"
+  },
+  {
+    "opp_name": "Burrito Beach",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 8316.0,
+    "organization": "Burrito Beach"
+  },
+  {
+    "opp_name": "FRSCO Organization - Expansion - McDonald's",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 11940.0,
+    "organization": "FRSCO Organization"
+  },
+  {
+    "opp_name": "Chicken N Pickle - Chicken N Pickle - 13",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 31200.0,
+    "organization": "Chicken N Pickle"
+  },
+  {
+    "opp_name": "Bulgrin Group -  -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 3600.0,
+    "organization": "Bulgrin Group"
+  },
+  {
+    "opp_name": "Leeso Consulting - Jersey Mike's Subs - 12",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 14256.0,
+    "organization": "Leeso Consulting"
+  },
+  {
+    "opp_name": "Leeso Consulting - Jersey Mike's Subs -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 7200.0,
+    "organization": "Leeso Consulting"
+  },
+  {
+    "opp_name": "Teton DQ - Dairy Queen",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 57600.0,
+    "organization": "Teton DQ"
+  },
+  {
+    "opp_name": "The Haar Company - The Haar Company -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "The Haar Company"
+  },
+  {
+    "opp_name": "Subway Corporate - Subway -19,502",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Subway Corporate"
+  },
+  {
+    "opp_name": "Downey Restaurant Group - Jersey Mike's Subs - 15",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 9000.0,
+    "organization": "Downey Restaurant Group"
+  },
+  {
+    "opp_name": "El Gallo Giro -11",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 48708.0,
+    "organization": "El Gallo Giro"
+  },
+  {
+    "opp_name": "Carina Montes - Mcdonalds 11 - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 15708.0,
+    "organization": "Corina Montes - Mcdonalds 11"
+  },
+  {
+    "opp_name": "Local Favorite - 55",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 68904.0,
+    "organization": "Local Favorite"
+  },
+  {
+    "opp_name": "QD Brothers LLC-",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 50400.0,
+    "organization": "QD Brothers LLC"
+  },
+  {
+    "opp_name": "PR Restaurant Group - Panera -",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 74844.0,
+    "organization": "PR Restaurant Group"
+  },
+  {
+    "opp_name": "- 2026",
+    "owner": "Simon Salomon",
+    "stage": "Sent",
+    "acv": 1788.0,
+    "organization": "Schnipper Restaurants"
+  },
+  {
+    "opp_name": "Schnipper Restaurants - Quality Soups - 1",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 1788.0,
+    "organization": "Schnipper Restaurants"
+  },
+  {
+    "opp_name": "Schnipper's Quality Kitchen - Schnipper's Quality Kitchen - 2",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 3576.0,
+    "organization": "Schnipper Restaurants"
+  },
+  {
+    "opp_name": "- 2026",
+    "owner": "Simon Salomon",
+    "stage": "Sent",
+    "acv": 3576.0,
+    "organization": "Schnipper Restaurants"
+  },
+  {
+    "opp_name": "Bayshore Grove - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 2160.0,
+    "organization": "Bayshore Grove"
+  },
+  {
+    "opp_name": "Traa Family McDonald's - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 3600.0,
+    "organization": "Traa Family McDonald's"
+  },
+  {
+    "opp_name": "Stejoca Inc - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 10800.0,
+    "organization": "Stejoca Inc"
+  },
+  {
+    "opp_name": "Tommy's Tavern + Tap - 15 - Tommy's Tavern - 15",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Tommy's Tavern + Tap - 15"
+  },
+  {
+    "opp_name": "Patrizias - 18 - Patrizias - 18",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Patrizias - 18"
+  },
+  {
+    "opp_name": "Good Company Doughnuts & Cafe - Good Company Doughnuts & Cafe -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Good Company Doughnuts & Cafe"
+  },
+  {
+    "opp_name": "McDonalds - Expansion - McDonald's",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Won",
+    "acv": 2160.0,
+    "organization": "SJT Management McDonalds"
+  },
+  {
+    "opp_name": "Ram Management - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 4752.0,
+    "organization": "Ram Management"
+  },
+  {
+    "opp_name": "Jetrad Inc. - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 11880.0,
+    "organization": "Jetrad Inc."
+  },
+  {
+    "opp_name": "San Pedro Fish - 3",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 10800.0,
+    "organization": "San Pedro Fish - 3"
+  },
+  {
+    "opp_name": "Slim Chickens Great Lakes - 11",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 6600.0,
+    "organization": "Slim Chickens Great Lakes"
+  },
+  {
+    "opp_name": "La La Land Kind Cafe - 25",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 90000.0,
+    "organization": "La La Land Kind Cafe"
+  },
+  {
+    "opp_name": "Rave Restaurant Group - 120",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 142560.0,
+    "organization": "Rave Restaurant Group"
+  },
+  {
+    "opp_name": "Stanton Enterprises - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 11880.0,
+    "organization": "Stanton Enterprises"
+  },
+  {
+    "opp_name": "Sharky's - Sharky's - 5",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 8940.0,
+    "organization": "Sharky's"
+  },
+  {
+    "opp_name": "\"B\"ing the Best Inc - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 16800.0,
+    "organization": "\"B\"ing the Best Inc"
+  },
+  {
+    "opp_name": "Kanaka LLC - Subway - 25",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Kanaka LLC"
+  },
+  {
+    "opp_name": "Matharu Enterprises - Subway - 25",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Matharu Enterprises"
+  },
+  {
+    "opp_name": "DOM Food Group - 15",
+    "owner": "Alex Reyes",
+    "stage": "Disqualified",
+    "acv": 17820.0,
+    "organization": "DOM Food Group"
+  },
+  {
+    "opp_name": "Avocaderia - Avo - 4",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 14352.0,
+    "organization": "Avocaderia"
+  },
+  {
+    "opp_name": "La Taqueria Pinche Taco Shop - La Taqueria Pinche Taco Shop -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "La Taqueria Pinche Taco Shop"
+  },
+  {
+    "opp_name": "4GR8 Food Group -  -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 23760.0,
+    "organization": "4GR8 Food Group"
+  },
+  {
+    "opp_name": "Blumenstock Family - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 3600.0,
+    "organization": "Blumenstock Family"
+  },
+  {
+    "opp_name": "Blumenstock Family - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 7128.0,
+    "organization": "Blumenstock Family"
+  },
+  {
+    "opp_name": "YATS - YATS - 15",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "YATS"
+  },
+  {
+    "opp_name": "Dry Valley - Subway - 25",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Dry Valley"
+  },
+  {
+    "opp_name": "Sound Sandwich (PotBellys) - Potbelly Sandwich Works -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 12000.0,
+    "organization": "Sound Sandwich (PotBellys)"
+  },
+  {
+    "opp_name": "Stepter Group - Jersey Mike's Subs -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "Stepter Group"
+  },
+  {
+    "opp_name": "Cupitol - Cupitol -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Cupitol"
+  },
+  {
+    "opp_name": "Spatula Family - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Disqualified",
+    "acv": 2376.0,
+    "organization": "Spatula Family"
+  },
+  {
+    "opp_name": "ACLT Group -  -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "ACLT Group"
+  },
+  {
+    "opp_name": "Brooklyn's Finest Pizza- Carlo Conti - Brooklyn's Finest Pizza -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Brooklyn's Finest Pizza- Carlo Conti"
+  },
+  {
+    "opp_name": "Blaze Pizza -Reza Madali - Blaze Pizza -",
+    "owner": "Sarra Herlich",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Blaze Pizza -Reza Madali"
+  },
+  {
+    "opp_name": "The Stand - The Stand  - 22",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 13200.0,
+    "organization": "The Stand"
+  },
+  {
+    "opp_name": "Subway of Urbana - Subway - 25",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Subway of Urbana"
+  },
+  {
+    "opp_name": "Shaking Crab - Shaking Crab  - 10",
+    "owner": "James Chavious",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Shaking Crab"
+  },
+  {
+    "opp_name": "Five Guys Corporate - Five Guys - 1526",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Five Guys Corporate"
+  },
+  {
+    "opp_name": "Kallinteris Family - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "Kallinteris Family"
+  },
+  {
+    "opp_name": "Taco Bamba - Taco Bamba  - 16",
+    "owner": "Matt Bullock",
+    "stage": "Business Case",
+    "acv": 48000.0,
+    "organization": "Taco Bamba"
+  },
+  {
+    "opp_name": "Loose Leaf Boba Company - Loose Leaf Boba Company - 2",
+    "owner": "James Chavious",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Loose Leaf Boba Company"
+  },
+  {
+    "opp_name": "Krishna Desai - Wayback Burger - Wayback Burgers -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Krishna Desai - Wayback Burger"
+  },
+  {
+    "opp_name": "Wojo LLC - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 4800.0,
+    "organization": "Wojo LLC"
+  },
+  {
+    "opp_name": "Mi Pueblo Mexican Restaurant - Mi Pueblo Mexican Restaurant -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Mi Pueblo Mexican Restaurant"
+  },
+  {
+    "opp_name": "Mi Pueblo Mexican Restaurant - Mi Pueblo Mexican Restaurant - 10",
+    "owner": "James Chavious",
+    "stage": "No Show",
+    "acv": 6000.0,
+    "organization": "Mi Pueblo Mexican Restaurant"
+  },
+  {
+    "opp_name": "The Surf Bar - The Surf Bar - 8",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "The Surf Bar"
+  },
+  {
+    "opp_name": "The Surf Bar -  8",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 4800.0,
+    "organization": "The Surf Bar"
+  },
+  {
+    "opp_name": "3 Pepper Burrito - 3 Pepper Burrito - 8",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "3 Pepper Burrito"
+  },
+  {
+    "opp_name": "Ocean Subs - Subway - 25",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Ocean Subs"
+  },
+  {
+    "opp_name": "UpChurch - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "UpChurch"
+  },
+  {
+    "opp_name": "JV&Sons - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 12600.0,
+    "organization": "JV&Sons"
+  },
+  {
+    "opp_name": "PDS Inc - McDonald's -",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 2400.0,
+    "organization": "PDS Inc"
+  },
+  {
+    "opp_name": "Kuehl Enterprises - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 5940.0,
+    "organization": "Kuehl Enterprises"
+  },
+  {
+    "opp_name": "M + J - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 18360.0,
+    "organization": "M + J"
+  },
+  {
+    "opp_name": "Price Boxley - McDonald's 25 - McDonald's -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 15000.0,
+    "organization": "Price Boxley - McDonald's 25"
+  },
+  {
+    "opp_name": "My Burger USA - My Burger - 11",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 19800.0,
+    "organization": "My Burger USA"
+  },
+  {
+    "opp_name": "Jami Porter - Culvers - Culver's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 600.0,
+    "organization": "Jami Porter - Culvers"
+  },
+  {
+    "opp_name": "Meauxmentum Strategies & Investments - 113",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 78600.0,
+    "organization": "Meauxmentum Strategies & Investments"
+  },
+  {
+    "opp_name": "Testwt Corp - Fake Testwt -",
+    "owner": "Sales Ops",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "Testwt Corp"
+  },
+  {
+    "opp_name": "Leaf & Grain - Leaf & Grain  - 6",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Leaf & Grain"
+  },
+  {
+    "opp_name": "Bell Restaurant Group - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 21384.0,
+    "organization": "Bell Restaurant Group"
+  },
+  {
+    "opp_name": "New Braunfels Wings - Jimmy John's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "New Braunfels Wings"
+  },
+  {
+    "opp_name": "Godfather's Pizza - Godfather's Pizza - 95",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Godfather's Pizza"
+  },
+  {
+    "opp_name": "Gary Staub - Jersey Mikes 5 - Jersey Mike's Subs -",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 3000.0,
+    "organization": "Gary Staub - Jersey Mikes 5"
+  },
+  {
+    "opp_name": "Fortuna Bakery - 13 loc -  -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 23244.0,
+    "organization": "Fortuna Bakery - 10 loc"
+  },
+  {
+    "opp_name": "JM Team LA - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 6600.0,
+    "organization": "JM Team LA"
+  },
+  {
+    "opp_name": "Crumble and Whisk - Crumble & Whisk - 1",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Crumble and Whisk"
+  },
+  {
+    "opp_name": "SourDough and Co + Baskin Robbins- Rakesh - Baskin Robbins -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "SourDough and Co + Baskin Robbins- Rakesh"
+  },
+  {
+    "opp_name": "SourDough and Co + Baskin Robins",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 5952.0,
+    "organization": "SourDough and Co + Baskin Robbins- Rakesh"
+  },
+  {
+    "opp_name": "DineAmic Hospitality",
+    "owner": "Matt Bullock",
+    "stage": "Closed Won",
+    "acv": 16200.0,
+    "organization": "DineAmic Hospitality"
+  },
+  {
+    "opp_name": "Merchant Investments - Jimmy John's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 18600.0,
+    "organization": "Merchant Investments"
+  },
+  {
+    "opp_name": "Pure Green - Corporate - 100",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 60000.0,
+    "organization": "Pure Green"
+  },
+  {
+    "opp_name": "Pure Green - Pure Green - 100",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Pure Green"
+  },
+  {
+    "opp_name": "The Juicy Crab - The Juicy Crab -",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 40000.0,
+    "organization": "The Juicy Crab"
+  },
+  {
+    "opp_name": "West Coast Sourdough - West Coast Sourdough - 60",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "West Coast Sourdough"
+  },
+  {
+    "opp_name": "Falcon Holdings Management LLC",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 180000.0,
+    "organization": "Falcon Holdings Management LLC"
+  },
+  {
+    "opp_name": "Sandwich Squad, Inc. - Jimmy John's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Sandwich Squad, Inc."
+  },
+  {
+    "opp_name": "Crave Foods - Jersey Mike's Subs -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 7128.0,
+    "organization": "Crave Foods"
+  },
+  {
+    "opp_name": "MCL Corporation",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 10800.0,
+    "organization": "MCL Corporation"
+  },
+  {
+    "opp_name": "Big City Wings",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 2400.0,
+    "organization": "Big City Wings"
+  },
+  {
+    "opp_name": "A Cup of Organic - A Cup of Organic  - 5",
+    "owner": "James Chavious",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "A Cup of Organic"
+  },
+  {
+    "opp_name": "Hill Seven LLC - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 8316.0,
+    "organization": "Hill Seven LLC"
+  },
+  {
+    "opp_name": "Homak Enterprises - McDonald's - 11",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 13068.0,
+    "organization": "Homak Enterprises"
+  },
+  {
+    "opp_name": "Fair Mcdonald - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Fair Mcdonald"
+  },
+  {
+    "opp_name": "Friendly Franchisees Corporation",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 17400.0,
+    "organization": "Friendly Franchisees Corporation"
+  },
+  {
+    "opp_name": "Boardwalk Fries Burgers and Shakes - Boardwalk Fries Burgers and Shakes -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 1800.0,
+    "organization": "Boardwalk Fries Burgers and Shakes"
+  },
+  {
+    "opp_name": "Tikka Grill Restaurant",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 1800.0,
+    "organization": "Tikka Grill Restaurant"
+  },
+  {
+    "opp_name": "Tikka Grill Restaurant -  3",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Tikka Grill Restaurant"
+  },
+  {
+    "opp_name": "Jimmy John's - Nate King - Crumbl -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Jimmy John's - Nate King"
+  },
+  {
+    "opp_name": "Jimmy John's - Nate King - Jimmy John's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Jimmy John's - Nate King"
+  },
+  {
+    "opp_name": "WingsUp!",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 45144.0,
+    "organization": "WingsUP!"
+  },
+  {
+    "opp_name": "EPIQ Franchising - TruROI+ Expansion - Anthony's Pizza & Pasta",
+    "owner": "Matt Bullock",
+    "stage": "Closed Won",
+    "acv": 10800.0,
+    "organization": "EPIQ Franchising"
+  },
+  {
+    "opp_name": "EPIQ Franchising - Anthony's Pizza & Pasta - Expansion - 6",
+    "owner": "Matt Bullock",
+    "stage": "Closed Won",
+    "acv": 7200.0,
+    "organization": "EPIQ Franchising"
+  },
+  {
+    "opp_name": "McDonald's- Ren Weichbrodt - McDonald's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Won",
+    "acv": 6000.0,
+    "organization": "McDonald's- Ren Weichbrodt"
+  },
+  {
+    "opp_name": "David Santillanes - McDonald's - McDonald's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 11400.0,
+    "organization": "David Santillanes - McDonald's"
+  },
+  {
+    "opp_name": "Carrot Express - Carrot Express -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Carrot Express"
+  },
+  {
+    "opp_name": "Carrot Express - Carrot Express - 31",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Carrot Express"
+  },
+  {
+    "opp_name": "Michael Telich - McDonalds - McDonald's -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 8316.0,
+    "organization": "Michael Telich - McDonalds"
+  },
+  {
+    "opp_name": "Flying Biscuit Five Points -  -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Flying Biscuit Five Points"
+  },
+  {
+    "opp_name": "Uncommon Brands - Fuego Tortilla Grill - 6",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 18000.0,
+    "organization": "Uncommon Brands"
+  },
+  {
+    "opp_name": "Uncommon Brands - The Rice Box - 4",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 12000.0,
+    "organization": "Uncommon Brands"
+  },
+  {
+    "opp_name": "J.W. Ebert Corporation - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 47520.0,
+    "organization": "J.W. Ebert Corporation"
+  },
+  {
+    "opp_name": "HappyBoards - HappyBoards - 30",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 35640.0,
+    "organization": "HappyBoards"
+  },
+  {
+    "opp_name": "Marsam Management - McDonald's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Marsam Management"
+  },
+  {
+    "opp_name": "Diamondback DTNM - Chick Slims -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Diamondback DTNM"
+  },
+  {
+    "opp_name": "Shalhoub Management - McDonald's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 18000.0,
+    "organization": "Shalhoub Management"
+  },
+  {
+    "opp_name": "Holeman Enterprises - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 16092.0,
+    "organization": "Holeman Enterprises"
+  },
+  {
+    "opp_name": "Laurie Barnes - McDonalds - McDonald's -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 29700.0,
+    "organization": "Laurie Barnes - McDonalds"
+  },
+  {
+    "opp_name": "Aditya Gajjar - Subway 1 - Subway - 25",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Aditya Gajjar - Subway 1"
+  },
+  {
+    "opp_name": "Kerri Seaman- McDonald's-11 - McDonald's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 6600.0,
+    "organization": "Kerri Seaman- McDonald's-11"
+  },
+  {
+    "opp_name": "Lam Pam Enterprises - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 1800.0,
+    "organization": "Lam Pam Enterprises"
+  },
+  {
+    "opp_name": "Manish Singh 20 Loc - Tropical Smoothie Cafe -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 12000.0,
+    "organization": "Manish Singh 20 Loc"
+  },
+  {
+    "opp_name": "Caffeine Enterprises - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 2376.0,
+    "organization": "Caffeine Enterprises"
+  },
+  {
+    "opp_name": "RDM Management LLC - Jucy's Hamburgers, Jucy's Tacos, and T. Blanco's - 19 - TLO Opp",
+    "owner": "Alex Reyes",
+    "stage": "Disqualified",
+    "acv": 10800.0,
+    "organization": "RDM Management LLC - Jucy's Restaurants"
+  },
+  {
+    "opp_name": "Wilkesboro QMG - 20",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 12000.0,
+    "organization": "Wilkesboro QMG"
+  },
+  {
+    "opp_name": "Wilkesboro QMG 20",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 12000.0,
+    "organization": "Wilkesboro QMG"
+  },
+  {
+    "opp_name": "Mountain Mikes Pizza - Corporate - 300",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 180000.0,
+    "organization": "Mountain Mikes Pizza"
+  },
+  {
+    "opp_name": "Mountain Mikes Pizza - Mountain Mike's Pizza -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Mountain Mikes Pizza"
+  },
+  {
+    "opp_name": "Inka Franchise Group",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 3600.0,
+    "organization": "Inka Franchise Group"
+  },
+  {
+    "opp_name": "Lee Adams - McDonalds 17 - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 10200.0,
+    "organization": "Lee Adams - McDonalds 17"
+  },
+  {
+    "opp_name": "Chuck's - Chuck's -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Chuck's"
+  },
+  {
+    "opp_name": "Lancris Jupiter - Jersey Mike's Subs -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "Lancris Jupiter"
+  },
+  {
+    "opp_name": "Sambazon - Sambazon - 1",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 3588.0,
+    "organization": "Sambazon"
+  },
+  {
+    "opp_name": "Montana Chicken LLC - TLO Opp (2 of 2)",
+    "owner": "Bryan Peguero",
+    "stage": "Closed Won",
+    "acv": 1200.0,
+    "organization": "Montana Chicken LLC"
+  },
+  {
+    "opp_name": "Montana Chicken LLC - TLO Opp (1 of 2)",
+    "owner": "Bryan Peguero",
+    "stage": "Closed Won",
+    "acv": 1200.0,
+    "organization": "Montana Chicken LLC"
+  },
+  {
+    "opp_name": "Dunham Management Corp. - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 3600.0,
+    "organization": "Dunham Management Corp."
+  },
+  {
+    "opp_name": "D'Amico - 2 - Jersey Mike's Subs -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 2376.0,
+    "organization": "D'Amico - 2"
+  },
+  {
+    "opp_name": "MANO Management Group LLC - 3",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 7200.0,
+    "organization": "MANO Management Group LLC"
+  },
+  {
+    "opp_name": "S2 Grills - S2 Grills - 9",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 5400.0,
+    "organization": "S2 Grills"
+  },
+  {
+    "opp_name": "Phil Skinner - Culvers 7 - Culver's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 4200.0,
+    "organization": "Phil Skinner - Culvers 7"
+  },
+  {
+    "opp_name": "Cedartown Foods - Jersey Mike's Subs -",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Cedartown Foods"
+  },
+  {
+    "opp_name": "Cedartown Foods - Bojangles -",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Cedartown Foods"
+  },
+  {
+    "opp_name": "Alisa Haman - Culvers 2 - Culver's -",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "Alisa Haman - Culvers 2"
+  },
+  {
+    "opp_name": "Central Perk Coffee Co. - Central Perk Coffee Co. -",
+    "owner": "James Chavious",
+    "stage": "Disqualified",
+    "acv": 600.0,
+    "organization": "Central Perk Coffee Co."
+  },
+  {
+    "opp_name": "Valley Management - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 26820.0,
+    "organization": "Valley Management"
+  },
+  {
+    "opp_name": "Hill Associates - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 1800.0,
+    "organization": "Hill Associates"
+  },
+  {
+    "opp_name": "TLC RG - Pho concept - 1",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 2388.0,
+    "organization": "TLC RG"
+  },
+  {
+    "opp_name": "Golden Corral - 350",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 210000.0,
+    "organization": "Golden Corral"
+  },
+  {
+    "opp_name": "JMOHKY - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "No Show",
+    "acv": 19008.0,
+    "organization": "JMOHKY"
+  },
+  {
+    "opp_name": "Dunkin, Qdoba, UPS -    \t Dunkin, Qdoba, UPS - 120",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Dunkin, Qdoba, UPS"
+  },
+  {
+    "opp_name": "APM Subs - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Disqualified",
+    "acv": 600.0,
+    "organization": "APM Subs"
+  },
+  {
+    "opp_name": "Pur & Simple - 67",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 23880.0,
+    "organization": "Pur & Simple"
+  },
+  {
+    "opp_name": "Antonio Ferman - McDonald's 7 - McDonald's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Lost",
+    "acv": 4200.0,
+    "organization": "Antonio Ferman - McDonald's 7"
+  },
+  {
+    "opp_name": "Parker Subs - Jersey Mike's Subs -",
+    "owner": "Alex Reyes",
+    "stage": "Disqualified",
+    "acv": 2376.0,
+    "organization": "Parker Subs"
+  },
+  {
+    "opp_name": "38 Foods - Culver's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 23880.0,
+    "organization": "38 Foods"
+  },
+  {
+    "opp_name": "Steve Samuel -McDonald's 7 - McDonald's -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "Steve Samuel -McDonald's 7"
+  },
+  {
+    "opp_name": "Community Bread DMV - 4",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 0.0,
+    "organization": "Community Bread DMV"
+  },
+  {
+    "opp_name": "Sobelman's Pub & Grill - Sobelman's Pub & Grill -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "Sobelman's Pub & Grill"
+  },
+  {
+    "opp_name": "Ticknor Group - 3",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 3564.0,
+    "organization": "Ticknor Group"
+  },
+  {
+    "opp_name": "Glass Nickel Pizza Co. - Glass Nickel Pizza - 10",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 36000.0,
+    "organization": "Glass Nickel Pizza Co."
+  },
+  {
+    "opp_name": "Patel Dunkin - 5 loc - Dunkin -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Patel Dunkin - 5 loc"
+  },
+  {
+    "opp_name": "Firehouse Subs - Firehouse Subs  - 2",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Firehouse Subs"
+  },
+  {
+    "opp_name": "PopUp Bagels - PopUp Bagels - 23",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Closed Lost",
+    "acv": 0.0,
+    "organization": "PopUp Bagels"
+  },
+  {
+    "opp_name": "Springbone Kitchen - Springbone Kitchen - 11",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 19800.0,
+    "organization": "Springbone Kitchen"
+  },
+  {
+    "opp_name": "Snooze A.M. Eatery - Snooze A.M. Eatery - 69",
+    "owner": "Matt Bullock",
+    "stage": "Business Case",
+    "acv": 124200.0,
+    "organization": "Snooze A.M. Eatery"
+  },
+  {
+    "opp_name": "Native Restaurant Group - Wahlburgers - 2",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 4776.0,
+    "organization": "Native Restaurant Group"
+  },
+  {
+    "opp_name": "Jasper Thaxton - 2",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 0.0,
+    "organization": "Jasper Thaxton"
+  },
+  {
+    "opp_name": "Roni's Mac Bar - Roni's Mac Bar - 14",
+    "owner": "Alex Reyes",
+    "stage": "Disqualified",
+    "acv": 8400.0,
+    "organization": "Roni's Mac Bar"
+  },
+  {
+    "opp_name": "Sub Zero Ice Cream - 20",
+    "owner": "Alexis Marrero",
+    "stage": "Disqualified",
+    "acv": 12000.0,
+    "organization": "Sub Zero Ice Cream"
+  },
+  {
+    "opp_name": "Somos Arepas",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 4176.0,
+    "organization": "Somos Arepas"
+  },
+  {
+    "opp_name": "Alan Gardner - Wendys 20 - Wendy's -",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 12000.0,
+    "organization": "Alan Gardner - Wendys 20"
+  },
+  {
+    "opp_name": "Triangle Drive In - Triangle Drive in  - 6",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 3600.0,
+    "organization": "Triangle Drive In"
+  },
+  {
+    "opp_name": "Seggla LLC - 6",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "Seggla LLC"
+  },
+  {
+    "opp_name": "Welburn Management - McDonald's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 27000.0,
+    "organization": "Welburn Management"
+  },
+  {
+    "opp_name": "Scottsdale Foods - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 1200.0,
+    "organization": "Scottsdale Foods"
+  },
+  {
+    "opp_name": "SLI Enterprises - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 20196.0,
+    "organization": "SLI Enterprises"
+  },
+  {
+    "opp_name": "Sugarloaf TGIF Management - TGIFridays & Golden Corral",
+    "owner": "Alex Reyes",
+    "stage": "Closed Won",
+    "acv": 41778.0,
+    "organization": "Sugarloaf TGIF Management"
+  },
+  {
+    "opp_name": "VAAP Management - TLO Opp Dunkin'",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 32184.0,
+    "organization": "VAAP Management"
+  },
+  {
+    "opp_name": "Kiki's Chicken - Kiki's Chicken  - 20",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 18000.0,
+    "organization": "Kiki's Chicken"
+  },
+  {
+    "opp_name": "Adrian Jimenez - Wingstop - Wingstop -",
+    "owner": "Matt Bullock",
+    "stage": "Business Case",
+    "acv": 24600.0,
+    "organization": "Adrian Jimenez - Wingstop"
+  },
+  {
+    "opp_name": "Josh Wang - Manhattan Bagel - Manhattan Bagel -",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Josh Wang - Manhattan Bagel"
+  },
+  {
+    "opp_name": "May Enterprise - Qdoba Mexican Eats - 1",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 1188.0,
+    "organization": "May Enterprise - 12 QDOBA - 3 CULVERS"
+  },
+  {
+    "opp_name": "May Enterprise Culver's - 2",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 2376.0,
+    "organization": "May Enterprise - 12 QDOBA - 3 CULVERS"
+  },
+  {
+    "opp_name": "JamJomar (Louisiana Locations) - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Business Case",
+    "acv": 8316.0,
+    "organization": "JamJomar (Louisiana Locations)"
+  },
+  {
+    "opp_name": "Bhatia - McDonald's -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Bhatia"
+  },
+  {
+    "opp_name": "Sunny Rai - McDonald's 5 - McDonald's -",
+    "owner": "Spencer Epps",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "Sunny Rai - McDonald's 5"
+  },
+  {
+    "opp_name": "Zak Hayes - McDonald's - McDonald's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Closed Won",
+    "acv": 1188.0,
+    "organization": "Zak Hayes - McDonald's"
+  },
+  {
+    "opp_name": "Firehouse Subs - Firehouse Subs -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Firehouse Subs"
+  },
+  {
+    "opp_name": "JMFB Enterprise LLC",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Firehouse Subs"
+  },
+  {
+    "opp_name": "H & H West - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 8400.0,
+    "organization": "H & H West"
+  },
+  {
+    "opp_name": "Lefty's Cheesesteaks - Lefty's Cheesesteaks  - 14",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Lefty's Cheesesteaks"
+  },
+  {
+    "opp_name": "Quintana Organization - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 16632.0,
+    "organization": "Quintana Organization"
+  },
+  {
+    "opp_name": "Baker's Burgers",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Baker's Burgers"
+  },
+  {
+    "opp_name": "Fourteen Foods - Dairy Queen -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Fourteen Foods"
+  },
+  {
+    "opp_name": "Juicy Platters - Juicy Platters - 4",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Juicy Platters"
+  },
+  {
+    "opp_name": "Keiser QSR - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 5364.0,
+    "organization": "Keiser QSR"
+  },
+  {
+    "opp_name": "Cypress Five Star - Five Guys -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 196800.0,
+    "organization": "Cypress Five Star"
+  },
+  {
+    "opp_name": "Adcock Restaurant Mgmt - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 5364.0,
+    "organization": "Adcock Restaurant Mgmt"
+  },
+  {
+    "opp_name": "Potbelly/Crumbl - Potbelly -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Potbelly/Crumbl"
+  },
+  {
+    "opp_name": "Quijano Family McDonald?s - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 39336.0,
+    "organization": "Quijano Family McDonald?s"
+  },
+  {
+    "opp_name": "Pita Way - Pita Way  - 46",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 124200.0,
+    "organization": "Pita Way"
+  },
+  {
+    "opp_name": "Daves Hot Chicken Franchise Company, LLC - TLO Opp",
+    "owner": "Bryan Peguero",
+    "stage": "Closed Won",
+    "acv": 14400.0,
+    "organization": "Daves Hot Chicken Franchise Company, LLC"
+  },
+  {
+    "opp_name": "Kelly Clark LLC - 5",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 3000.0,
+    "organization": "Kelly Clark LLC"
+  },
+  {
+    "opp_name": "Blasco 5 LLC - 2",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Blasco 5 LLC"
+  },
+  {
+    "opp_name": "Burford Inc. - 3",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "Burford Inc."
+  },
+  {
+    "opp_name": "Kitava",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 7164.0,
+    "organization": "Kitava"
+  },
+  {
+    "opp_name": "HP Mike's - Jersey Mike's Subs - 1",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 600.0,
+    "organization": "HP Mike's"
+  },
+  {
+    "opp_name": "JMS AZ - Jersey Mike's Subs - 6",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 3600.0,
+    "organization": "JMS AZ"
+  },
+  {
+    "opp_name": "Mojo Rising - Jersey Mike's Subs -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 3600.0,
+    "organization": "Mojo Rising"
+  },
+  {
+    "opp_name": "Murray Enterprises - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 9000.0,
+    "organization": "Murray Enterprises"
+  },
+  {
+    "opp_name": "Linders Limited LLC - McD - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 21384.0,
+    "organization": "Linders Limited LLC - McD"
+  },
+  {
+    "opp_name": "Just Salad - Just Salad - 115",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Just Salad"
+  },
+  {
+    "opp_name": "Golden Hammer Family Group - Jersey Mike's Subs - 2",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 4776.0,
+    "organization": "Golden Hammer Family Group"
+  },
+  {
+    "opp_name": "Key Food - Key Food -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Key Food"
+  },
+  {
+    "opp_name": "The One Group",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 193200.0,
+    "organization": "The One Group"
+  },
+  {
+    "opp_name": "Hofman Hospitality Group - Lucille BBQ -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 11400.0,
+    "organization": "Hofman Hospitality Group"
+  },
+  {
+    "opp_name": "George Estep - Five Guys / Subway - Subway - 25",
+    "owner": "Spencer Epps",
+    "stage": "New - Meeting Set",
+    "acv": 15000.0,
+    "organization": "George Estep - Five Guys / Subway"
+  },
+  {
+    "opp_name": "George Estep - Five Guys / Subway - Five Guys -",
+    "owner": "Spencer Epps",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "George Estep - Five Guys / Subway"
+  },
+  {
+    "opp_name": "Gendron Smith Org - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 14256.0,
+    "organization": "Gendron Smith Org"
+  },
+  {
+    "opp_name": "Wezeman - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 3564.0,
+    "organization": "Wezeman"
+  },
+  {
+    "opp_name": "OPH - DFW - The Original Pancake house -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "OPH - DFW"
+  },
+  {
+    "opp_name": "Steak N Shake - Steak N Shake - 397",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 471636.0,
+    "organization": "Steak N Shake"
+  },
+  {
+    "opp_name": "Shazeen Jhaver - Sonic 60 - Sonic Drive in -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 36000.0,
+    "organization": "Shazeen Jhaver - Sonic 60"
+  },
+  {
+    "opp_name": "EYM Group - Denny's -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "EYM Group"
+  },
+  {
+    "opp_name": "EYM Group - Church's Chicken -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "EYM Group"
+  },
+  {
+    "opp_name": "JSJ Restaurants Inc (dba Mcdonalds)",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 8856.0,
+    "organization": "JSJ Restaurants Inc (dba Mcdonalds)"
+  },
+  {
+    "opp_name": "Kolo Group - Yeanies  - 3",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 7164.0,
+    "organization": "Kolo Group"
+  },
+  {
+    "opp_name": "835 Ventures - Jersey Mike's Subs - 24",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 14400.0,
+    "organization": "835 Ventures"
+  },
+  {
+    "opp_name": "TOGO'S - TOGO'S - Corporate",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 86400.0,
+    "organization": "TOGO'S"
+  },
+  {
+    "opp_name": "Green District Salad - Green District Salad  - 8",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 19200.0,
+    "organization": "Green District Salad"
+  },
+  {
+    "opp_name": "Arch Inc. - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 3000.0,
+    "organization": "Arch Inc."
+  },
+  {
+    "opp_name": "Mardek Enterprises - Honey Baked Ham -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 5760.0,
+    "organization": "Mardek Enterprises"
+  },
+  {
+    "opp_name": "Derrick Lott - McDonald's 4 - McDonald's -",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 2400.0,
+    "organization": "Derrick Lott - McDonald's 4"
+  },
+  {
+    "opp_name": "Jhanri Group - Wing Snob - 2",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Jhanri Group"
+  },
+  {
+    "opp_name": "Arby's - Arby's -",
+    "owner": "Olivia Johnson",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Arby's"
+  },
+  {
+    "opp_name": "The Glaser-Swift Org - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 7800.0,
+    "organization": "The Glaser-Swift Org"
+  },
+  {
+    "opp_name": "NAYA - NAYA - 43",
+    "owner": "Alex Reyes",
+    "stage": "Business Case",
+    "acv": 77400.0,
+    "organization": "NAYA"
+  },
+  {
+    "opp_name": "Railyard Restaurants -  -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 7200.0,
+    "organization": "Railyard Restaurants"
+  },
+  {
+    "opp_name": "Tejani Holdings - Which Which - 50",
+    "owner": "Devyn Schwartzberg",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Tejani Holdings"
+  },
+  {
+    "opp_name": "Sauce on the side - Sauce on the side -",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Sauce on the side"
+  },
+  {
+    "opp_name": "Chitown Subs, LLC - 4",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 9552.0,
+    "organization": "Chitown Subs, LLC"
+  },
+  {
+    "opp_name": "Churchs Chicken - Church's Chicken -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Churchs Chicken"
+  },
+  {
+    "opp_name": "Cubanos - Cubanos - 1",
+    "owner": "Charles Kagahastian",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Cubanos"
+  },
+  {
+    "opp_name": "Stripling Management LLC - McDonald's - 2",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 2400.0,
+    "organization": "Stripling Management LLC"
+  },
+  {
+    "opp_name": "KFC - KFC -",
+    "owner": "Olivia Johnson",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "KFC"
+  },
+  {
+    "opp_name": "Jersey Mikes- 4 - Jersey Mike's Subs -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Jersey Mikes- 4"
+  },
+  {
+    "opp_name": "South East Alaska - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 6000.0,
+    "organization": "South East Alaska"
+  },
+  {
+    "opp_name": "Turner Restaurants - Mi Casa Ole -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 3576.0,
+    "organization": "Turner Restaurants"
+  },
+  {
+    "opp_name": "Wendys - Wendy's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 600.0,
+    "organization": "Wendys"
+  },
+  {
+    "opp_name": "JM Conch Farm - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "JM Conch Farm"
+  },
+  {
+    "opp_name": "Ganzak Enterprises - Jersey Mike's Subs -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "Ganzak Enterprises"
+  },
+  {
+    "opp_name": "Boulder Subway - Subway - 25",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 0.0,
+    "organization": "Boulder Subway"
+  },
+  {
+    "opp_name": "Jersey Mike's Franchise Systems (Region 7) - Jersey Mike's Subs -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 594000.0,
+    "organization": "Jersey Mike's Franchise Systems (Region 7)"
+  },
+  {
+    "opp_name": "Jersey Mike's Franchise Systems (Region 7) - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Jersey Mike's Franchise Systems (Region 7)"
+  },
+  {
+    "opp_name": "Buffalo Wild Wings - Buffalo Wild Wings -",
+    "owner": "Olivia Johnson",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Buffalo Wild Wings"
+  },
+  {
+    "opp_name": "McDonald's (Elise Bentham) - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 10728.0,
+    "organization": "McDonald's (Elise Bentham)"
+  },
+  {
+    "opp_name": "Joshua Mullins - Culvers 1 - Culver's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 600.0,
+    "organization": "Joshua Mullins - Culvers 1"
+  },
+  {
+    "opp_name": "Fresh&Co - Fresh&Co - 15",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 60588.0,
+    "organization": "Fresh&Co"
+  },
+  {
+    "opp_name": "Vikramkumar Patel - Culvers 2 - Culver's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Vikramkumar Patel - Culvers 2"
+  },
+  {
+    "opp_name": "STW Foods - Paul Weitz 10 - Chicken Salad Chick -",
+    "owner": "Charles Kagahastian",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "STW Foods - Paul Weitz 10"
+  },
+  {
+    "opp_name": "Rio Vista Management - McDonald's -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Rio Vista Management"
+  },
+  {
+    "opp_name": "Big G Enterprises - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 19104.0,
+    "organization": "Big G Enterprises"
+  },
+  {
+    "opp_name": "West Food - Subway - 25",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 13200.0,
+    "organization": "West Food"
+  },
+  {
+    "opp_name": "Jersey Mikes- Heather Arbachesky - Jersey Mike's Subs -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Jersey Mikes- Heather Arbachesky"
+  },
+  {
+    "opp_name": "Saylor Management - McDonald's - 13",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 7800.0,
+    "organization": "Saylor Management"
+  },
+  {
+    "opp_name": "Coughlin - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 10692.0,
+    "organization": "Coughlin"
+  },
+  {
+    "opp_name": "Xperience Restaurant Group",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 40800.0,
+    "organization": "Xperience Restaurant Group"
+  },
+  {
+    "opp_name": "Jersey Mikes- Brett Lewis - Jersey Mike's Subs -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 30600.0,
+    "organization": "Jersey Mikes- Brett Lewis"
+  },
+  {
+    "opp_name": "B&B Arch Management - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 2388.0,
+    "organization": "B&B Arch Management"
+  },
+  {
+    "opp_name": "Eataly - Eataly - 20",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 48000.0,
+    "organization": "Eataly"
+  },
+  {
+    "opp_name": "Sir Pizza - Sir Pizza -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 600.0,
+    "organization": "Sir Pizza"
+  },
+  {
+    "opp_name": "Hart Retail Group - Jersey Mikes - Jersey Mike's Subs -",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 0.0,
+    "organization": "Hart Retail Group - Jersey Mikes"
+  },
+  {
+    "opp_name": "Zaxby's- Richard Schott - Zaxby's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Zaxby's- Richard Schott"
+  },
+  {
+    "opp_name": "Hodd & Co. -  -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 4200.0,
+    "organization": "Hodd & Co."
+  },
+  {
+    "opp_name": "RLMH - Pizza Group - 7",
+    "owner": "Charles Kagahastian",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "RLMH"
+  },
+  {
+    "opp_name": "Pickard Family McDonald's - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 10728.0,
+    "organization": "Pickard Family McDonald's"
+  },
+  {
+    "opp_name": "Bahia Bowls - Bahia Bowls - 19",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 11400.0,
+    "organization": "Bahia Bowls"
+  },
+  {
+    "opp_name": "Moe's Southwest Grill- Chad Minehart - Moe's Southwest Grill -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Moe's Southwest Grill- Chad Minehart"
+  },
+  {
+    "opp_name": "LaRosa's Pizzeria - LaRosa's Pizzeria - 61",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 36000.0,
+    "organization": "LaRosa's Pizzeria"
+  },
+  {
+    "opp_name": "Victor Ithivong - Popeyes - Popeye's Louisiana Kitchen -",
+    "owner": "Charles Kagahastian",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Victor Ithivong - Popeyes"
+  },
+  {
+    "opp_name": "Munish Dua - Del Taco 2 - Del Taco -",
+    "owner": "Matt Bullock",
+    "stage": "Disqualified",
+    "acv": 1200.0,
+    "organization": "Munish Dua - Del Taco 2"
+  },
+  {
+    "opp_name": "Samar Raza - Popeyes - Popeye's Louisiana Kitchen -",
+    "owner": "Spencer Epps",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Samar Raza - Popeyes"
+  },
+  {
+    "opp_name": "ACG Texas - IHOP -",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 245700.0,
+    "organization": "ACG Texas"
+  },
+  {
+    "opp_name": "Cheema Group - Jersey Mike's Subs -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Cheema Group"
+  },
+  {
+    "opp_name": "Culver's- Daniel Ehle -1 of 11",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 1788.0,
+    "organization": "Culver's- Daniel Ehle"
+  },
+  {
+    "opp_name": "Hopkins Navies Ford Management, Inc",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 7560.0,
+    "organization": "Hopkins Navies Ford Management, Inc"
+  },
+  {
+    "opp_name": "Tasty Chick'n - KFC -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 27600.0,
+    "organization": "Tasty Chick'n"
+  },
+  {
+    "opp_name": "Bitemore - Bitemore -",
+    "owner": "Eric Azaren",
+    "stage": "Demo",
+    "acv": 4776.0,
+    "organization": "Bitemore"
+  },
+  {
+    "opp_name": "Bagels&Co - Bagels&Co - 11",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 32868.0,
+    "organization": "Bagels&Co"
+  },
+  {
+    "opp_name": "DJ Britt- McDonald's - McDonald's -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 6600.0,
+    "organization": "DJ Britt- McDonald's"
+  },
+  {
+    "opp_name": "Sushi Sake - Sushi Sake - 53",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 3600.0,
+    "organization": "Sushi Sake"
+  },
+  {
+    "opp_name": "Naz's Halal Food - 53 - Naz's Halal Food -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Naz's Halal Food"
+  },
+  {
+    "opp_name": "B and B Free LLC - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 4776.0,
+    "organization": "B and B Free LLC"
+  },
+  {
+    "opp_name": "Kapalczynski Organization - McDonald's - 6",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 10800.0,
+    "organization": "Kapalczynski Organization"
+  },
+  {
+    "opp_name": "Pieocentral",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 7152.0,
+    "organization": "Pieocentral"
+  },
+  {
+    "opp_name": "Jerry Niswonger - Popeyes - Popeye's Louisiana Kitchen -",
+    "owner": "Charles Kagahastian",
+    "stage": "Demo",
+    "acv": 3000.0,
+    "organization": "Jerry Niswonger - Popeyes"
+  },
+  {
+    "opp_name": "Jeffrey Ops - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "Jeffrey Ops"
+  },
+  {
+    "opp_name": "The Byrd Group - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "The Byrd Group"
+  },
+  {
+    "opp_name": "California Pizza Kitchen- Sunny Dhami - California Pizza Kitchen  - 3",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "California Pizza Kitchen- Sunny Dhami"
+  },
+  {
+    "opp_name": "Hanchey - Jersey Mike's Subs -",
+    "owner": "Jeff Lutz",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Hanchey"
+  },
+  {
+    "opp_name": "HCK Hot Chicken - HCK Hot Chicken -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 6000.0,
+    "organization": "HCK Hot Chicken"
+  },
+  {
+    "opp_name": "Firehouse Subs- Matt Roe - Firehouse Subs -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Firehouse Subs- Matt Roe"
+  },
+  {
+    "opp_name": "Nishu Patel - Boston Pizza / DQ - Boston Pizza -",
+    "owner": "Charles Kagahastian",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Nishu Patel - Boston Pizza / DQ"
+  },
+  {
+    "opp_name": "Nishu Patel - Boston Pizza / DQ - Dairy Queen -",
+    "owner": "Spencer Epps",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Nishu Patel - Boston Pizza / DQ"
+  },
+  {
+    "opp_name": "Anna's Taqueria - Anna's Taqueria -",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 28656.0,
+    "organization": "Anna's Taqueria"
+  },
+  {
+    "opp_name": "Merritt Group - 170 - Sonic Drive in",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 205524.0,
+    "organization": "Merritt Group - 170"
+  },
+  {
+    "opp_name": "Sonny's BBQ Corporate - 90 - Sonny's BBQ - 90",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 54000.0,
+    "organization": "Sonny's BBQ Corporate - 90"
+  },
+  {
+    "opp_name": "The DHR Group - 42",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 48708.0,
+    "organization": "The DHR Group"
+  },
+  {
+    "opp_name": "QSR Network -  -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 13200.0,
+    "organization": "QSR Network"
+  },
+  {
+    "opp_name": "Gouras Restaurant Group - Another Broken Egg Cafe - 3",
+    "owner": "Alex Reyes",
+    "stage": "Proposal",
+    "acv": 5400.0,
+    "organization": "Gouras Restaurant Group"
+  },
+  {
+    "opp_name": "Slutty Vegan",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 4200.0,
+    "organization": "Slutty Vegan"
+  },
+  {
+    "opp_name": "GPZ Solutions - Culvers - Culver's -",
+    "owner": "Charles Kagahastian",
+    "stage": "Demo",
+    "acv": 600.0,
+    "organization": "GPZ Solutions - Culvers"
+  },
+  {
+    "opp_name": "Team Domination JM - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 8400.0,
+    "organization": "Team Domination JM"
+  },
+  {
+    "opp_name": "Grube Inc - BWW - Buffalo Wild Wings -",
+    "owner": "Charles Kagahastian",
+    "stage": "Demo",
+    "acv": 49800.0,
+    "organization": "Grube Inc - BWW"
+  },
+  {
+    "opp_name": "Heim BBQ - Heim BBQ - 3",
+    "owner": "Chandler Zombek",
+    "stage": "Disqualified",
+    "acv": 0.0,
+    "organization": "Heim BBQ"
+  },
+  {
+    "opp_name": "Philz Coffee - 77 - Philz Coffee - 77",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Philz Coffee - 77"
+  },
+  {
+    "opp_name": "Carpentersville Popeyes - Popeye's Louisiana Kitchen -",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 4200.0,
+    "organization": "Carpentersville Popeyes"
+  },
+  {
+    "opp_name": "Atticus Restaurant Group - Sonic Drive in -",
+    "owner": "Alex Reyes",
+    "stage": "Closed Lost",
+    "acv": 79800.0,
+    "organization": "Atticus Restaurant Group"
+  },
+  {
+    "opp_name": "Scott Brennan Bubbakoo's Burritos - Bubbakoo's Burritos -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 3600.0,
+    "organization": "Scott Brennan Bubbakoo's Burritos"
+  },
+  {
+    "opp_name": "Run Restaurants - Hash House - 6",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 4800.0,
+    "organization": "Run Restaurants"
+  },
+  {
+    "opp_name": "Epic Burger - Epic Burger  - 9",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 5400.0,
+    "organization": "Epic Burger"
+  },
+  {
+    "opp_name": "WILDor Restaurant Group - Chuck Bright - Popeye's Louisiana Kitchen -",
+    "owner": "Charles Kagahastian",
+    "stage": "Demo",
+    "acv": 6600.0,
+    "organization": "WILDor Restaurant Group"
+  },
+  {
+    "opp_name": "Greek Squad LLC, Drums & Flats Inc, and Wingers, LLC - 20",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 12000.0,
+    "organization": "Greek Squad LLC, Drums & Flats Inc, and Wingers, LLC"
+  },
+  {
+    "opp_name": "Zaxbys- Abdul Esreb - Zaxby's -",
+    "owner": "Jeff Lutz",
+    "stage": "No Show",
+    "acv": 600.0,
+    "organization": "Zaxbys- Abdul Esreb"
+  },
+  {
+    "opp_name": "G&S Family - Culver's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 8856.0,
+    "organization": "G&S Family"
+  },
+  {
+    "opp_name": "Jefferson Fry Company",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 3000.0,
+    "organization": "Jefferson Fry Company"
+  },
+  {
+    "opp_name": "Sarin Group - Subway - 25",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 9000.0,
+    "organization": "Sarin Group"
+  },
+  {
+    "opp_name": "VenPaCa Cafe - VenPaCa Cafe -",
+    "owner": "Jeff Lutz",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "VenPaCa Cafe"
+  },
+  {
+    "opp_name": "Chris N Eddy?s",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 2388.0,
+    "organization": "Chris N Eddy?s"
+  },
+  {
+    "opp_name": "Wild Thing Restaurant -  -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "Wild Thing Restaurant"
+  },
+  {
+    "opp_name": "Jams Bites - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Jams Bites"
+  },
+  {
+    "opp_name": "The Rose Group - Applebee's Grill & Bar -",
+    "owner": "Charles Kagahastian",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "The Rose Group"
+  },
+  {
+    "opp_name": "The Rose Group - Qdoba Mexican Eats -",
+    "owner": "Charles Kagahastian",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "The Rose Group"
+  },
+  {
+    "opp_name": "Guapo's - Guapo's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 17880.0,
+    "organization": "Guapo's"
+  },
+  {
+    "opp_name": "Burgers of BMT - Whataburger -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 7176.0,
+    "organization": "Burgers of BMT"
+  },
+  {
+    "opp_name": "Burgers of BMT - Whataburger -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 14400.0,
+    "organization": "Burgers of BMT"
+  },
+  {
+    "opp_name": "Pita Pita - Pita Pita - 10",
+    "owner": "James Chavious",
+    "stage": "Closed Lost",
+    "acv": 6000.0,
+    "organization": "Pita Pita"
+  },
+  {
+    "opp_name": "Jersey Mikes- Richard Comer - Jersey Mike's Subs -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 600.0,
+    "organization": "Jersey Mikes- Richard Comer"
+  },
+  {
+    "opp_name": "CTI Restaurant - Taco Bell - 12 - R+G+Re",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 14256.0,
+    "organization": "CTI Restaurant"
+  },
+  {
+    "opp_name": "CTI Restaurant - Taco Bell - 3 - TruROI+",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 4914.0,
+    "organization": "CTI Restaurant"
+  },
+  {
+    "opp_name": "The Michaels Group - Culver's -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 3000.0,
+    "organization": "The Michaels Group"
+  },
+  {
+    "opp_name": "Fuwa Fuwa Japanese Pancakes - Fuwa Fuwa Japanese Pancakes -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 9000.0,
+    "organization": "Fuwa Fuwa Japanese Pancakes"
+  },
+  {
+    "opp_name": "Papa Johns- Steve Murphy - Papa Johns Pizza -",
+    "owner": "James Chavious",
+    "stage": "Disqualified",
+    "acv": 5400.0,
+    "organization": "Papa Johns- Steve Murphy"
+  },
+  {
+    "opp_name": "Border Foods - Taco Bell - 250",
+    "owner": "Devyn Schwartzberg",
+    "stage": "No Show",
+    "acv": 150000.0,
+    "organization": "Border Foods"
+  },
+  {
+    "opp_name": "JM Chapel Hill - 18",
+    "owner": "James Chavious",
+    "stage": "Business Case",
+    "acv": 21384.0,
+    "organization": "JM Chapel Hill"
+  },
+  {
+    "opp_name": "QSR Executive Enterprises, Inc. - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 13200.0,
+    "organization": "QSR Executive Enterprises, Inc."
+  },
+  {
+    "opp_name": "Beans & Brews",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 95040.0,
+    "organization": "Beans & Brews"
+  },
+  {
+    "opp_name": "sof hospitality -  -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 1788.0,
+    "organization": "sof hospitality"
+  },
+  {
+    "opp_name": "McDonald's - 5 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "McDonald's - 5"
+  },
+  {
+    "opp_name": "McDonalds - 6 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "McDonalds - 6"
+  },
+  {
+    "opp_name": "Penelope's Coffee and Tea - 4",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 16716.0,
+    "organization": "Penelope's Coffee and Tea"
+  },
+  {
+    "opp_name": "Marcos Pizza- Todd Fairbanks - Marco's Pizza -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Marcos Pizza- Todd Fairbanks"
+  },
+  {
+    "opp_name": "MEM Enterprises - Taco Bell -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 44700.0,
+    "organization": "MEM Enterprises"
+  },
+  {
+    "opp_name": "Pizza Pizza - 653",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 300000.0,
+    "organization": "Pizza Pizza"
+  },
+  {
+    "opp_name": "Shelby's Shawarma - Shelby's Shawarma -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 27000.0,
+    "organization": "Shelby's Shawarma"
+  },
+  {
+    "opp_name": "Shelby's Shawarma - Shelby's Shawarma  - 59",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 35400.0,
+    "organization": "Shelby's Shawarma"
+  },
+  {
+    "opp_name": "Little Caesars- Logan Connor - Little Caesars -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Little Caesars- Logan Connor"
+  },
+  {
+    "opp_name": "Marcos Pizza- Aashish Agarwal - Marco's Pizza -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Marcos Pizza- Aashish Agarwal"
+  },
+  {
+    "opp_name": "Henry Management Group - McDonald's -",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Lost",
+    "acv": 600.0,
+    "organization": "Henry Management Group"
+  },
+  {
+    "opp_name": "DLS Subs LLC - Jersey Mike's Subs -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 3000.0,
+    "organization": "DLS Subs LLC"
+  },
+  {
+    "opp_name": "Abedi McDonalds - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 14304.0,
+    "organization": "Abedi McDonalds"
+  },
+  {
+    "opp_name": "Popeyes- Rubina Karim - Popeye's Louisiana Kitchen -",
+    "owner": "Olivia Johnson",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "Popeyes- Rubina Karim"
+  },
+  {
+    "opp_name": "Anitas New Mexico Style Restaurants (Anitas Corp)",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 6000.0,
+    "organization": "Anitas New Mexico Style Restaurants (Anitas Corp)"
+  },
+  {
+    "opp_name": "Duchess Restaurants- Corporate- 12",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 7200.0,
+    "organization": "Duchess Restaurants"
+  },
+  {
+    "opp_name": "Big Time Restaurant Group - Corporate- 18",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 10800.0,
+    "organization": "Big Time Restaurant Group"
+  },
+  {
+    "opp_name": "Alpaca Peruvian Charcoal Chicken - Corporate - 20",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 19200.0,
+    "organization": "Alpaca Peruvian Charcoal Chicken"
+  },
+  {
+    "opp_name": "North Italia - North Italia - 51",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 30600.0,
+    "organization": "North Italia"
+  },
+  {
+    "opp_name": "McDonald's - Bay Area Restaurant Management - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 45144.0,
+    "organization": "McDonald's - Bay Area Restaurant Management"
+  },
+  {
+    "opp_name": "Chiddy's Cheesteaks - Chiddy's Cheesesteaks -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Chiddy's Cheesteaks"
+  },
+  {
+    "opp_name": "Small Sliders- Kirk Douglas - Small's Sliders -",
+    "owner": "Olivia Johnson",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "Small Sliders- Kirk Douglas"
+  },
+  {
+    "opp_name": "Little Caesars- Chris Elwell - Little Caesars -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "Little Caesars- Chris Elwell"
+  },
+  {
+    "opp_name": "MicWo3 Management - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "MicWo3 Management"
+  },
+  {
+    "opp_name": "Wheeler Organization - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 8400.0,
+    "organization": "Wheeler Organization"
+  },
+  {
+    "opp_name": "DeGidio's",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 1788.0,
+    "organization": "DeGidio's"
+  },
+  {
+    "opp_name": "Seaview - Little Caesars -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 1800.0,
+    "organization": "Seaview"
+  },
+  {
+    "opp_name": "Druxy's Famous Deli - Druxy's Famous Deli -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 14400.0,
+    "organization": "Druxy's Famous Deli"
+  },
+  {
+    "opp_name": "Thunder Pies - Domino's -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 3564.0,
+    "organization": "thunder pies"
+  },
+  {
+    "opp_name": "BRX Restaurants - Mad Rooster Cafe - 2",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "BRX Restaurants"
+  },
+  {
+    "opp_name": "BRX Restaurants - El Beso Mexican Restaurant - 2",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "BRX Restaurants"
+  },
+  {
+    "opp_name": "Pies-n-Thighs",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Pies-n-Thighs"
+  },
+  {
+    "opp_name": "Firehouse Subs- James Cain - Firehouse Subs -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 3600.0,
+    "organization": "Firehouse Subs- James Cain"
+  },
+  {
+    "opp_name": "MSS Foods, Inc - My Roti Place -",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "MSS Foods, Inc"
+  },
+  {
+    "opp_name": "Moe's Southwest Grill- Steve Mourad - Moe's Southwest Grill -",
+    "owner": "Nathan Meyer",
+    "stage": "Closed Lost",
+    "acv": 600.0,
+    "organization": "Moe's Southwest Grill- Steve Mourad"
+  },
+  {
+    "opp_name": "MandN TBird - Jimmy John's -",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "MandN TBird"
+  },
+  {
+    "opp_name": "Jimmy Johns- Norman Tarleton - Jimmy John's -",
+    "owner": "Eric Azaren",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "MandN TBird"
+  },
+  {
+    "opp_name": "Mary Brown's Chicken - Matthew Martin - 2 - Mary Brown's Chicken -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "Mary Brown's Chicken - Matthew Martin - 2"
+  },
+  {
+    "opp_name": "Bryan Cox - Jimmy John's 4 - Jimmy John's -",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 2400.0,
+    "organization": "Bryan Cox - Jimmy John's 4"
+  },
+  {
+    "opp_name": "Caleb Meier - Culver's -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Caleb Meier"
+  },
+  {
+    "opp_name": "Flip the bird - Flip the Bird - 3",
+    "owner": "Simon Salomon",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Flip the bird"
+  },
+  {
+    "opp_name": "Founders Table Restaurant Group - 130",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 195000.0,
+    "organization": "Founders Table Restaurant Group"
+  },
+  {
+    "opp_name": "Tumble 22 - Tumble 22 - 9",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 5400.0,
+    "organization": "Tumble 22"
+  },
+  {
+    "opp_name": "Classical Restaurants Ltd - Culver's - 4",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 1788.0,
+    "organization": "Classical Restaurants Ltd"
+  },
+  {
+    "opp_name": "Rohan Pandya - Trop Smoothie Dunkin BWW - Buffalo Wild Wings -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Rohan Pandya - Trop Smoothie Dunkin BWW"
+  },
+  {
+    "opp_name": "Rohan Pandya - Trop Smoothie Dunkin BWW - Dunkin -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Rohan Pandya - Trop Smoothie Dunkin BWW"
+  },
+  {
+    "opp_name": "Rohan Pandya - Trop Smoothie Dunkin BWW - Tropical Smoothie Cafe -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Rohan Pandya - Trop Smoothie Dunkin BWW"
+  },
+  {
+    "opp_name": "Abby Manabat - Dunkin' 4 - Dunkin -",
+    "owner": "Charles Kagahastian",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Abby Manabat - Dunkin' 4"
+  },
+  {
+    "opp_name": "Randy's Donuts - Randy's Donuts - 45",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 27000.0,
+    "organization": "Randy's Donuts"
+  },
+  {
+    "opp_name": "Meraki Greek Grill - Meraki Greek Grill - 7",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 16716.0,
+    "organization": "Meraki Greek Grill"
+  },
+  {
+    "opp_name": "Phoenix Org - Denny's -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Phoenix Org"
+  },
+  {
+    "opp_name": "Phoenix Org - Taco Bell -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Phoenix Org"
+  },
+  {
+    "opp_name": "Phoenix Org - Burger King -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Phoenix Org"
+  },
+  {
+    "opp_name": "NJK Capital LLC (Dba DHC) - Dave's Hot Chicken -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 3600.0,
+    "organization": "NJK Capital LLC (Dba DHC)"
+  },
+  {
+    "opp_name": "JN House Enterprises Inc - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 30888.0,
+    "organization": "JN House Enterprises Inc"
+  },
+  {
+    "opp_name": "Mesero Restaurants- Corporate- 9",
+    "owner": "James Chavious",
+    "stage": "Proposal",
+    "acv": 46644.0,
+    "organization": "Mesero Restaurants"
+  },
+  {
+    "opp_name": "Pura Vida Miami -  -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 24000.0,
+    "organization": "Pura Vida Miami"
+  },
+  {
+    "opp_name": "Kurban Hopspitality -  -",
+    "owner": "Clay Arvizu",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "Kurban Hopspitality"
+  },
+  {
+    "opp_name": "Austin Daily Press",
+    "owner": "Jeff Lutz",
+    "stage": "Closed Won",
+    "acv": 3588.0,
+    "organization": "Chicon Street Hospitality, LLC"
+  },
+  {
+    "opp_name": "Page Grace Investments (dba Jersey Mikes) - Jersey Mike's Subs - 14",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 21000.0,
+    "organization": "Page Grace Investments (dba Jersey Mikes)"
+  },
+  {
+    "opp_name": "Little Caesars- Nadim Ahmed - Little Caesars -",
+    "owner": "Olivia Johnson",
+    "stage": "No Show",
+    "acv": 2400.0,
+    "organization": "Little Caesars- Nadim Ahmed"
+  },
+  {
+    "opp_name": "Subway - Clifford Laraway - Subway - 25",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 12000.0,
+    "organization": "Subway - Clifford Laraway"
+  },
+  {
+    "opp_name": "DKDC Group (Potbelly) - Potbelly Sandwich Works -",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Lost",
+    "acv": 2388.0,
+    "organization": "DKDC Group (Potbelly)"
+  },
+  {
+    "opp_name": "Imperial Fizz Holdings",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 3000.0,
+    "organization": "Imperial Fizz Holdings"
+  },
+  {
+    "opp_name": "Blue Coast Burrito - Blue Coast Burrito -",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 6600.0,
+    "organization": "Blue Coast Burrito"
+  },
+  {
+    "opp_name": "Handel's Ice Cream - Handel's Ice Cream -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 120000.0,
+    "organization": "Handel's Ice Cream"
+  },
+  {
+    "opp_name": "McDonald's- Justin Cassir - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "McDonald's- Justin Cassir"
+  },
+  {
+    "opp_name": "Nifty Fifty - Nifty Fifty  - 10",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 6000.0,
+    "organization": "Nifty Fifty"
+  },
+  {
+    "opp_name": "Shavel Ventures LLC - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 7200.0,
+    "organization": "Shavel Ventures LLC"
+  },
+  {
+    "opp_name": "Pizza Hut- Mohammed Moniruzzaman - Pizza Hut -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Pizza Hut- Mohammed Moniruzzaman"
+  },
+  {
+    "opp_name": "Fit Iron Supplements - Fit Iron -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Fit Iron Supplements"
+  },
+  {
+    "opp_name": "PANNA - PANNA -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 4752.0,
+    "organization": "PANNA"
+  },
+  {
+    "opp_name": "Buffalo Wings & Rings - Buffalo Wings & Rings - 61",
+    "owner": "Alex Reyes",
+    "stage": "Disqualified",
+    "acv": 36600.0,
+    "organization": "Buffalo Wings & Rings"
+  },
+  {
+    "opp_name": "Zalat Pizza - Zalat Pizza - 29",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 17400.0,
+    "organization": "Zalat Pizza"
+  },
+  {
+    "opp_name": "Mellow Mushroom - 163",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Mellow Mushroom"
+  },
+  {
+    "opp_name": "Ojos Locos - Corporate - 33",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 19800.0,
+    "organization": "Reach Hospitality"
+  },
+  {
+    "opp_name": "Yubi Box Sushi - Yubi Box Sushi -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 2988.0,
+    "organization": "Yubi Box Sushi"
+  },
+  {
+    "opp_name": "Padrino's -  -",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 3000.0,
+    "organization": "Padrino's"
+  },
+  {
+    "opp_name": "Strong Brands -  -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 2400.0,
+    "organization": "Strong Brands"
+  },
+  {
+    "opp_name": "Martinez Organization - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 35400.0,
+    "organization": "Martinez Organization"
+  },
+  {
+    "opp_name": "Comptons - Comptons  - 7",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 4200.0,
+    "organization": "Comptons"
+  },
+  {
+    "opp_name": "Hamm Org -7- McDonald's",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 20916.0,
+    "organization": "Hamm Org - McDonald's -7"
+  },
+  {
+    "opp_name": "Bluegrass Restaurants - 186",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 111600.0,
+    "organization": "Bluegrass Restaurants"
+  },
+  {
+    "opp_name": "Winter Leaf - Checkers -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 7176.0,
+    "organization": "Winter Leaf"
+  },
+  {
+    "opp_name": "Winter Leaf - Charleys Cheesesteaks & Wings -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 7176.0,
+    "organization": "Winter Leaf"
+  },
+  {
+    "opp_name": "McMarro - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 150000.0,
+    "organization": "McMarro"
+  },
+  {
+    "opp_name": "Harlem Shake - Harlem Shake - 2",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Harlem Shake"
+  },
+  {
+    "opp_name": "El Palacio De Los Jugos - El Palacio De Los Jugos - 11",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 23400.0,
+    "organization": "El Palacio De Los Jugos"
+  },
+  {
+    "opp_name": "Bajas LLC - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "No Show",
+    "acv": 21384.0,
+    "organization": "Bajas LLC"
+  },
+  {
+    "opp_name": "El Mejicano Tex-Mex Grill - El Mejicano Tex-Mex Grill - 2",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 2376.0,
+    "organization": "El Mejicano Tex-Mex Grill"
+  },
+  {
+    "opp_name": "Rex Willoughby - McDonald's - PPR Foods LLC",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 23880.0,
+    "organization": "Rex Willoughby - PPR Foods LLC"
+  },
+  {
+    "opp_name": "Kathie Gilmour - McDonald's 9 - McDonald's Canada -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 21492.0,
+    "organization": "Kathie Gimour - McDonald's"
+  },
+  {
+    "opp_name": "Black Walnut Cafe -  -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 7128.0,
+    "organization": "Black Walnut Cafe"
+  },
+  {
+    "opp_name": "PSG 2 INC - Bubbakoo's Burritos -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 5400.0,
+    "organization": "PSG 2 INC"
+  },
+  {
+    "opp_name": "Popeyes - Franchisee- 5",
+    "owner": "Peter Milillo",
+    "stage": "Demo",
+    "acv": 3000.0,
+    "organization": "[Rice] Popeyes"
+  },
+  {
+    "opp_name": "H&J Group 1 LLC - Bubbakoo's Burritos -",
+    "owner": "Benjamin French",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "H&J Group 1 LLC"
+  },
+  {
+    "opp_name": "Chill-N Nitrogen Ice Cream - Chill-N Nitrogen Ice Cream -",
+    "owner": "Simon Salomon",
+    "stage": "Closed Won",
+    "acv": 12960.0,
+    "organization": "Chill-N Nitrogen Ice Cream"
+  },
+  {
+    "opp_name": "Groupe JHC - McDonald's - 7",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 8400.0,
+    "organization": "Groupe JHC"
+  },
+  {
+    "opp_name": "J5 Family Restaurants - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 28608.0,
+    "organization": "J5 Family Restaurants"
+  },
+  {
+    "opp_name": "Barrio Burritos Bar",
+    "owner": "James Chavious",
+    "stage": "Closed Won",
+    "acv": 10764.0,
+    "organization": "BarrioBurritoBar- Zach Schaap"
+  },
+  {
+    "opp_name": "Pierre-Charles McDonald's 13 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 23244.0,
+    "organization": "Pierre-Charles McDonald's 13"
+  },
+  {
+    "opp_name": "RARV LLC - McDonald's -",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Lost",
+    "acv": 1200.0,
+    "organization": "RARV LLC"
+  },
+  {
+    "opp_name": "Trinity Brothers Group LLC - Charleys Cheesesteaks & Wings -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Trinity Brothers Group LLC"
+  },
+  {
+    "opp_name": "Harold Norris Hungry Howies - Hungry Howies - 4",
+    "owner": "Simon Salomon",
+    "stage": "Closed Lost",
+    "acv": 3564.0,
+    "organization": "Harold Norris Hungry Howies"
+  },
+  {
+    "opp_name": "Capital City EMCO Mgmt - McDonald's -",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Lost",
+    "acv": 600.0,
+    "organization": "Capital City EMCO Mgmt"
+  },
+  {
+    "opp_name": "Adjeva LLC - Another Broken Egg Cafe - 2",
+    "owner": "Alex Reyes",
+    "stage": "Proposal",
+    "acv": 2400.0,
+    "organization": "Adjeva LLC"
+  },
+  {
+    "opp_name": "Insomnia Cookies - Insomnia Cookies -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 210000.0,
+    "organization": "Insomnia Cookies"
+  },
+  {
+    "opp_name": "Cojak Investments - Another Broken Egg Cafe - 7",
+    "owner": "Alex Reyes",
+    "stage": "Proposal",
+    "acv": 21000.0,
+    "organization": "Cojak Investments"
+  },
+  {
+    "opp_name": "SoulShine Pizza",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Lost",
+    "acv": 18000.0,
+    "organization": "SoulShine Pizza"
+  },
+  {
+    "opp_name": "Koury Family McDonald's - McDonald's - 4",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "Koury Family McDonald's"
+  },
+  {
+    "opp_name": "Happy Days Restaurant Group - Jersey Mike's Subs -",
+    "owner": "Chandler Zombek",
+    "stage": "No Show",
+    "acv": 1800.0,
+    "organization": "Happy Days Restaurant Group"
+  },
+  {
+    "opp_name": "Jim's Steakout - Jim's Steakout  - 11",
+    "owner": "Matt Bullock",
+    "stage": "Business Case",
+    "acv": 39600.0,
+    "organization": "Jim's Steakout"
+  },
+  {
+    "opp_name": "Detroit Wing Co - Frank Ammori - Detroit Wing Co - 5",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 0.0,
+    "organization": "Detroit Wing Co - Frank Ammori"
+  },
+  {
+    "opp_name": "H+K International -  -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "H+K International"
+  },
+  {
+    "opp_name": "Mcdonald's Zee - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "Mcdonald's Zee"
+  },
+  {
+    "opp_name": "Jalpesh Chokshi Bubbakoos Burrittos - Bubbakoo's Burritos -",
+    "owner": "Eric Azaren",
+    "stage": "Closed Lost",
+    "acv": 1800.0,
+    "organization": "Jalpesh Chokshi Bubbakoos Burrittos"
+  },
+  {
+    "opp_name": "Rio Arch Inc - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 8400.0,
+    "organization": "Rio Arch Inc"
+  },
+  {
+    "opp_name": "Neshaminy SW LLC - Saladworks -",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 6600.0,
+    "organization": "Neshaminy SW LLC"
+  },
+  {
+    "opp_name": "DIYASHVI INC Bubbakoos Burrittos - Bubbakoo's Burritos -",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "DIYASHVI INC Bubbakoos Burrittos"
+  },
+  {
+    "opp_name": "O&M Restaurant Group - Taco Bell -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 27600.0,
+    "organization": "O&M Restaurant Group"
+  },
+  {
+    "opp_name": "Great White Cafe - Great White Cafe -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 12000.0,
+    "organization": "Great White Cafe"
+  },
+  {
+    "opp_name": "Messer Family McDonald's - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 13200.0,
+    "organization": "Messer Family McDonald's"
+  },
+  {
+    "opp_name": "Marcos Franchising - Marco's Pizza -",
+    "owner": "Alex Reyes",
+    "stage": "No Show",
+    "acv": 150000.0,
+    "organization": "Marcos Franchising"
+  },
+  {
+    "opp_name": "Alamo Restaurants - TLO Opp",
+    "owner": "Taylor Ludwick",
+    "stage": "Demo",
+    "acv": 35880.0,
+    "organization": "Alamo Restaurants"
+  },
+  {
+    "opp_name": "MtJamjomar (Marissa Thrower) - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 5940.0,
+    "organization": "MtJamjomar (Marissa Thrower)"
+  },
+  {
+    "opp_name": "Jimmy Johns- Pragnesh Patel - Jimmy John's -",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Lost",
+    "acv": 1200.0,
+    "organization": "Jimmy Johns- Pragnesh Patel"
+  },
+  {
+    "opp_name": "Preferred Restaurant Group - TLO Opp",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 9504.0,
+    "organization": "Preferred Restaurant Group"
+  },
+  {
+    "opp_name": "Jack in the Box - Jack in the Box -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Jack in the Box"
+  },
+  {
+    "opp_name": "Paras Properties Ltd - McDonald's - 20",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 12000.0,
+    "organization": "Paras Properties Ltd"
+  },
+  {
+    "opp_name": "Vicious Biscuit - Vicious Biscuit - 11",
+    "owner": "Matt Bullock",
+    "stage": "New - Meeting Set",
+    "acv": 6600.0,
+    "organization": "Vicious Biscuit"
+  },
+  {
+    "opp_name": "Tony Hoffman - McDonald's 9 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 5400.0,
+    "organization": "Tony Hoffman - McDonald's 9"
+  },
+  {
+    "opp_name": "Jersey Mikes- Jacob Jewell - Jersey Mike's Subs -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Jersey Mikes- Jacob Jewell"
+  },
+  {
+    "opp_name": "Carolina QSC -  -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 1176.0,
+    "organization": "Carolina QSC"
+  },
+  {
+    "opp_name": "Carolina QSC -  -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 48708.0,
+    "organization": "Carolina QSC"
+  },
+  {
+    "opp_name": "Celebration Restaurant Group - Taco Bell -",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 160380.0,
+    "organization": "Celebration Restaurant Group"
+  },
+  {
+    "opp_name": "Pizanos",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Pizanos"
+  },
+  {
+    "opp_name": "De La Garza Family - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "De La Garza Family"
+  },
+  {
+    "opp_name": "Bet Management - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 4800.0,
+    "organization": "Bet Management"
+  },
+  {
+    "opp_name": "Subs2love",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Jersey Mikes- Pete Amadeo"
+  },
+  {
+    "opp_name": "West Orange Burritos LLC - Bubbakoo's Burritos -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 14400.0,
+    "organization": "West Orange Burritos LLC"
+  },
+  {
+    "opp_name": "McGuire MG - McDonald's",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 11400.0,
+    "organization": "McGuire MG"
+  },
+  {
+    "opp_name": "Harry Smith - McDonald's 14 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 25032.0,
+    "organization": "Harry Smith - McDonald's 14"
+  },
+  {
+    "opp_name": "Tim Walsh - McDonald's 7 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "Tim Walsh - McDonald's 7"
+  },
+  {
+    "opp_name": "Small Sliders- Colton Sorlie - Small's Sliders -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Small Sliders- Colton Sorlie"
+  },
+  {
+    "opp_name": "Culver's- Sean Carleton - Culver's -",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Won",
+    "acv": 3180.0,
+    "organization": "Culver's- Sean Carleton"
+  },
+  {
+    "opp_name": "Culver's- Sean Carleton - Expansion - Culver's",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Won",
+    "acv": 1980.0,
+    "organization": "Culver's- Sean Carleton"
+  },
+  {
+    "opp_name": "Culver's- Sean Carleton - Expansion - Culver's",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Won",
+    "acv": 2580.0,
+    "organization": "Culver's- Sean Carleton"
+  },
+  {
+    "opp_name": "Biscuitville - Biscuitville - 88",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 52800.0,
+    "organization": "Biscuitville"
+  },
+  {
+    "opp_name": "Kuthan Enterprises Inc - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 4800.0,
+    "organization": "Kuthan Enterprises Inc"
+  },
+  {
+    "opp_name": "Smiling Moose",
+    "owner": "Nick Barbo",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "Smiling Moose"
+  },
+  {
+    "opp_name": "Dion's Pizza - Dion's Pizza - 10",
+    "owner": "Matt Bullock",
+    "stage": "New - Meeting Set",
+    "acv": 6000.0,
+    "organization": "Dion's Pizza"
+  },
+  {
+    "opp_name": "Joey Resturants - Joey Restaurant Group  - 56",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 33600.0,
+    "organization": "Joey Resturants"
+  },
+  {
+    "opp_name": "Kavyan Burritos LLC - Bubbakoo's Burritos -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Kavyan Burritos LLC"
+  },
+  {
+    "opp_name": "Kura Sushi - Kura Sushi - 84",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 50400.0,
+    "organization": "Kura Sushi"
+  },
+  {
+    "opp_name": "JAI Restaurants - Taco Bell -",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 36000.0,
+    "organization": "JAI Restaurants"
+  },
+  {
+    "opp_name": "JAI Restaurants - 105",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 151200.0,
+    "organization": "JAI Restaurants"
+  },
+  {
+    "opp_name": "JAI Restaurants - Wendy's -",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 100980.0,
+    "organization": "JAI Restaurants"
+  },
+  {
+    "opp_name": "Bartonsville Food Corp - Bubbakoo's Burritos -",
+    "owner": "Benjamin French",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Bartonsville Food Corp"
+  },
+  {
+    "opp_name": "Raining Berries",
+    "owner": "Taylor Ludwick",
+    "stage": "Closed Lost",
+    "acv": 6000.0,
+    "organization": "Raining Berries"
+  },
+  {
+    "opp_name": "FUEL CITY - FUEL CITY -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "FUEL CITY"
+  },
+  {
+    "opp_name": "Ward's Food System - Ward's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 11400.0,
+    "organization": "Ward's Food System"
+  },
+  {
+    "opp_name": "Palenque Foods - Taco Palenque - 42",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 25200.0,
+    "organization": "Palenque Foods"
+  },
+  {
+    "opp_name": "Mugshots + Vicious Biscuits Russum - Mugshots -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Mugshots + Vicious Biscuits Russum"
+  },
+  {
+    "opp_name": "Jeff Chamness - McDonald's 18 - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 10800.0,
+    "organization": "Jeff Chamness - McDonald's 18"
+  },
+  {
+    "opp_name": "Agostini Restaurants Inc - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 3600.0,
+    "organization": "Agostini Restaurants Inc"
+  },
+  {
+    "opp_name": "Three Brothers Pizza - Three Brothers Pizza -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 3600.0,
+    "organization": "Three Brothers Pizza"
+  },
+  {
+    "opp_name": "Off The Hook Restaurants - Off the Hook  - 9",
+    "owner": "Matt Bullock",
+    "stage": "No Show",
+    "acv": 5400.0,
+    "organization": "Off The Hook Restaurants"
+  },
+  {
+    "opp_name": "Long Doggers - Long Doggers  - 9",
+    "owner": "Matt Bullock",
+    "stage": "Demo",
+    "acv": 10800.0,
+    "organization": "Long Doggers"
+  },
+  {
+    "opp_name": "JKTS Family Restaurants - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 2400.0,
+    "organization": "JKTS Family Restaurants"
+  },
+  {
+    "opp_name": "NBT1Pizza - Marco's Pizza -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 180000.0,
+    "organization": "NBT1Pizza"
+  },
+  {
+    "opp_name": "QSC Enterprises - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 4200.0,
+    "organization": "QSC Enterprises"
+  },
+  {
+    "opp_name": "American Gonzo Food Corp - TLO Opp",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 26400.0,
+    "organization": "American Gonzo Food Corp"
+  },
+  {
+    "opp_name": "Hoffman McDonald's - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 1800.0,
+    "organization": "Hoffman McDonald's"
+  },
+  {
+    "opp_name": "JPK Capital - Wingstop - Wingstop -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 12000.0,
+    "organization": "JPK Capital - Wingstop"
+  },
+  {
+    "opp_name": "Cullen James - Jimmy John's 3 - Jimmy John's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Cullen James - Jimmy John's 3"
+  },
+  {
+    "opp_name": "Round Table Pizza - Round Table Pizza - 450",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 270000.0,
+    "organization": "Round Table Pizza"
+  },
+  {
+    "opp_name": "JP Licks - JP Licks -",
+    "owner": "Matt Bullock",
+    "stage": "New - Meeting Set",
+    "acv": 9600.0,
+    "organization": "JP Licks"
+  },
+  {
+    "opp_name": "BKD LLC - Marco's Pizza -",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 2400.0,
+    "organization": "BKD LLC"
+  },
+  {
+    "opp_name": "Luna Grill - Luna Grill -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Luna Grill"
+  },
+  {
+    "opp_name": "Denunzio LLC - Marco's Pizza -",
+    "owner": "Nick Barbo",
+    "stage": "Closed Won",
+    "acv": 1800.0,
+    "organization": "Denunzio LLC"
+  },
+  {
+    "opp_name": "Ume Tea - Ume Tea -",
+    "owner": "Matt Bullock",
+    "stage": "New - Meeting Set",
+    "acv": 13800.0,
+    "organization": "Ume Tea"
+  },
+  {
+    "opp_name": "Buba Bureka - Buba Bureka -",
+    "owner": "Eric Azaren",
+    "stage": "Closed Won",
+    "acv": 1188.0,
+    "organization": "Buba Bureka"
+  },
+  {
+    "opp_name": "Works Cafe Corporate -  -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Works Cafe Corporate"
+  },
+  {
+    "opp_name": "Monica Family McDonald's - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "Monica Family McDonald's"
+  },
+  {
+    "opp_name": "Abu Omar Halal - Abu Omar Halal - 26",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Abu Omar Halal"
+  },
+  {
+    "opp_name": "RB&C - Marco's Pizza -",
+    "owner": "Nick Barbo",
+    "stage": "Closed Won",
+    "acv": 3600.0,
+    "organization": "RB&C"
+  },
+  {
+    "opp_name": "Legal Sea Foods - Legal Sea Foods - 26",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 15600.0,
+    "organization": "Legal Sea Foods"
+  },
+  {
+    "opp_name": "Hart2Hart - McDonald's 15 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 9000.0,
+    "organization": "Hart2Hart - McDonald's 15"
+  },
+  {
+    "opp_name": "Angela Majors -McDonald's - McDonald's -",
+    "owner": "Nick Barbo",
+    "stage": "No Show",
+    "acv": 1200.0,
+    "organization": "Angela Majors -McDonald's"
+  },
+  {
+    "opp_name": "Northland Properties",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 105000.0,
+    "organization": "Northland Properties"
+  },
+  {
+    "opp_name": "Bareburger Group LLC",
+    "owner": "Matt Bullock",
+    "stage": "New - Meeting Set",
+    "acv": 16800.0,
+    "organization": "Bareburger Group LLC"
+  },
+  {
+    "opp_name": "MPH Dining - Culver's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 9600.0,
+    "organization": "MPH Dining"
+  },
+  {
+    "opp_name": "Jersey Mikes - Mickey Donofrio - 7 locs - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Lost",
+    "acv": 4200.0,
+    "organization": "Jersey Mikes - Mickey Donofrio - 7 locs"
+  },
+  {
+    "opp_name": "PJ Group - Marco's Pizza -",
+    "owner": "James Chavious",
+    "stage": "No Show",
+    "acv": 3000.0,
+    "organization": "PJ Group"
+  },
+  {
+    "opp_name": "Willie's Chicken Shack - Willie's Chicken Shack -",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Lost",
+    "acv": 33600.0,
+    "organization": "Willie's Chicken Shack"
+  },
+  {
+    "opp_name": "World Wide Wings - BWW 63 - Buffalo Wild Wings -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 208800.0,
+    "organization": "World Wide Wings - BWW 63"
+  },
+  {
+    "opp_name": "Ambros Foods - Pizza Hut -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 32076.0,
+    "organization": "Ambros Foods"
+  },
+  {
+    "opp_name": "The Sequioa Group - Culver's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Lost",
+    "acv": 1800.0,
+    "organization": "The Sequioa Group"
+  },
+  {
+    "opp_name": "The Red Chickz - The Red Chickz - 6",
+    "owner": "Nick Barbo",
+    "stage": "Demo",
+    "acv": 3600.0,
+    "organization": "The Red Chickz"
+  },
+  {
+    "opp_name": "Lonnie Patton - Firehouse Subs - Firehouse Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 3600.0,
+    "organization": "Lonnie Patton - Firehouse Subs"
+  },
+  {
+    "opp_name": "3PI - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "No Show",
+    "acv": 14400.0,
+    "organization": "3PI"
+  },
+  {
+    "opp_name": "Simple Simon's Pizza - Corporate - 240",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 144000.0,
+    "organization": "Simple Simon's Pizza"
+  },
+  {
+    "opp_name": "Urban Plates - Urban Plates -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 26136.0,
+    "organization": "Urban Plates"
+  },
+  {
+    "opp_name": "Tom Fetsch - Firehouse Subs - Firehouse Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Tom Fetsch - Firehouse Subs"
+  },
+  {
+    "opp_name": "FWL & Sons",
+    "owner": "Nick Barbo",
+    "stage": "Closed Won",
+    "acv": 3576.0,
+    "organization": "FWL & Sons"
+  },
+  {
+    "opp_name": "Mandy's - Mandy's -",
+    "owner": "Simon Salomon",
+    "stage": "New - Meeting Set",
+    "acv": 9000.0,
+    "organization": "Mandy's"
+  },
+  {
+    "opp_name": "Steven Frazier MCD 2 - McDonald's -",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Steven Frazier MCD 2"
+  },
+  {
+    "opp_name": "Hamlin Pub Group - Hamlin's Pub -",
+    "owner": "Taylor Ludwick",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Hamlin Pub Group"
+  },
+  {
+    "opp_name": "TAM Coffee - Zaxby's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "TAM Coffee"
+  },
+  {
+    "opp_name": "TAM Coffee - Smoothie King -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "TAM Coffee"
+  },
+  {
+    "opp_name": "Matt Lampkin - Firehouse Subs - 3 - Firehouse Subs -",
+    "owner": "Clay Arvizu",
+    "stage": "No Show",
+    "acv": 1800.0,
+    "organization": "Matt Lampkin - Firehouse Subs - 3"
+  },
+  {
+    "opp_name": "World Traveler Coffee Roasters - TLO Opp",
+    "owner": "Taylor Ludwick",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "World Traveler Coffee Roasters"
+  },
+  {
+    "opp_name": "Hutchco LLC - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Hutchco LLC"
+  },
+  {
+    "opp_name": "McDonald's (John Hurt) - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "McDonald's (John Hurt)"
+  },
+  {
+    "opp_name": "D&S Subs LLC - 5 loc - Firehouse Subs -",
+    "owner": "Nick Barbo",
+    "stage": "Demo",
+    "acv": 3000.0,
+    "organization": "D&S Subs LLC - 5 loc"
+  },
+  {
+    "opp_name": "Josh O'neil - Firehouse Subs - 3",
+    "owner": "Clay Arvizu",
+    "stage": "New - Meeting Set",
+    "acv": 7200.0,
+    "organization": "Josh O'neil"
+  },
+  {
+    "opp_name": "Denny's- Avi Soma - Denny's -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Denny's- Avi Soma"
+  },
+  {
+    "opp_name": "CheLace Brand Inc - McDonald's -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 11940.0,
+    "organization": "CheLace Brand Inc"
+  },
+  {
+    "opp_name": "Eastside Pizza LLC - Marco's Pizza -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 4200.0,
+    "organization": "Eastside Pizza LLC"
+  },
+  {
+    "opp_name": "Pasta Di Guy - Pasta Di Guy - 3",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "Pasta Di Guy"
+  },
+  {
+    "opp_name": "Wow Pizza LLC - Domino's -",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 13068.0,
+    "organization": "Wow Pizza LLC"
+  },
+  {
+    "opp_name": "Nautical Bowls - Corporate - 141",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 32400.0,
+    "organization": "Nautical Bowls"
+  },
+  {
+    "opp_name": "Natron Corporation - Taco Bell -",
+    "owner": "Simon Salomon",
+    "stage": "Demo",
+    "acv": 23760.0,
+    "organization": "Natron Corporation"
+  },
+  {
+    "opp_name": "Mitra QSR - Taco Bell -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Mitra QSR"
+  },
+  {
+    "opp_name": "GF Enterprises LLC - Taco Bell -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 39600.0,
+    "organization": "GF Enterprises LLC"
+  },
+  {
+    "opp_name": "Dylan's Candy Bar -  -",
+    "owner": "Alexis Marrero",
+    "stage": "Closed Won",
+    "acv": 1800.0,
+    "organization": "Dylan's Candy Bar"
+  },
+  {
+    "opp_name": "McDonalds - Lis - Central Texas - McDonald's -",
+    "owner": "Simon Salomon",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "McDonalds - Lis - Central Texas"
+  },
+  {
+    "opp_name": "Thunderdome Restaurant Group - TLO Opp",
+    "owner": "Taylor Ludwick",
+    "stage": "Demo",
+    "acv": 21000.0,
+    "organization": "Thunderdome Restaurant Group"
+  },
+  {
+    "opp_name": "Toli-MGMT - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 4800.0,
+    "organization": "Toli-MGMT"
+  },
+  {
+    "opp_name": "Empanada Mama - 5",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "Empanada Mama"
+  },
+  {
+    "opp_name": "Fiery Crab -  18",
+    "owner": "Tyrell Belle",
+    "stage": "Demo",
+    "acv": 10800.0,
+    "organization": "Fiery Crab"
+  },
+  {
+    "opp_name": "D. Lark, Inc. - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Demo",
+    "acv": 11400.0,
+    "organization": "D. Lark, Inc."
+  },
+  {
+    "opp_name": "Southern Baked Pie - Southern Pie -",
+    "owner": "Sarra Herlich",
+    "stage": "No Show",
+    "acv": 2400.0,
+    "organization": "Southern Baked Pie"
+  },
+  {
+    "opp_name": "Datta Corp - McDonald's - McDonald's -",
+    "owner": "Nick Barbo",
+    "stage": "Demo",
+    "acv": 4800.0,
+    "organization": "Datta Corp - McDonald's"
+  },
+  {
+    "opp_name": "Sam&Louie's - Sam&Louie's - 5",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 3000.0,
+    "organization": "Sam&Louie's"
+  },
+  {
+    "opp_name": "Bowled Co -  15",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 9000.0,
+    "organization": "Bowled Co"
+  },
+  {
+    "opp_name": "MDavis Management - McDonald's",
+    "owner": "Olivia Johnson",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "McDonald's- Martin Davis"
+  },
+  {
+    "opp_name": "Denny's- Art Rahman - Denny's -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Denny's- Art Rahman"
+  },
+  {
+    "opp_name": "Big Star Hospitality - Slim Chicken -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 6600.0,
+    "organization": "Big Star Hospitality"
+  },
+  {
+    "opp_name": "Akash Management - Carl's Jr -",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 180000.0,
+    "organization": "Akash Management"
+  },
+  {
+    "opp_name": "Miller Management - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 7800.0,
+    "organization": "Miller Management"
+  },
+  {
+    "opp_name": "Wendy's- Jake Allison - Wendy's -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 9000.0,
+    "organization": "Wendy's- Jake Allison"
+  },
+  {
+    "opp_name": "Finney's Crafthouse - Finney's Crafthouse -",
+    "owner": "Eric Azaren",
+    "stage": "Demo",
+    "acv": 0.0,
+    "organization": "Finney's Crafthouse"
+  },
+  {
+    "opp_name": "Layla's Falafel -  -",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Layla's Falafel"
+  },
+  {
+    "opp_name": "bb.q Chicken USA - Corporate - 250",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 150000.0,
+    "organization": "bb.q Chicken"
+  },
+  {
+    "opp_name": "Rocky Carlson - Jimmy John's 6 - Jimmy John's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 3600.0,
+    "organization": "Rocky Carlson - Jimmy John's 6"
+  },
+  {
+    "opp_name": "Kramer Management Group LLC - Jimmy John's -",
+    "owner": "Taylor Ludwick",
+    "stage": "New - Meeting Set",
+    "acv": 4200.0,
+    "organization": "Kramer Management Group LLC"
+  },
+  {
+    "opp_name": "Lil Woody's - Lil Woody's -",
+    "owner": "Taylor Ludwick",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Lil Woody's"
+  },
+  {
+    "opp_name": "Sheetz - Sheetz -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Sheetz"
+  },
+  {
+    "opp_name": "In His Grip - Jersey Mikes - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "In His Grip - Jersey Mikes"
+  },
+  {
+    "opp_name": "Holder Group - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 4200.0,
+    "organization": "Holder Group"
+  },
+  {
+    "opp_name": "Fluffies Hot Chicken - Fluffies Hot Chicken - 5",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "Fluffies Hot Chicken"
+  },
+  {
+    "opp_name": "FRESHSLICE Corporate - FRESHSLICE - 160",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "FRESHSLICE Corporate"
+  },
+  {
+    "opp_name": "Little Caesars- Dave Macado - Little Caesars -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 3600.0,
+    "organization": "Little Caesars- Dave Macado"
+  },
+  {
+    "opp_name": "JACMAR Restaurants - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 3600.0,
+    "organization": "JACMAR Restaurants"
+  },
+  {
+    "opp_name": "Buddah's Bakery -  -",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Buddah's Bakery"
+  },
+  {
+    "opp_name": "Tropical Smoothie- BrienS Shellen - Tropical Smoothie Cafe -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Tropical Smoothie- BrienS Shellen"
+  },
+  {
+    "opp_name": "B&K Restaurants - Denny's -",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "B&K Restaurants"
+  },
+  {
+    "opp_name": "Shep Subs LLC - Jersey Mikes - 12 - Jersey Mike's Subs -",
+    "owner": "Clay Arvizu",
+    "stage": "New - Meeting Set",
+    "acv": 21600.0,
+    "organization": "Shep Subs LLC - 12"
+  },
+  {
+    "opp_name": "Obeid Brothers Inc - Denny's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Obeid Brothers Inc"
+  },
+  {
+    "opp_name": "Popeyes [PH] - 4",
+    "owner": "Carlton Ekiyor",
+    "stage": "New - Meeting Set",
+    "acv": 4752.0,
+    "organization": "Popeyes [PH]"
+  },
+  {
+    "opp_name": "Popeyes [Riad] - 15",
+    "owner": "Carlton Ekiyor",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Popeyes [AA]"
+  },
+  {
+    "opp_name": "Popeyes [AAGroup] - 12",
+    "owner": "Carlton Ekiyor",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Popeyes [AA]"
+  },
+  {
+    "opp_name": "VISION F S INC.",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "VISION F S INC. d/b/a DENNY'S"
+  },
+  {
+    "opp_name": "Chewy Go Food LLC - Charleys Cheesesteaks & Wings -",
+    "owner": "Eric Azaren",
+    "stage": "Demo",
+    "acv": 1200.0,
+    "organization": "Chewy Go Food LLC"
+  },
+  {
+    "opp_name": "Parikh Network - Popeye's Louisiana Kitchen -",
+    "owner": "Devyn Schwartzberg",
+    "stage": "New - Meeting Set",
+    "acv": 540000.0,
+    "organization": "Parikh Network"
+  },
+  {
+    "opp_name": "Chi'Lantro LLC",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 7800.0,
+    "organization": "Chi'Lantro LLC"
+  },
+  {
+    "opp_name": "Team Washington LLC - Domino's -",
+    "owner": "Tyrell Belle",
+    "stage": "Demo",
+    "acv": 60600.0,
+    "organization": "Team Washington LLC"
+  },
+  {
+    "opp_name": "Subs Enterprises - Jersey Mike's Subs -",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 5400.0,
+    "organization": "Subs Enterprises"
+  },
+  {
+    "opp_name": "Fort Smith JM#1, LLC - Jersey Mike's Subs -",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 7200.0,
+    "organization": "Fort Smith JM#1, LLC"
+  },
+  {
+    "opp_name": "IHOP Corporate - IHOP -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "IHOP Corporate"
+  },
+  {
+    "opp_name": "Grouchos Deli - Grouchos Deli  - 35",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 126000.0,
+    "organization": "Grouchos Deli"
+  },
+  {
+    "opp_name": "Joe the Juice - Joe the Juice  - 71",
+    "owner": "Alex Reyes",
+    "stage": "Demo",
+    "acv": 213000.0,
+    "organization": "Joe the Juice"
+  },
+  {
+    "opp_name": "Fish City Grill - Fish City Grill  - 20",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Fish City Grill"
+  },
+  {
+    "opp_name": "Slap Shot Pizza - Domino's -",
+    "owner": "Simon Salomon",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Slap Shot Pizza"
+  },
+  {
+    "opp_name": "Racetrac - RaceTrac - 800",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Racetrac"
+  },
+  {
+    "opp_name": "Karas Restaurant Group - Village Squire -",
+    "owner": "Simon Salomon",
+    "stage": "New - Meeting Set",
+    "acv": 9600.0,
+    "organization": "Karas Restaurant Group"
+  },
+  {
+    "opp_name": "Doherty Enterprise - Doherty Enterprise  - 200",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Doherty Enterprise"
+  },
+  {
+    "opp_name": "Yellow Rocket Concepts - Yellow Rocket Concepts -",
+    "owner": "Simon Salomon",
+    "stage": "New - Meeting Set",
+    "acv": 7800.0,
+    "organization": "Yellow Rocket Concepts"
+  },
+  {
+    "opp_name": "MBR Management - Domino's -",
+    "owner": "Tyrell Belle",
+    "stage": "New - Meeting Set",
+    "acv": 84600.0,
+    "organization": "MBR Management"
+  },
+  {
+    "opp_name": "Legacy Journey Restaurants LLC",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Legacy Journey Restaurants LLC"
+  },
+  {
+    "opp_name": "Flowing Tide Pubs - Flowing Tide Pubs - 15",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 9000.0,
+    "organization": "Flowing Tide Pubs"
+  },
+  {
+    "opp_name": "Garden Catering -  -",
+    "owner": "Alexis Marrero",
+    "stage": "Demo",
+    "acv": 5400.0,
+    "organization": "Garden Catering"
+  },
+  {
+    "opp_name": "Chalfont & Associates Group - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "New - Meeting Set",
+    "acv": 6600.0,
+    "organization": "Chalfont & Associates Group"
+  },
+  {
+    "opp_name": "NC Cobbler -  -",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "NC Cobbler"
+  },
+  {
+    "opp_name": "Northwest Restaurant Inc. - Taco Bell -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Northwest Restaurant Inc."
+  },
+  {
+    "opp_name": "BIRDCODE Hot Chicken - BirdCode Hot Chicken - 6",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "BIRDCODE Hot Chicken"
+  },
+  {
+    "opp_name": "Charley's Philly Steaks [Pavilion Subs] - TLO Opp",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 10692.0,
+    "organization": "Charley's Philly Steaks [Pavilion Subs]"
+  },
+  {
+    "opp_name": "In His Time 23 - McDonald's -",
+    "owner": "Sarra Herlich",
+    "stage": "Closed Won",
+    "acv": 2988.0,
+    "organization": "In His Time 23"
+  },
+  {
+    "opp_name": "Khowaja Family Group",
+    "owner": "Alexis Marrero",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Khowaja Family Group"
+  },
+  {
+    "opp_name": "Aggieland JMS, LLC - Jersey Mike's Subs -",
+    "owner": "Eric Azaren",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Aggieland JMS, LLC"
+  },
+  {
+    "opp_name": "Jersey Mike's - Patterson Subs - 24",
+    "owner": "Clay Arvizu",
+    "stage": "New - Meeting Set",
+    "acv": 43200.0,
+    "organization": "Jersey Mikes - Patterson Subs - 24"
+  },
+  {
+    "opp_name": "Jrk Hospitality LLC. - Jrk! -",
+    "owner": "Simon Salomon",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Jrk Hospitality LLC."
+  },
+  {
+    "opp_name": "Popeyes- Asam Butt - Popeye's Louisiana Kitchen -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "Popeyes- Asam Butt"
+  },
+  {
+    "opp_name": "Herman Management LLC - Moe's Southwest Grill -",
+    "owner": "Sean McNelis",
+    "stage": "New - Meeting Set",
+    "acv": 3000.0,
+    "organization": "Herman Management LLC"
+  },
+  {
+    "opp_name": "Jersey Mikes - DMV Area - 8 - Jersey Mike's Subs -",
+    "owner": "Clay Arvizu",
+    "stage": "New - Meeting Set",
+    "acv": 14400.0,
+    "organization": "Jersey Mikes - DMV Area - 8"
+  },
+  {
+    "opp_name": "Egg Bred - Egg Bred -",
+    "owner": "Alex Reyes",
+    "stage": "New - Meeting Set",
+    "acv": 0.0,
+    "organization": "Egg Bred"
+  },
+  {
+    "opp_name": "Johnson Holler - McDonald's -",
+    "owner": "Benjamin French",
+    "stage": "New - Meeting Set",
+    "acv": 5400.0,
+    "organization": "Johnson Holler"
+  },
+  {
+    "opp_name": "Stripling Family MCD - McDonald's -",
+    "owner": "Benjamin French",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Stripling Family MCD"
+  },
+  {
+    "opp_name": "Jersey Mikes Subs- JMET,LLC - Jersey Mike's Subs -",
+    "owner": "Olivia Johnson",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Jersey Mikes Subs- JMET,LLC"
+  },
+  {
+    "opp_name": "Jaydev LLC - Marco's Pizza -",
+    "owner": "Chandler Zombek",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "Jaydev LLC"
+  },
+  {
+    "opp_name": "Retro Concepts Limited - Denny's -",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "Retro Concepts Limited"
+  },
+  {
+    "opp_name": "JMB Foods - Jersey Mike's Subs -",
+    "owner": "Sarra Herlich",
+    "stage": "No Show",
+    "acv": 5400.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Charine Fair - McDonald's 20 - McDonald's -",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 12000.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Savvy Sliders- Sammy Asker-",
+    "owner": "Devyn Schwartzberg",
+    "stage": "Demo",
+    "acv": 120000.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Kings Food and Caterer",
+    "owner": "Nick Barbo",
+    "stage": "Disqualified",
+    "acv": 600.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Simones Kitchen - 4",
+    "owner": "Peter Milillo",
+    "stage": "New - Meeting Set",
+    "acv": 2400.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Acres & Kitchen - 2",
+    "owner": "Nick Barbo",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "NORMS Restaurant- 24",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 14400.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Aspen Creek Grill - 12",
+    "owner": "Peter Milillo",
+    "stage": "New - Meeting Set",
+    "acv": 6600.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "WestCoast Sourdough - Corporate- 60",
+    "owner": "Peter Milillo",
+    "stage": "Demo",
+    "acv": 42000.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Square Pie Guys",
+    "owner": "Clay Arvizu",
+    "stage": "Closed Lost",
+    "acv": 10800.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Telerific Barcelona",
+    "owner": "Matt Bullock",
+    "stage": "New - Meeting Set",
+    "acv": 7200.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Raffertys - Corporate- 12",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 7200.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Sessions West Coast Deli",
+    "owner": "Clay Arvizu",
+    "stage": "New - Meeting Set",
+    "acv": 10800.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Hummus Republic - 40",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 24000.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Fish City Grill - 22",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 13200.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Maynards - 3",
+    "owner": "Peter Milillo",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Little Big Burger - Corporate - 7",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 4200.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Firehouse Subs- Brian Kaus- 3",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 1800.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "FIrehouse Subs - Rohan Tank - 9",
+    "owner": "Peter Milillo",
+    "stage": "New - Meeting Set",
+    "acv": 5400.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Firehouse Subs - Jeff Lepow - 2",
+    "owner": "Emma Mori",
+    "stage": "New - Meeting Set",
+    "acv": 1200.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Culver's - Harmony Blessie - 3",
+    "owner": "Jake Silverberg",
+    "stage": "New - Meeting Set",
+    "acv": 1800.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Bodega Taqueria - Corporate- 10",
+    "owner": "James Chavious",
+    "stage": "Demo",
+    "acv": 6000.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Fireside Restaurant Group- 1",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 600.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "US Pizza Co - 13",
+    "owner": "James Chavious",
+    "stage": "New - Meeting Set",
+    "acv": 7800.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Fifth Group - Corporate - 5",
+    "owner": "Matt Bullock",
+    "stage": "Closed Lost",
+    "acv": 4800.0,
+    "organization": "nan"
+  },
+  {
+    "opp_name": "Grand Restaurant Group - Corporate- 5",
+    "owner": "Simon Salomon",
+    "stage": "Disqualified",
+    "acv": 3600.0,
+    "organization": "nan"
+  }
+]

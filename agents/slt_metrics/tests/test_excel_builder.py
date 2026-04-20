@@ -35,6 +35,7 @@ EXPECTED_SHEETS = (
     "Deal Details", "AE Scorecard", "SDR Scorecard", "Unit Economics",
     "Quota", "Pipeline by Segment", "Deal Movers",
     "Forecast Summary", "Board Metrics",
+    "Expansion", "Monthly Revenue", "Funnel Metrics", "Rep Forecast",
 )
 
 
@@ -207,6 +208,46 @@ def test_unit_economics_sheet_emits_gap_flag_when_unavailable(tmp_path):
     assert ws.cell(row=3, column=3).value == "TRUE"
 
 
+def test_quota_sheet_renders_annual_quota_from_planning(tmp_path):
+    """AE_ROSTER lookup populates the new Annual Quota column (col 3)."""
+    from agents.slt_metrics.pipeline.planning import AE_ROSTER
+    from agents.slt_metrics.types import AeCard
+
+    quota_by_name = {e.name: e.annual_quota for e in AE_ROSTER}
+    roster_name = next(iter(quota_by_name))
+    quota_for_roster = quota_by_name[roster_name]
+
+    payload = _payload()
+    payload.ae_cards = [
+        AeCard(
+            rep_email="roster@tryloop.ai", rep_name=roster_name,
+            attainment_pct=0.5, close_rate_pct=0.4, avg_cycle_days=42.0,
+            avg_acv=100_000.0, pipeline_created=500_000.0, pipeline_advanced=200_000.0,
+            call_grade_avg=0.7, rep_perf_score=75, deals_open=5, deals_commit=2,
+        ),
+        AeCard(
+            rep_email="stranger@tryloop.ai", rep_name="Not In Roster",
+            attainment_pct=0.3, close_rate_pct=0.3, avg_cycle_days=50.0,
+            avg_acv=80_000.0, pipeline_created=300_000.0, pipeline_advanced=100_000.0,
+            call_grade_avg=0.6, rep_perf_score=60, deals_open=3, deals_commit=1,
+        ),
+    ]
+    out = tmp_path / "quota.xlsx"
+    builder.build(payload, out)
+    wb = load_workbook(out)
+    ws = wb["Quota"]
+    assert ws.cell(row=2, column=3).value == "Annual Quota"
+    # Roster-backed rep shows real quota; non-roster rep shows em-dash.
+    roster_row = next(
+        r for r in range(3, 10) if ws.cell(row=r, column=2).value == roster_name
+    )
+    stranger_row = next(
+        r for r in range(3, 10) if ws.cell(row=r, column=2).value == "Not In Roster"
+    )
+    assert ws.cell(row=roster_row, column=3).value == quota_for_roster
+    assert ws.cell(row=stranger_row, column=3).value == "—"
+
+
 def test_pipeline_by_segment_aggregates_scored_deals(tmp_path):
     wb = _write_and_load(tmp_path)
     ws = wb["Pipeline by Segment"]
@@ -226,10 +267,14 @@ def test_deal_movers_sheet_has_movers_row(tmp_path):
 
 
 def test_forecast_summary_has_quarter_block(tmp_path):
+    from agents.slt_metrics.pipeline.config import (
+        BEST_CASE_SCORE_THRESHOLD, COMMIT_SCORE_THRESHOLD,
+    )
     wb = _write_and_load(tmp_path)
     ws = wb["Forecast Summary"]
     assert ws.cell(row=2, column=1).value == "Metric"
-    assert ws.cell(row=3, column=1).value == "Commit (score ≥ 80)"
+    assert ws.cell(row=3, column=1).value == f"Commit (score ≥ {COMMIT_SCORE_THRESHOLD})"
+    assert ws.cell(row=4, column=1).value == f"Best Case (score ≥ {BEST_CASE_SCORE_THRESHOLD})"
     assert ws.cell(row=3, column=2).value == pytest.approx(200_000.0)
 
 
@@ -240,6 +285,25 @@ def test_board_metrics_sheet_populates_arr_and_coverage(tmp_path):
     # ARR in row 3 col 2.
     assert ws.cell(row=3, column=1).value == "ARR"
     assert ws.cell(row=3, column=2).value == pytest.approx(14_000_000.0)
+
+
+def test_board_metrics_targets_pulled_from_planning(tmp_path):
+    from agents.slt_metrics.pipeline.config import COVERAGE_TARGETS
+    from agents.slt_metrics.pipeline.planning import (
+        EXPANSION_RATE_TARGET,
+        LOGO_RETENTION_TARGET,
+        NRR_TARGET,
+    )
+
+    wb = _write_and_load(tmp_path)
+    ws = wb["Board Metrics"]
+    targets = {ws.cell(row=r, column=1).value: ws.cell(row=r, column=3).value
+               for r in range(3, 9)}
+    assert targets["Net Revenue Retention"] == f">={NRR_TARGET:.2f}"
+    assert targets["Logo Retention"] == f">={LOGO_RETENTION_TARGET:.2f}"
+    assert targets["Expansion Rate"] == f">={EXPANSION_RATE_TARGET:.2f}"
+    assert targets["MM Pipeline Coverage"] == f"{COVERAGE_TARGETS['MM']:g}x"
+    assert targets["ENT Pipeline Coverage"] == f"{COVERAGE_TARGETS['ENT']:g}x"
 
 
 def test_board_metrics_shows_ue_footer_when_gap_flagged(tmp_path):

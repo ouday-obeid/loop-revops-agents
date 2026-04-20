@@ -241,3 +241,12 @@ NO_ENGAGEMENT_DAYS: Final[int] = 30
 DEFAULT_FETCH_FROM: Final[str] = "THIS_QUARTER"
 DEFAULT_FETCH_TO: Final[str] = "NEXT_QUARTER"
 DEFAULT_FETCH_LIMIT: Final[int] = 1000
+
+# Closed-opp pull covers one quarter of history (won + lost). 1000 is
+# comfortably above Loop's historical quarterly close count.
+CLOSED_QUARTER_FETCH_LIMIT: Final[int] = 1000
+
+# All-opps snapshot = open pipeline + trailing N months of closed. Sized for
+# ~3-8K rows at Loop's current scale; bump if `LIMIT reached` shows up in logs.
+ALL_OPPS_FETCH_LIMIT: Final[int] = 10_000
+ALL_OPPS_DEFAULT_LOOKBACK_MONTHS: Final[int] = 12

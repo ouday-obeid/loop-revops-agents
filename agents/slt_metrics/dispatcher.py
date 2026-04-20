@@ -169,6 +169,61 @@ async def _cmd_backtest(agent: SltMetricsAgent, args: str, payload: dict[str, An
     }
 
 
+async def _cmd_ingest_rep_forecast(
+    agent: SltMetricsAgent, args: str, payload: dict[str, Any]
+) -> dict[str, Any]:
+    """Ingest a rep-submitted forecast CSV. Path is a local filesystem path on
+    the VM; Slack file uploads are not handled in v1.
+
+    CSV columns: rep_name, quarter, commit_acv, best_case_acv, notes.
+    """
+    path = args.strip().strip('"').strip("'")
+    if not path:
+        return {
+            "text": (
+                "Usage: `@oo slt ingest-rep-forecast <path>` "
+                "— CSV with columns `rep_name,quarter,commit_acv,best_case_acv,notes`."
+            ),
+        }
+
+    from agents.slt_metrics.pipeline import rep_forecast_parser, rep_forecast_store
+
+    try:
+        entries, errors = rep_forecast_parser.parse_rep_forecast_csv(path)
+    except FileNotFoundError as e:
+        return {"text": f":warning: {e}"}
+    except ValueError as e:
+        return {"text": f":warning: {e}"}
+
+    written = rep_forecast_store.upsert_rep_forecasts(entries, source=path)
+    quarters = sorted({e.quarter for e in entries})
+
+    lines = [
+        f"Ingested `{path}`: {written} submission(s) upserted",
+        f"Quarters touched: {', '.join(quarters) if quarters else '(none)'}",
+    ]
+    if errors:
+        lines.append(f"Rejected: {len(errors)}")
+        for err in errors[:5]:
+            lines.append(f"  • row {err['row']}: {err['reason']}")
+        if len(errors) > 5:
+            lines.append(f"  • … and {len(errors) - 5} more")
+
+    log.info(
+        "_cmd_ingest_rep_forecast: path=%s accepted=%d rejected=%d",
+        path, written, len(errors),
+    )
+    return {
+        "cmd": "ingest_rep_forecast",
+        "path": path,
+        "accepted": written,
+        "rejected": len(errors),
+        "quarters": quarters,
+        "errors": errors,
+        "text": "\n".join(lines),
+    }
+
+
 async def _cmd_help(agent: SltMetricsAgent, args: str, payload: dict[str, Any]) -> dict[str, Any]:
     return {"text": _help_text()}
 
@@ -183,6 +238,7 @@ _SUBCOMMANDS: dict[str, SubHandler] = {
     "friday": _cmd_friday,
     "weights": _cmd_weights,
     "backtest": _cmd_backtest,
+    "ingest_rep_forecast": _cmd_ingest_rep_forecast,
     "help": _cmd_help,
 }
 
@@ -202,5 +258,6 @@ def _help_text(unknown: str | None = None) -> str:
         "• `friday` — Friday 4 PM weekly review (DM draft to O)\n"
         "• `weights show|set|propose` — inspect / adjust forecast weights\n"
         "• `backtest <from> <to>` — replay scorer over a date range\n"
+        "• `ingest-rep-forecast <path>` — upsert rep-submitted forecasts from CSV\n"
         "Alias: `@oo urkel …` routes here too.\n"
     )

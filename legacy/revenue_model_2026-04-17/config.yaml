@@ -1,0 +1,271 @@
+# ============================================================
+# 2026 Revenue Model - Configuration
+# ============================================================
+# All business assumptions in one place.
+# Edit values here; re-run the script to regenerate the model.
+#
+# Sources:
+#   - Sales Leadership facing [Projections & Goals - Feb 10].xlsx
+#   - Final 2026 Revenue Model - SF Data (1).xlsx
+#   - Sales Team Roster.xlsx
+# ============================================================
+
+fiscal_year: 2026
+
+# --- Annual Targets ---
+# Source: [Loop Internal] Financial Projections 2026 - Base 80% Final V1.xlsx
+targets:
+  gross_new_arr: 18783104       # New Customer ARR + Upsell
+  net_new_arr: 17083104         # New Customer ARR only
+  expansion_arr: 1700000        # Upsell / Expansion (ramps monthly)
+  churn_rate: 0.0257            # ~$231,948/yr on $9.04M starting ARR
+  starting_arr: 9041808         # Jan 1, 2026 starting ARR
+  monthly_churn_arr: 19329      # Average monthly churn
+
+# --- Monthly Targets (new business + expansion) ---
+# Source: Financial Projections 2026 → ARR Waterfall rows 18-19
+# NB targets ramp with headcount; expansion ramps monthly
+monthly_targets:
+  1:  { new_biz:  716667, expansion:  90032 }
+  2:  { new_biz:  749998, expansion:  94053 }
+  3:  { new_biz: 1133322, expansion:  99667 }
+  4:  { new_biz: 1324983, expansion: 106941 }
+  5:  { new_biz: 1424981, expansion: 119305 }
+  6:  { new_biz: 1524978, expansion: 131799 }
+  7:  { new_biz: 1624975, expansion: 142444 }
+  8:  { new_biz: 1716640, expansion: 148219 }
+  9:  { new_biz: 1716640, expansion: 157606 }
+  10: { new_biz: 1716640, expansion: 187116 }
+  11: { new_biz: 1716640, expansion: 204519 }
+  12: { new_biz: 1716640, expansion: 218300 }
+
+# --- Segment Definitions ---
+# Source: Sales Leadership "Location analysis" + Revenue Model Overview
+# target_ads / target_arpl / target_lpd = planning assumptions (Revenue Model Overview)
+# avg_deal_size / arpl = actuals-based values (Location Analysis)
+segments:
+  SMB:
+    avg_deal_size: 8076          # ACV per customer (Location analysis R9)
+    target_ads: 10000            # Planning target ADS (Revenue Model Overview)
+    mix_pct: 0.2221              # % of new customer ARR
+    arpl: 1768                   # ARR per location (Location analysis)
+    target_arpl: 2285            # ARPL target (Revenue Model Overview row 65)
+    target_lpd: 3.5              # Avg locations per deal target
+  MM:
+    avg_deal_size: 36174         # ACV per customer (Location analysis R10)
+    target_ads: 36000            # Planning target ADS
+    mix_pct: 0.5899              # % of new customer ARR
+    arpl: 1270                   # ARR per location (Location analysis)
+    target_arpl: 1636            # ARPL target (Revenue Model Overview row 64)
+    target_lpd: 22               # Avg locations per deal target
+  Ent:
+    avg_deal_size: 161373        # ACV per customer (Location analysis R11)
+    target_ads: 100000           # Planning target ADS
+    mix_pct: 0.1880              # % of new customer ARR
+    arpl: 703                    # ARR per location (Location analysis)
+    target_arpl: 1000            # ARPL target (Revenue Model Overview row 63)
+    target_lpd: 100              # Avg locations per deal target
+
+# --- Blended Targets (for Dashboard KPIs) ---
+blended_targets:
+  arpl: 1640                     # Blended ARPL target (Overview row 62)
+  ads: 25000                     # Blended ADS target - new business (Overview B5)
+  lpd: 13                        # Blended locations per deal target (Overview C11)
+
+# --- Quarterly Funnel Targets (deals needed to hit revenue) ---
+# Source: Revenue Model Overview rows 39-42
+# These are the number of closed deals needed per quarter by segment.
+quarterly_funnel_targets:
+  Q1: { SMB: 73.13, MM: 34.15, Ent: 4.54 }
+  Q2: { SMB: 123.86, MM: 57.83, Ent: 7.69 }
+  Q3: { SMB: 147.58, MM: 68.91, Ent: 9.16 }
+  Q4: { SMB: 150.36, MM: 70.21, Ent: 9.34 }
+
+# --- Win / Conversion Rates ---
+# Source: Revenue Model Overview + Forecast sheet
+rates:
+  win_rate_new_biz: 0.30         # Assumed NB win rate
+  win_rate_expansion: 0.95       # Assumed expansion win rate
+  hold_rate: 0.50
+  opps_per_win: 3.3
+  stage_win_rates:               # Pipeline weighting by phase
+    Early: 0.10
+    Mid: 0.30
+    Late: 0.60
+
+# --- Seasonality Index (per month) ---
+# Source: Revenue Model Forecast sheet, row 28
+seasonality:
+  1:  0.50
+  2:  0.60
+  3:  0.90
+  4:  1.00
+  5:  1.00
+  6:  1.00
+  7:  1.00
+  8:  1.00
+  9:  1.00
+  10: 1.00
+  11: 1.00
+  12: 1.33
+
+# --- Salesforce Stage Mapping ---
+# Maps each SF stage name to a category and pipeline phase.
+#   category: Revenue | Pipeline | Lost | No Show | Disqualified
+#   phase:    Early | Mid | Late  (only for Pipeline category)
+stage_mapping:
+  "New - Meeting Set":
+    category: Pipeline
+    phase: Early
+  "Demo":
+    category: Pipeline
+    phase: Early
+  "No Show":
+    category: No Show
+    phase: null
+  "Sent":
+    category: Pipeline
+    phase: Early
+  "Pilot":
+    category: Pipeline
+    phase: Mid
+  "Business Case":
+    category: Pipeline
+    phase: Mid
+  "Proposal":
+    category: Pipeline
+    phase: Late
+  "Closed Won":
+    category: Revenue
+    phase: null
+  "Closed Lost":
+    category: Lost
+    phase: null
+  "Disqualified":
+    category: Disqualified
+    phase: null
+
+# ============================================================
+# AE ROSTER
+# ============================================================
+# Source: Sales Team Roster.xlsx + Revenue Model AE Team sheet
+#
+# HOW TO ADD A REP:
+#   Copy any line below and change the values. Example:
+#   - { name: "New Person", quota: 1000000, segment: MM, status: ramping, role: AE }
+#
+# HOW TO REMOVE A REP:
+#   Delete the line or comment it out with #
+#
+# Fields:
+#   name     - Must match the "Opportunity Owner" name in the SF CSV exactly
+#   quota    - Annual quota ($). Set to 0 for non-quota carriers.
+#   segment  - SMB | MM | Ent
+#   status   - ramped | ramping
+#   role     - AE | Manager (optional, defaults to AE)
+# ============================================================
+ae_roster:
+  # --- Ramped AEs ---
+  - { name: "Sarra Herlich",        quota: 1000000, segment: MM,  status: ramped  }
+  - { name: "James Chavious",       quota: 1000000, segment: MM,  status: ramped  }
+  - { name: "Alexis Marrero",       quota: 1200000, segment: SMB, status: ramped  }
+  - { name: "Alex Reyes",           quota: 1400000, segment: Ent, status: ramped  }
+  - { name: "Simon Salomon",        quota: 1200000, segment: MM,  status: ramped  }
+  - { name: "Eric Azaren",          quota: 1000000, segment: MM,  status: ramped  }
+  - { name: "Jessy Calderon",       quota: 1000000, segment: MM,  status: ramped  }
+
+  # --- Ramping AEs ---
+  - { name: "Devyn Schwartzberg",   quota: 1700000, segment: MM,  status: ramping }
+  - { name: "Matt Bullock",         quota: 1000000, segment: MM,  status: ramping }
+  - { name: "Clay Arvizu",          quota: 1000000, segment: MM,  status: ramping }  # Clayton Arvizu in roster
+  - { name: "Taylor Ludwick",       quota: 1000000, segment: MM,  status: ramping }
+  - { name: "Daniel Varela",        quota: 1000000, segment: MM,  status: ramping }
+  - { name: "Carlton Ekiyor",       quota: 1000000, segment: MM,  status: ramping }
+  - { name: "Nick Barbo",           quota: 1000000, segment: SMB, status: ramping }
+
+  # --- Manager / non-AE deal owners (carry some deals in SF) ---
+  - { name: "Charles Kagahastian",  quota: 0,       segment: Ent, status: ramped, role: Manager }
+  - { name: "Danny Park",           quota: 0,       segment: MM,  status: ramped, role: SDR     }
+
+# ============================================================
+# SDR ROSTER
+# ============================================================
+# Source: Sales Team Roster.xlsx → AE Team sheet
+#
+# HOW TO ADD/REMOVE: Same as AE roster above.
+#
+# Fields:
+#   name     - Must match "Created By" in the SF CSV for attribution
+#   segment  - SMB | MM | Ent
+#   status   - ramped | ramping
+#   role     - SDR | SDR Team Lead
+# ============================================================
+sdr_roster:
+  # --- Team Leads ---
+  - { name: "Brad Dressler",      segment: MM,  status: ramped,  role: SDR Team Lead }
+  # Nick Barbo promoted to AE — moved to ae_roster
+  - { name: "Tyrell Belle",       segment: Ent, status: ramped,  role: SDR Team Lead }
+
+  # --- Ramped SDRs ---
+  - { name: "Chandler Zombek",    segment: MM,  status: ramped,  role: SDR }
+  - { name: "Danny Park",         segment: MM,  status: ramped,  role: SDR }
+  - { name: "James Schrepel",     segment: MM,  status: ramped,  role: SDR }
+  - { name: "Josue Sanchez",      segment: MM,  status: ramped,  role: SDR }
+  - { name: "Olivia Johnson",     segment: MM,  status: ramped,  role: SDR }
+  - { name: "Peter Milillo",      segment: MM,  status: ramped,  role: SDR }
+  - { name: "Spencer Epps",       segment: MM,  status: ramped,  role: SDR }
+  - { name: "Vianny Gutierrez",   segment: MM,  status: ramped,  role: SDR }
+
+  # --- Ramping SDRs ---
+  - { name: "Alexis Ribero",      segment: SMB, status: ramping, role: SDR }
+  - { name: "Ben French",         segment: SMB, status: ramping, role: SDR }
+
+# --- Manager Groupings ---
+# Maps each manager to their direct-report AEs.
+# Used by Rep Forecast sheet to group reps under their manager.
+manager_groups:
+  Nate:    [Simon Salomon, Eric Azaren, Carlton Ekiyor, Nick Barbo]
+  Charles: [Matt Bullock, Clay Arvizu, Daniel Varela, Jessy Calderon, Taylor Ludwick]
+  Hutch:   [Alexis Marrero, James Chavious, Sarra Herlich]
+  IC:      [Devyn Schwartzberg, Alex Reyes]
+
+# --- Headcount Plan ---
+# Source: Sales Leadership "Headcount" sheet
+headcount:
+  starting: 19                   # Pre-Jan team size
+  target: 42                     # EOY 2026 total GTM headcount
+  ae_target: 19                  # 2 Sr MM + 10 MM + 1 Sr Ent + 1 Ent + 5 SMB
+  sdr_target: 19                 # 17 SDR + 2 Enterprise SDR
+
+# --- CSV Column Mapping ---
+# Maps Salesforce export column headers to internal field names.
+# Update these if your SF report column headers change.
+csv_columns:
+  organization:    "Top Level Organization"
+  owner:           "Opportunity Owner"
+  created_by:      "Created By"
+  opp_name:        "Opportunity Name"
+  brand:           "Brand/Logo"
+  record_type:     "Opportunity Record Type"
+  stage:           "Stage"
+  acv:             "? Estimated ACV"
+  expansion_acv:   "Expansion ACV Increase"
+  locations:       "?Opportunity Locations"
+  segment:         "Location Cohort"
+  created_date:    "Created Date"
+  close_date:      "Close Date"
+  age:             "Age"
+  lead_source:     "Lead Source"
+  trade_show:      "Trade Show"
+  opp_notes:       "Opportunity Notes"
+  loss_notes:      "Loss Reason Notes"
+  contract_type:   "?Type of Contract"
+  count_balance:       "Count Balance"
+  count_base_insights: "Count Base/Insights"
+  count_compass:       "Count Compass"
+  count_guard:         "Count Guard"
+  count_recover:       "Count Recover"
+  count_reengage:      "Count Re-engage"
+  count_truroi:        "Count TruROI"
+  count_truroi_plus:   "Count TruROI+"
+  count_white_glove:   "Count White Glove"

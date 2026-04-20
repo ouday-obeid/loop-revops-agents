@@ -52,6 +52,10 @@ _LATE_SHEET_FACTORIES = (
     "agents.slt_metrics.excel_model.sheets.deal_movers.DealMoversSheet",
     "agents.slt_metrics.excel_model.sheets.forecast_summary.ForecastSummarySheet",
     "agents.slt_metrics.excel_model.sheets.board_metrics.BoardMetricsSheet",
+    "agents.slt_metrics.excel_model.sheets.expansion.ExpansionSheet",
+    "agents.slt_metrics.excel_model.sheets.monthly_revenue.MonthlyRevenueSheet",
+    "agents.slt_metrics.excel_model.sheets.funnel_metrics.FunnelMetricsSheet",
+    "agents.slt_metrics.excel_model.sheets.rep_forecast.RepForecastSheet",
 )
 
 
