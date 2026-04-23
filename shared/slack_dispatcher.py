@@ -207,6 +207,18 @@ def build_app() -> Any:
             result = _error_reply(text_in, e)
         await say(text=_render(result), thread_ts=thread_ts)
 
+    from shared.file_ingest import handle_file_shared, is_enabled as _file_ingest_enabled
+
+    if _file_ingest_enabled():
+        @app.event("file_shared")
+        async def _on_file_shared(ack, event, client):
+            # ACK immediately — enrichment subprocess can take minutes.
+            await ack()
+            try:
+                await handle_file_shared(client, event)
+            except Exception:
+                log.exception("file_shared handler failed for event=%s", event)
+
     @app.action("approve_gate")
     async def _approve(ack, body, client):
         await ack()
