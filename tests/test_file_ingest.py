@@ -10,6 +10,15 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 
+@pytest.fixture(autouse=True)
+def _clear_dedup():
+    from shared import file_ingest as _fi
+
+    _fi._seen_file_ids.clear()
+    yield
+    _fi._seen_file_ids.clear()
+
+
 @pytest.fixture
 def disabled_env(monkeypatch):
     monkeypatch.delenv("SDR_ENRICHMENT_CHANNEL", raising=False)
@@ -78,6 +87,25 @@ async def test_handler_noop_on_unsupported_extension(enabled_env):
 
     client.files_info.assert_awaited_once()
     client.chat_postMessage.assert_not_called()
+
+
+async def test_handler_dedups_duplicate_file_shared(enabled_env):
+    # Slack fires file_shared multiple times per upload; make sure we only
+    # process each file_id once.
+    from shared.file_ingest import handle_file_shared
+
+    client = MagicMock()
+    client.files_info = AsyncMock(
+        return_value=SimpleNamespace(data={"file": {"name": "report.pdf", "size": 1024}})
+    )
+    client.chat_postMessage = AsyncMock()
+
+    # Extension filter will skip these, but the claim happens earlier so the
+    # second call should not reach files_info.
+    await handle_file_shared(client, {"channel_id": "C_SDR", "file_id": "FDUP"})
+    await handle_file_shared(client, {"channel_id": "C_SDR", "file_id": "FDUP"})
+
+    assert client.files_info.await_count == 1
 
 
 async def test_handler_rejects_oversize(enabled_env, monkeypatch):

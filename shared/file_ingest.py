@@ -16,6 +16,7 @@ import asyncio
 import logging
 import subprocess
 import tempfile
+import time
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +30,26 @@ log = logging.getLogger(__name__)
 SUPPORTED_EXT = {".csv", ".xlsx", ".xls"}
 DEFAULT_MAX_MB = 25
 SUBPROC_TIMEOUT_SEC = 30 * 60
+
+# Slack fires file_shared multiple times per upload (once on creation, again on
+# channel share). Dedup by file_id for a short window so we only run the pipeline
+# once per upload.
+_DEDUP_TTL_SEC = 600
+_seen_file_ids: dict[str, float] = {}
+_dedup_lock = asyncio.Lock()
+
+
+async def _claim_file_id(file_id: str) -> bool:
+    """Return True if this invocation should process the file; False if already claimed."""
+    async with _dedup_lock:
+        now = time.monotonic()
+        # Expire stale entries in-line — cheap (few entries) and lock-safe.
+        for fid in [k for k, t in _seen_file_ids.items() if now - t > _DEDUP_TTL_SEC]:
+            del _seen_file_ids[fid]
+        if file_id in _seen_file_ids:
+            return False
+        _seen_file_ids[file_id] = now
+        return True
 
 
 def is_enabled() -> bool:
@@ -73,6 +94,10 @@ async def handle_file_shared(client: AsyncWebClient, event: dict[str, Any]) -> N
     file_id = event.get("file_id") or (event.get("file") or {}).get("id")
     if not file_id:
         log.warning("file_shared without file_id; payload=%s", event)
+        return
+
+    if not await _claim_file_id(file_id):
+        log.info("file_ingest: duplicate file_shared for %s — skipping", file_id)
         return
 
     try:
