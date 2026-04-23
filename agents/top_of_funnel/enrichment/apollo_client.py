@@ -151,7 +151,9 @@ async def _post(
 ) -> dict[str, Any]:
     """Real POST to Apollo. Raises ApolloUnavailable on any failure mode
     (network, 4xx, 5xx, JSON decode). The wrapper above soft-fails."""
-    api_key = api_key or os.environ.get("APOLLO_API_KEY")
+    if not api_key:
+        from shared.secrets import get_secret  # lazy import to avoid cycle at module load
+        api_key = get_secret("APOLLO_API_KEY")
     if not api_key:
         raise ApolloUnavailable("APOLLO_API_KEY not configured")
 
